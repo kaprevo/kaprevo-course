@@ -1,0 +1,1438 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/">
+      
+      
+      
+        <link rel="next" href="conventions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Course home - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#learn-kaprevo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Course home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-kaprevo-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What kaprevo is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-kaprevo-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why kaprevo exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kaprevo-selenium-and-playwright-side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kaprevo, Selenium and Playwright side by side
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why use it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-it-is-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Who it is for
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-course-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the course works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-practice-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The practice site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lessons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggested tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-kaprevo-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What kaprevo is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-kaprevo-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why kaprevo exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kaprevo-selenium-and-playwright-side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kaprevo, Selenium and Playwright side by side
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why use it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-it-is-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Who it is for
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-course-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the course works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-practice-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The practice site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lessons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggested tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="learn-kaprevo">Learn kaprevo<a class="headerlink" href="#learn-kaprevo" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-13-2026 (what kaprevo is and why); Nov-13-2026 (kaprevo course replaces the clone) -->
+
+<p>A hands-on course in sixteen lessons, from your first script to a full test suite. Each lesson
+teaches one part of kaprevo, runs real code against a practice site on your own machine, and
+ends with exercises you can check yourself.</p>
+<h2 id="what-kaprevo-is">What kaprevo is<a class="headerlink" href="#what-kaprevo-is" title="Permanent link">&para;</a></h2>
+<p>kaprevo is a Python library that drives a real web browser for you. Your code opens Chrome,
+Edge or Firefox, goes to a page, clicks, types, fills forms and checks what the page shows,
+the same things a person does, only faster and the same way every time.</p>
+<p>You use it for three kinds of work:</p>
+<ul>
+<li><strong>Testing a web app.</strong> End-to-end tests that log in, place an order and check the result,
+  run with pytest on your machine or in your pipeline.</li>
+<li><strong>Checking a page before a release.</strong> Does it load, are there console errors, does it still
+  look the same as yesterday?</li>
+<li><strong>Automating a chore.</strong> Downloading a report every morning, filling the same form fifty times.</li>
+</ul>
+<p>It also lets an AI assistant (Claude, Cursor and others) drive the browser through its MCP
+server, so you can ask the assistant to "open the app and check the sign-in page".</p>
+<h2 id="why-kaprevo-exists">Why kaprevo exists<a class="headerlink" href="#why-kaprevo-exists" title="Permanent link">&para;</a></h2>
+<p>Browser automation has had two main choices, and each makes you pay for something:</p>
+<ul>
+<li><strong>Selenium</strong> talks to the browser over the classic WebDriver protocol. It is a standard and
+  works everywhere, but the protocol only asks and answers: it cannot tell your script when
+  something happens on the page. So you write waits and sleeps by hand, and tests become slow
+  and flaky.</li>
+<li><strong>Playwright</strong> fixed the waiting and the speed, but to do it the project downloads its own
+  builds of the browsers, and drives Firefox and WebKit through patched copies. What you test
+  is not quite the browser your users have, and every upgrade brings a new set of downloads.</li>
+</ul>
+<p>The browser makers have since agreed on a new standard, <strong>WebDriver BiDi</strong>. It is two-way: the
+browser tells your script about page loads, console messages, network requests and dialogs as
+they happen. Chrome, Edge and Firefox all ship it in their normal releases.</p>
+<p>kaprevo is built on that standard and nothing else. That gives it:</p>
+<ul>
+<li><strong>Your own browsers.</strong> It drives the Chrome and Firefox already installed, the ones your
+  users run. No patched builds, no browser downloads.</li>
+<li><strong>Auto-waiting.</strong> Every click and type waits until the element is really ready (attached,
+  visible, still, enabled, not covered), and when it gives up it tells you which check failed.
+  You do not write sleeps.</li>
+<li><strong>One code path for every browser.</strong> The same protocol drives Chrome and Firefox, so a test
+  that passes on one is testing the same thing on the other.</li>
+<li><strong>Nothing left behind.</strong> Every run shuts down its browser processes and profile folders,
+  even when a test crashes.</li>
+</ul>
+<h2 id="kaprevo-selenium-and-playwright-side-by-side">kaprevo, Selenium and Playwright side by side<a class="headerlink" href="#kaprevo-selenium-and-playwright-side-by-side" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Selenium</th>
+<th>Playwright</th>
+<th>kaprevo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol</td>
+<td>Classic WebDriver (ask and answer)</td>
+<td>Its own protocol over CDP and patched browsers</td>
+<td>WebDriver BiDi, the W3C standard</td>
+</tr>
+<tr>
+<td>Browsers it drives</td>
+<td>Stock Chrome, Edge, Firefox, Safari</td>
+<td>Its own downloaded Chromium, Firefox and WebKit builds (stock Chrome and Edge as channels)</td>
+<td>Stock Chrome, Edge and Firefox already on your machine</td>
+</tr>
+<tr>
+<td>Extra downloads</td>
+<td>A driver per browser (Selenium Manager fetches them)</td>
+<td>Several hundred MB of browser builds, per version</td>
+<td>None for Firefox; chromedriver for Chrome, or none with <code>backend="chromium-bidi"</code></td>
+</tr>
+<tr>
+<td>Waiting for elements</td>
+<td>You write explicit waits</td>
+<td>Built in</td>
+<td>Built in, and the error names the check that failed</td>
+</tr>
+<tr>
+<td>Events (console, network, dialogs)</td>
+<td>Limited; BiDi support is being added</td>
+<td>Yes</td>
+<td>Yes, from the standard protocol</td>
+</tr>
+<tr>
+<td>Network mocking</td>
+<td>Not in the core API</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Python API</td>
+<td>Sync only</td>
+<td>Sync and async</td>
+<td>Sync and async, fully typed (<code>mypy --strict</code>)</td>
+</tr>
+<tr>
+<td>pytest</td>
+<td>Third-party plugins</td>
+<td><code>pytest-playwright</code></td>
+<td>Built-in plugin: fixtures, failure screenshots, traces</td>
+</tr>
+<tr>
+<td>Tracing, recorder, visual compare</td>
+<td>Not built in</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Self-healing locators</td>
+<td>No</td>
+<td>No</td>
+<td>Yes, deterministic and reported</td>
+</tr>
+<tr>
+<td>AI assistant support</td>
+<td>No</td>
+<td>MCP server (separate package)</td>
+<td>MCP server, plus skills and rules installed by <code>kaprevo init</code></td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>Yes</td>
+<td>WebKit build, not Safari itself</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>Around 20 years, huge community</td>
+<td>Widely used since 2020</td>
+<td>New (1.0 release candidates)</td>
+</tr>
+</tbody>
+</table>
+<p>In short: choose Selenium when you need Safari or a large existing grid, Playwright when you
+want its mature ecosystem and are happy with its browser builds, and kaprevo when you want
+Playwright-style ease on the real, stock browsers through a standard protocol, from Python.</p>
+<h2 id="why-use-it">Why use it<a class="headerlink" href="#why-use-it" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Fewer flaky tests.</strong> Waiting is built in and based on what the page actually does.</li>
+<li><strong>Tests that match production.</strong> You test the browser versions your users have.</li>
+<li><strong>Plain Python.</strong> A typed API (sync or async), a pytest plugin with fixtures, failure
+  screenshots, traces you can replay, and a recorder that writes the first draft of a test.</li>
+<li><strong>Easy to move to.</strong> Playwright scripts run on kaprevo by changing one import, and
+  <a href="15-migrating-from-playwright/">lesson 15</a> shows the way from there.</li>
+<li><strong>Ready for AI assistants.</strong> <code>kaprevo init</code> sets up a project with skills and rules for
+  Claude Code and Cursor, and <code>kaprevo mcp</code> lets an assistant drive the browser itself.</li>
+<li><strong>Small and open.</strong> MIT licensed, one runtime dependency, and a standard protocol
+  underneath, so you are not tied to one vendor's tooling.</li>
+</ul>
+<p>Where it is not the right tool: kaprevo drives Chrome, Edge and Firefox. If you must test
+Safari, use another tool for that part.</p>
+<h2 id="who-it-is-for">Who it is for<a class="headerlink" href="#who-it-is-for" title="Permanent link">&para;</a></h2>
+<p>Python testers and developers who want to automate Chrome and Firefox: writing end-to-end
+tests, checking pages before a release, or scripting a browser for a chore. You do not need to
+know any other browser tool. If you already use Playwright or Selenium, the
+<a href="#suggested-tracks">suggested tracks</a> below skip what you know and point out what is different.</p>
+<h2 id="what-you-need">What you need<a class="headerlink" href="#what-you-need" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Python 3.11 or newer</strong>, and enough Python to write a function and run a script.</li>
+<li><strong>Chrome or Firefox</strong> installed the usual way. Both is better: several lessons compare them.</li>
+<li>
+<p><strong>kaprevo and the course files.</strong> The course ships inside the kaprevo package: one command
+  copies the lessons, their solutions and the practice site into a folder of your own:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+.venv/Scripts/activate<span class="w">        </span><span class="c1"># Windows; on Linux and macOS: source .venv/bin/activate</span>
+pip<span class="w"> </span>install<span class="w"> </span>kaprevo<span class="w"> </span>pytest
+kaprevo<span class="w"> </span>course<span class="w">                 </span><span class="c1"># copies the course into ./kaprevo-course</span>
+<span class="nb">cd</span><span class="w"> </span>kaprevo-course
+</code></pre></div>
+<p>Every command in the course runs from that <code>kaprevo-course</code> folder.
+<a href="01-getting-started/">Lesson 01</a> walks through this step by step.</p>
+</li>
+<li>
+<p>A terminal and an editor. Lessons show PowerShell and bash where the commands differ.</p>
+</li>
+</ul>
+<h2 id="how-the-course-works">How the course works<a class="headerlink" href="#how-the-course-works" title="Permanent link">&para;</a></h2>
+<p>Every lesson follows the same pattern:</p>
+<ol>
+<li><strong>Read</strong> the concepts. Each one comes with a short snippet.</li>
+<li><strong>Run</strong> the worked example from <code>examples/course/NN-topic/</code>. Change it and run it again.</li>
+<li><strong>Do the exercises.</strong> Each has a collapsed solution: try first, then open it and compare.</li>
+<li><strong>Check the common mistakes</strong> box before you move on. It lists the errors people actually hit.</li>
+</ol>
+<p>Boxes marked <strong>Coming from Playwright</strong>, <strong>Coming from Selenium</strong> and <strong>Browser support</strong> are
+there for the readers who need them; skip them if they do not apply to you.
+<a href="conventions/">Conventions</a> explains every box, and how the examples are written.</p>
+<p>Every example and solution in the course is run by kaprevo's own test suite in Chrome and
+Firefox, so the code you see is code that works.</p>
+<h2 id="the-practice-site">The practice site<a class="headerlink" href="#the-practice-site" title="Permanent link">&para;</a></h2>
+<p>The lessons drive a small site served from your machine, so nothing depends on the internet
+and nothing you do can affect a real service. Start it in its own terminal and leave it running:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/serve.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Practice site: http://127.0.0.1:8765/
+Press Ctrl+C to stop.
+</code></pre></div>
+<p>Open that address in your browser to look around. Then run an example from a second terminal:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/01-getting-started/example_first_script.py
+</code></pre></div>
+<p>The examples read three environment variables, so you can change what they do without editing
+them:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KAPREVO_COURSE_URL</code></td>
+<td><code>http://127.0.0.1:8765/</code></td>
+<td>Where the practice site is. Set it if you used <code>--port</code>.</td>
+</tr>
+<tr>
+<td><code>KAPREVO_COURSE_BROWSER</code></td>
+<td><code>chrome</code></td>
+<td><code>chrome</code>, <code>firefox</code> or <code>edge</code>.</td>
+</tr>
+<tr>
+<td><code>KAPREVO_COURSE_HEADED</code></td>
+<td>not set</td>
+<td><code>1</code> shows the browser window.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lessons">Lessons<a class="headerlink" href="#lessons" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Lesson</th>
+<th>What you learn</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><a href="01-getting-started/">Getting started</a></td>
+<td>Install, check your browsers, first script (sync and async), headed and headless, screenshots, reading a failure</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>02</td>
+<td><a href="02-locators/">Locators</a></td>
+<td>Finding elements by role, label, text and test id; chaining and filters; frames and shadow DOM; strictness</td>
+<td>45 min</td>
+</tr>
+<tr>
+<td>03</td>
+<td><a href="03-actions-and-auto-waiting/">Actions and auto-waiting</a></td>
+<td>Clicking, typing and forms; what actionability checks; timeouts in seconds; files and drag and drop</td>
+<td>45 min</td>
+</tr>
+<tr>
+<td>04</td>
+<td><a href="04-assertions/">Assertions</a></td>
+<td>Web-first <code>expect</code>, negation, soft assertions, <code>expect.poll</code>, ARIA snapshots</td>
+<td>40 min</td>
+</tr>
+<tr>
+<td>05</td>
+<td><a href="05-visual-testing/">Visual testing</a></td>
+<td><code>to_have_screenshot</code>, baselines, masks and tolerance, updating snapshots</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>06</td>
+<td><a href="06-contexts-and-emulation/">Contexts and emulation</a></td>
+<td>Isolated contexts, devices, locale and time zone, geolocation and permissions, logging in once with storage state</td>
+<td>45 min</td>
+</tr>
+<tr>
+<td>07</td>
+<td><a href="07-network/">Network</a></td>
+<td>Watching requests, routing, mocking, changing real responses, HTTP auth, the API request context</td>
+<td>60 min</td>
+</tr>
+<tr>
+<td>08</td>
+<td><a href="08-events-dialogs-downloads/">Events, dialogs, downloads and popups</a></td>
+<td>Page events, waiting for what an action triggers, dialogs, downloads, new tabs</td>
+<td>40 min</td>
+</tr>
+<tr>
+<td>09</td>
+<td><a href="09-pytest-plugin/">The pytest plugin</a></td>
+<td>Fixtures, options, several browsers, failure artifacts, base URL</td>
+<td>45 min</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="10-debugging/">Debugging</a></td>
+<td>Tracing and <code>kaprevo show-trace</code>, video, <code>pause()</code>, headed runs, reading errors</td>
+<td>40 min</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="11-codegen/">Recording with codegen</a></td>
+<td><code>kaprevo codegen</code>, the toolbar, how locators are chosen, cleaning up a recording</td>
+<td>25 min</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="12-self-healing/">Self-healing locators</a></td>
+<td>Fingerprints and baselines, when healing refuses, fixing the test, strict mode</td>
+<td>35 min</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="13-browsers-and-backends/">Browsers and backends</a></td>
+<td>Chrome extras over CDP, Firefox specifics, Edge and channels, pinned browser versions</td>
+<td>35 min</td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="14-mcp-agents/">AI agents with MCP</a></td>
+<td><code>kaprevo mcp</code>, connecting a client, the tools, safety</td>
+<td>25 min</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="15-migrating-from-playwright/">Migrating from Playwright</a></td>
+<td>The compatibility layer first, then moving to native kaprevo</td>
+<td>40 min</td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="16-capstone/">Capstone: a ControlLab suite</a></td>
+<td>A complete test suite for a real app, with a local gate</td>
+<td>90 min</td>
+</tr>
+</tbody>
+</table>
+<p>The whole course takes about eleven hours. Lessons 01 to 04 are the core; after them, take the
+others in any order that suits your work.</p>
+<h2 id="suggested-tracks">Suggested tracks<a class="headerlink" href="#suggested-tracks" title="Permanent link">&para;</a></h2>
+<p><strong>New to browser automation.</strong> Take the course in order, and leave the specialist lessons for
+when you need them:</p>
+<p>01, 02, 03, 04, 06, 07, 08, 09, 10, 05, 11, 12, 16. Later, as needed: 13, 14.</p>
+<p><strong>Coming from Playwright.</strong> Most of the API will look familiar. Learn what differs (seconds,
+stock browsers, the pytest fixture names), then go straight to the tools:</p>
+<p>01, 15, 03, 04, 09, 10, 13, 12, 16. Skim 02, 06, 07 and 08 for their "Coming from Playwright" boxes.</p>
+<p><strong>Coming from Selenium.</strong> The biggest change is that you stop writing waits. Spend your time on
+locators, actions and assertions, then on the parts Selenium does not have:</p>
+<p>01, 02, 03, 04, 06, 07, 08, 09, 10, 12, 13, 16. See also Migrating from Selenium.</p>
+<p>Ready? Start with <a href="01-getting-started/">01. Getting started</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

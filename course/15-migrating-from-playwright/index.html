@@ -1,0 +1,1785 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/15-migrating-from-playwright/">
+      
+      
+        <link rel="prev" href="../14-mcp-agents/">
+      
+      
+        <link rel="next" href="../16-capstone/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>15. Migrating from Playwright - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#15-migrating-from-playwright" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              15. Migrating from Playwright
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#change-only-the-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change only the import
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-translated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is translated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is not
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest-playwright-suites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-playwright suites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moving-to-native-kaprevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving to native kaprevo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-an-async-script-ported" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: an async script, ported
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-the-one-call-that-cannot-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: the one call that cannot move
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-native-in-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: native, in seconds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#change-only-the-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change only the import
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-translated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is translated
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is not
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest-playwright-suites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-playwright suites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moving-to-native-kaprevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving to native kaprevo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-an-async-script-ported" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: an async script, ported
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-the-one-call-that-cannot-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: the one call that cannot move
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-native-in-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: native, in seconds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer D -->
+<h1 id="15-migrating-from-playwright">15. Migrating from Playwright<a class="headerlink" href="#15-migrating-from-playwright" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (library fixes from the course bug list); Nov-07-2026 (JS and element handles are supported) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>run an existing Playwright for Python script on kaprevo by changing only the import</li>
+<li>keep pytest-playwright fixture names with <code>-p kaprevo.compat.playwright.pytest</code></li>
+<li>know what the compatibility layer translates (milliseconds, <code>wait_until</code>, selector shortcuts) and what raises <code>UnsupportedFeature</code></li>
+<li>move code to kaprevo's native API step by step: seconds, <code>kaprevo.launch</code>, locators, <code>kaprevo_page</code></li>
+<li>decide when to stay on the layer and when to move</li>
+</ul>
+<p><strong>Time:</strong> about 40 minutes. <strong>Before this:</strong> <a href="../14-mcp-agents/">14. AI agents with MCP</a>.
+<strong>Code:</strong> <code>examples/course/15-migrating-from-playwright/</code></p>
+</div>
+<p>If you have Playwright scripts or a pytest-playwright suite already, you do not have to rewrite
+them before trying kaprevo. A <strong>compatibility layer</strong> accepts Playwright's API, translates it, and
+runs it on stock Chrome and Firefox. This lesson shows what that layer does, where it stops, and
+how to move to kaprevo's own API when you are ready.</p>
+<div class="admonition warning">
+<p class="admonition-title">Milliseconds in this lesson</p>
+<p>Everywhere else in the course, timeouts are seconds. Code that imports from
+<code>kaprevo.compat.playwright</code> keeps Playwright's <strong>milliseconds</strong>: <code>timeout=2000</code> there is two
+seconds. Each snippet below says which API it uses.</p>
+</div>
+<h2 id="change-only-the-import">Change only the import<a class="headerlink" href="#change-only-the-import" title="Permanent link">&para;</a></h2>
+<p>The layer lives in <code>kaprevo.compat.playwright</code>, with the same module names as Playwright:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># before</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">sync_playwright</span><span class="p">,</span> <span class="n">expect</span>
+<span class="c1"># after</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">sync_playwright</span><span class="p">,</span> <span class="n">expect</span>
+</code></pre></div>
+<p>The async API is <code>kaprevo.compat.playwright.async_api</code> (<code>async_playwright</code>). Everything after the
+import stays as it was: <code>sync_playwright()</code> starts the layer, <code>p.chromium</code> launches stock Chrome,
+<code>p.firefox</code> launches stock Firefox, <code>p.chromium.launch(channel="msedge")</code> launches Edge.
+<code>p.webkit</code> exists, but launching it raises, because Safari has no WebDriver BiDi. The layer never
+imports the real <code>playwright</code> package, so you can install both side by side and switch one import
+at a time.</p>
+<h2 id="what-is-translated">What is translated<a class="headerlink" href="#what-is-translated" title="Permanent link">&para;</a></h2>
+<p>The layer turns Playwright's conventions into kaprevo calls:</p>
+<table>
+<thead>
+<tr>
+<th>Playwright writes</th>
+<th>The layer does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>timeout=2000</code>, <code>set_default_timeout(10000)</code>, <code>slow_mo=50</code>, <code>expect(..., timeout=3000)</code></td>
+<td>divides by 1000: kaprevo gets seconds. <code>timeout=0</code> means no limit, as in Playwright</td>
+</tr>
+<tr>
+<td><code>wait_until="load"</code>, <code>"domcontentloaded"</code>, <code>"commit"</code>, <code>"networkidle"</code></td>
+<td>kaprevo's <code>complete</code>, <code>interactive</code>, <code>none</code>; <code>networkidle</code> waits for 500 ms with no requests</td>
+</tr>
+<tr>
+<td><code>response = page.goto(url)</code></td>
+<td>returns the main <code>Response</code> (<code>.ok</code>, <code>.status</code>, <code>.json()</code>)</td>
+</tr>
+<tr>
+<td><code>page.click(selector)</code>, <code>fill</code>, <code>text_content</code>, <code>is_visible</code>, <code>query_selector</code> ...</td>
+<td>builds a locator for the first match and acts on it</td>
+</tr>
+<tr>
+<td><code>evaluate_handle</code>, <code>query_selector</code>, <code>element_handle()</code>, <code>JSHandle</code>, <code>ElementHandle</code></td>
+<td>kaprevo's JS and element handles (Handles guide)</td>
+</tr>
+<tr>
+<td><code>route.fulfill(json=...)</code>, <code>route.abort()</code>, handlers taking <code>(route)</code> or <code>(route, request)</code></td>
+<td>kaprevo's routing</td>
+</tr>
+<tr>
+<td><code>expect_response</code>, <code>expect_request</code>, <code>expect_download</code>, <code>expect_console_message</code> ...</td>
+<td>kaprevo's event waiters, with <code>predicate=</code></td>
+</tr>
+<tr>
+<td><code>Error</code>, <code>TimeoutError</code></td>
+<td><code>kaprevo.KaprevoError</code>, <code>kaprevo.KaprevoTimeoutError</code></td>
+</tr>
+</tbody>
+</table>
+<p>The migration guide has the complete list.</p>
+<h2 id="what-is-not">What is not<a class="headerlink" href="#what-is-not" title="Permanent link">&para;</a></h2>
+<p>Anything Playwright has and kaprevo does not raises <strong><code>UnsupportedFeature</code></strong>, from
+<code>kaprevo.compat.playwright</code>. Its message names the missing piece and links the guide, and its
+<code>feature</code> attribute holds the name:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedFeature</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch_persistent_context</span><span class="p">(</span><span class="s2">"profile"</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">UnsupportedFeature</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">feature</span><span class="p">)</span>   <span class="c1"># BrowserType.launch_persistent_context</span>
+</code></pre></div>
+<p>The main ones: WebKit, <code>launch_persistent_context</code> (kaprevo always starts from a fresh profile),
+<code>connect</code> and <code>connect_over_cdp</code>, <code>route(times=)</code>,
+<code>goto(referer=)</code>, and a few launch options (<code>env=</code>, <code>ignore_default_args=</code>, <code>downloads_path=</code>).
+An argument kaprevo lacks is dropped silently only when it holds Playwright's do-nothing value
+(<code>None</code>, <code>False</code>, <code>0</code>); any other value raises, so <code>click(trial=True)</code> never quietly clicks.
+<code>UnsupportedFeature</code> is a <code>NotImplementedError</code>; for a missing attribute it is also an
+<code>AttributeError</code>, so <code>hasattr(page, "request_gc")</code> keeps working.</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>The layer runs on everything kaprevo drives: Chrome (both backends), Edge and Firefox. A
+Playwright option that maps to a Chrome-only kaprevo option (for example <code>is_mobile</code> in
+<code>new_context</code>) raises <code>UnsupportedOnBrowser</code> in Firefox, exactly as in native kaprevo
+(lesson 13).</p>
+</div>
+<h2 id="pytest-playwright-suites">pytest-playwright suites<a class="headerlink" href="#pytest-playwright-suites" title="Permanent link">&para;</a></h2>
+<p>pytest-playwright gives tests fixtures called <code>page</code>, <code>context</code>, <code>browser</code>, <code>browser_name</code> and
+<code>base_url</code>. kaprevo has an <strong>opt-in plugin</strong> with the same names and markers:</p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-p<span class="w"> </span>kaprevo.compat.playwright.pytest<span class="w"> </span>--browser<span class="w"> </span>chromium<span class="w"> </span>--browser<span class="w"> </span>firefox
+</code></pre></div>
+<p>Or put <code>-p kaprevo.compat.playwright.pytest</code> in the suite's <code>addopts</code>, as the lesson's
+<code>pw_suite/pytest.ini</code> does. It provides <code>page</code>, <code>context</code>, <code>new_context</code>, <code>browser</code>,
+<code>browser_name</code> (<code>chromium</code> or <code>firefox</code>; Edge counts as <code>chromium</code>), <code>browser_type</code>,
+<code>browser_context_args</code>, <code>base_url</code>, <code>output_path</code>, <code>is_chromium</code>, <code>is_firefox</code> and the
+<code>skip_browser</code>, <code>only_browser</code> and <code>browser_context_args</code> markers. The objects come from the
+compatibility layer, so the tests keep their milliseconds.</p>
+<p>It is <strong>not on by default</strong>: its fixture names would clash with pytest-playwright's when both
+are installed. For the same reason, the plain options (<code>--browser</code>, <code>--base-url</code>, <code>--headed</code>,
+<code>--screenshot</code>, <code>--tracing</code> ...) are registered only when pytest-playwright is not installed;
+the <code>--kaprevo-</code> spellings (<code>--kaprevo-browser</code>, <code>--kaprevo-base-url</code> ...) always work, and the
+lesson's script uses those.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15: tests written for pytest-playwright, run unchanged on kaprevo's opt-in plugin.</span>
+
+<span class="sd">The fixtures ``page``, ``base_url`` and ``browser_name`` and the ``skip_browser`` marker come from</span>
+<span class="sd">``-p kaprevo.compat.playwright.pytest`` (see ``pytest.ini``); only the import line changed.</span>
+<span class="sd">Timeouts are milliseconds, as in Playwright.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="c1"># from playwright.sync_api import Page, expect      # before</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>  <span class="c1"># after</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sign_in_shows_welcome</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>  <span class="c1"># relative to --base-url</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_empty_password_is_refused</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">,</span> <span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#sign-in"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Password is required"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"Sign in"</span><span class="p">))</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip_browser</span><span class="p">(</span><span class="s2">"firefox"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_reports_chromium</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">browser_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">browser_name</span> <span class="o">==</span> <span class="s2">"chromium"</span>  <span class="c1"># Chrome and Edge both count as chromium</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"index.html"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Practice site"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15: run a pytest-playwright suite on kaprevo with the opt-in plugin.</span>
+
+<span class="sd">Runs ``pw_suite/`` with pytest in this process. The suite's ``pytest.ini`` turns on</span>
+<span class="sd">``-p kaprevo.compat.playwright.pytest``; the browser and base URL are passed as</span>
+<span class="sd">``--kaprevo-browser`` and ``--kaprevo-base-url``, which always exist (the plain ``--browser``</span>
+<span class="sd">and ``--base-url`` are taken by pytest-playwright when it is installed too).</span>
+
+<span class="sd">    python examples/course/15-migrating-from-playwright/example_pytest_playwright.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">SUITE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"pw_suite"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">dont_write_bytecode</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># keep __pycache__ out of the examples folder</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"pw-suite-"</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">SUITE</span><span class="p">),</span> <span class="s2">"-q"</span><span class="p">,</span> <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">,</span> <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-output"</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="s2">"--kaprevo-screenshot"</span><span class="p">,</span> <span class="s2">"only-on-failure"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">pytest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"pytest exited </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="si">}</span><span class="s2">; artifacts (if any) in </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>...                                                                      [100%]
+3 passed in 5.56s
+pytest exited 0; artifacts (if any) in C:\Users\you\AppData\Local\Temp\pw-suite-2dkiohv4
+</code></pre></div>
+<p>In Firefox the third test is skipped by its <code>skip_browser("firefox")</code> marker.</p>
+<h2 id="moving-to-native-kaprevo">Moving to native kaprevo<a class="headerlink" href="#moving-to-native-kaprevo" title="Permanent link">&para;</a></h2>
+<p>The layer is a bridge, not a destination: it adds a translation step to every call, and new
+kaprevo features (self-healing, the Chrome extras, kaprevo's own fixtures) are native only. Move a
+script or a test module at a time:</p>
+<ol>
+<li><strong>Imports and launch.</strong> <code>from kaprevo.sync_api import expect, launch</code>, then
+   <code>with launch("chrome") as browser:</code> instead of <code>sync_playwright()</code> and <code>p.chromium.launch()</code>.</li>
+<li><strong>Timeouts.</strong> Divide every number by 1000: <code>timeout=2000</code> becomes <code>timeout=2</code>. Search the file
+   for <code>timeout</code>, <code>delay</code>, <code>slow_mo</code> and <code>wait_for_timeout</code>.</li>
+<li><strong>Navigation.</strong> <code>wait_until="domcontentloaded"</code> becomes <code>"interactive"</code>, <code>"load"</code> becomes
+   <code>"complete"</code>, <code>"commit"</code> becomes <code>"none"</code>. Native <code>goto()</code> returns the main <code>Response</code>, as
+   in Playwright (<code>None</code> for <code>about:blank</code> and other pages without one), so
+   <code>page.goto(url).status</code> carries over unchanged.</li>
+<li><strong>Selector shortcuts to locators.</strong> <code>page.fill("#username", "ada")</code> becomes
+   <code>page.get_by_label("User name").fill("ada")</code>: the same action, a locator that says what the
+   user sees (lesson 02).</li>
+<li><strong>Tests.</strong> Use the native plugin's <code>kaprevo_page</code> fixture (or alias it as <code>page</code> in
+   <code>conftest.py</code>, lesson 09), and drop <code>-p kaprevo.compat.playwright.pytest</code>.</li>
+</ol>
+<p>The migration guide's table maps
+the remaining names.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>There is no compatibility layer for Selenium: its model (element references, explicit
+waits) is too different for a faithful translation. The Selenium guide
+maps the concepts; the native API in this course is the target.</p>
+</div>
+<h2 id="choosing">Choosing<a class="headerlink" href="#choosing" title="Permanent link">&para;</a></h2>
+<p>Stay on the layer while you evaluate, or when a large suite must keep running during a gradual
+move. Move to native kaprevo for new code, and for anything that should use self-healing, MCP or
+the Chrome extras.</p>
+<p>Choose kaprevo when you need the <strong>stock</strong> browsers your users run (especially Firefox, which
+Playwright patches), the W3C standard protocol, or the built-in healing and MCP server. Stay with
+Playwright when you need WebKit, persistent profiles, clients in other
+languages, or the maturity of a tool with years of use and a large team behind it. The
+comparison page says more.</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The first script is written as Playwright's documentation would write it (sync API,
+milliseconds, <code>page.fill(selector)</code>, <code>expect_response</code>, <code>route.fulfill(json=...)</code>), with only the
+import changed. It signs in, waits for the products API and then mocks it.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15: a Playwright for Python script, run on kaprevo by changing only the import.</span>
+
+<span class="sd">Everything below the import is written the way Playwright's documentation writes it:</span>
+<span class="sd">``sync_playwright()``, ``p.chromium``, selector shortcuts such as ``page.fill(selector)``,</span>
+<span class="sd">``wait_until=``, ``route.fulfill(json=...)``, ``expect_response`` and timeouts in</span>
+<span class="sd">MILLISECONDS, which the compatibility layer translates.</span>
+
+<span class="sd">    python examples/course/15-migrating-from-playwright/example_playwright_script.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># from playwright.sync_api import expect, sync_playwright      # before</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">sync_playwright</span>  <span class="c1"># after</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">MOCKED</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Mocked mug"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">"stock"</span><span class="p">:</span> <span class="mi">5</span><span class="p">}]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">sync_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">browser_type</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">firefox</span> <span class="k">if</span> <span class="n">BROWSER</span> <span class="o">==</span> <span class="s2">"firefox"</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="s2">"msedge"</span> <span class="k">if</span> <span class="n">BROWSER</span> <span class="o">==</span> <span class="s2">"edge"</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">browser</span> <span class="o">=</span> <span class="n">browser_type</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30000</span><span class="p">)</span>  <span class="c1"># 30000 ms</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>  <span class="c1"># 10 seconds, in Playwright's milliseconds</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">,</span> <span class="n">wait_until</span><span class="o">=</span><span class="s2">"domcontentloaded"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">,</span> <span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"#password"</span><span class="p">,</span> <span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#sign-in"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>  <span class="c1"># 2 seconds</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Signed in:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"#status"</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">)</span> <span class="k">as</span> <span class="n">response_info</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Products API answered"</span><span class="p">,</span> <span class="n">response_info</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MOCKED</span><span class="p">))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#reload"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1 products"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Mocked:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"tbody td"</span><span class="p">))</span>
+        <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/15-migrating-from-playwright/example_playwright_script.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Signed in: Welcome, ada
+Products API answered 200
+Mocked: Mocked mug
+</code></pre></div>
+<p>The second does the same with kaprevo's own API. Read the two side by side: the structure is the
+same, the numbers are a thousand times smaller, and the selectors became user-facing locators.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15: the same script rewritten to kaprevo's own API.</span>
+
+<span class="sd">Compare it line by line with ``example_playwright_script.py``: no ``sync_playwright()``,</span>
+<span class="sd">``launch("chrome")`` instead of ``p.chromium.launch()``, locators instead of selector</span>
+<span class="sd">shortcuts, and every timeout in SECONDS.</span>
+
+<span class="sd">    python examples/course/15-migrating-from-playwright/example_native_rewrite.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">MOCKED</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Mocked mug"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">"stock"</span><span class="p">:</span> <span class="mi">5</span><span class="p">}]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>  <span class="c1"># 30 seconds</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># 10 seconds</span>
+
+        <span class="c1"># kaprevo's goto returns None, so wait for the document's response explicitly.</span>
+        <span class="c1"># "interactive" is kaprevo's spelling of Playwright's "domcontentloaded".</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/login.html"</span><span class="p">)</span> <span class="k">as</span> <span class="n">login_info</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">,</span> <span class="n">wait_until</span><span class="o">=</span><span class="s2">"interactive"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">login_info</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">ok</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 2 seconds</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Signed in:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">)</span> <span class="k">as</span> <span class="n">response_info</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Products API answered"</span><span class="p">,</span> <span class="n">response_info</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MOCKED</span><span class="p">))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1 products"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Mocked:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"cell"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>It prints the same three lines. The course test runs both in Chrome and Firefox, which is a good
+pattern for your own migration: keep the old script running until the new one passes too.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-an-async-script-ported">Exercise 1: an async script, ported<a class="headerlink" href="#exercise-1-an-async-script-ported" title="Permanent link">&para;</a></h3>
+<p>Here is a Playwright async script. Port it to kaprevo by changing only the import, and run it.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">playwright.async_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">async_playwright</span><span class="p">,</span> <span class="n">expect</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">async_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">browser</span> <span class="o">=</span> <span class="k">await</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"linus"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"torvalds"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Welcome - kaprevo practice site"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"products.html"</span><span class="p">,</span> <span class="n">wait_until</span><span class="o">=</span><span class="s2">"networkidle"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"tbody tr"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15, exercise 1: a Playwright async script ported to kaprevo by changing the import.</span>
+
+<span class="sd">Only the import line differs from the Playwright original shown in the lesson. Timeouts</span>
+<span class="sd">stay in milliseconds, because this is the compatibility layer.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># from playwright.async_api import async_playwright, expect          # before</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright.async_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">async_playwright</span><span class="p">,</span> <span class="n">expect</span>  <span class="c1"># after</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">async_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">browser_type</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">firefox</span> <span class="k">if</span> <span class="n">BROWSER</span> <span class="o">==</span> <span class="s2">"firefox"</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="s2">"msedge"</span> <span class="k">if</span> <span class="n">BROWSER</span> <span class="o">==</span> <span class="s2">"edge"</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">browser</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser_type</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"linus"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"torvalds"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>  <span class="c1"># 5000 ms</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Welcome - kaprevo practice site"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Title:"</span><span class="p">,</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"products.html"</span><span class="p">,</span> <span class="n">wait_until</span><span class="o">=</span><span class="s2">"networkidle"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"tbody tr"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Rows:"</span><span class="p">,</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"tbody tr"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+        <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Apart from the import, the solution only adds the course's three settings so it runs in any
+browser. <code>timeout=5000</code> is still five seconds, because this is the compatibility layer.</p>
+</details>
+<h3 id="exercise-2-the-one-call-that-cannot-move">Exercise 2: the one call that cannot move<a class="headerlink" href="#exercise-2-the-one-call-that-cannot-move" title="Permanent link">&para;</a></h3>
+<p>This ported script stops with <code>UnsupportedFeature</code>. Find the call, read what the error names, and
+replace it with something kaprevo supports. The script mocks the products API for the first reload
+only; the second reload should show the real products again.</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"http://127.0.0.1:8765/products.html"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MOCKED</span><span class="p">),</span> <span class="n">times</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#reload"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1 products"</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#reload"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15, exercise 2: find the call that raises UnsupportedFeature, and replace it.</span>
+
+<span class="sd">The ported script mocked the products API for one request only, with</span>
+<span class="sd">``page.route(url, handler, times=1)``. kaprevo's routing has no ``times=``, so the layer raises</span>
+<span class="sd">``UnsupportedFeature`` naming the argument. The script shows that error once, then does the same</span>
+<span class="sd">job with a handler that mocks the first request and lets the later ones through.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (evaluate_handle is supported now: the exercise uses route(times=) instead)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedFeature</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.compat.playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Route</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">sync_playwright</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">MOCKED</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Mocked mug"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">"stock"</span><span class="p">:</span> <span class="mi">5</span><span class="p">}]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">sync_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">browser_type</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">firefox</span> <span class="k">if</span> <span class="n">BROWSER</span> <span class="o">==</span> <span class="s2">"firefox"</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="s2">"msedge"</span> <span class="k">if</span> <span class="n">BROWSER</span> <span class="o">==</span> <span class="s2">"edge"</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">browser</span> <span class="o">=</span> <span class="n">browser_type</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>  <span class="c1"># the page's own request is done</span>
+
+        <span class="k">try</span><span class="p">:</span>  <span class="c1"># the original line</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MOCKED</span><span class="p">),</span> <span class="n">times</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UnsupportedFeature</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Unsupported:"</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">feature</span><span class="p">)</span>
+
+        <span class="c1"># The replacement: mock the first request, then let every later one reach the server.</span>
+        <span class="n">mocked</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">first_only</span><span class="p">(</span><span class="n">route</span><span class="p">:</span> <span class="n">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mocked</span><span class="p">:</span>
+                <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="n">mocked</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MOCKED</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="n">first_only</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#reload"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1 products"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"First reload:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"tbody td"</span><span class="p">))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#reload"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Second reload:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"tbody td"</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mocked</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Unsupported: Page.route(times=...)
+First reload: Mocked mug
+Second reload: Blue mug
+</code></pre></div>
+<p>kaprevo's routing has no <code>times=</code>, so the layer refuses the argument rather than mocking every
+request. A handler that keeps its own count does the same job: it fulfills the first request
+and lets the later ones through with <code>route.continue_()</code>. The solution catches the error only
+to show its <code>feature</code>; in your own port, just change the line.</p>
+</details>
+<h3 id="exercise-3-native-in-seconds">Exercise 3: native, in seconds<a class="headerlink" href="#exercise-3-native-in-seconds" title="Permanent link">&para;</a></h3>
+<p>Rewrite this compatibility-layer script to native kaprevo. Convert every timeout to seconds, use
+kaprevo's <code>wait_until</code> value, and replace the selector shortcuts with locators.</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">sync_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+    <span class="n">browser</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">set_default_navigation_timeout</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"products.html"</span><span class="p">,</span> <span class="n">wait_until</span><span class="o">=</span><span class="s2">"load"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">wait_for_selector</span><span class="p">(</span><span class="s2">"tbody tr"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"button[aria-label='Add Blue mug to cart']"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
+    <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 15, exercise 3: the compatibility script from the lesson rewritten to native kaprevo.</span>
+
+<span class="sd">Every millisecond timeout became seconds (``10000`` is ``10``, ``2000`` is ``2``, ``500`` is</span>
+<span class="sd">``0.5``), ``wait_until`` uses kaprevo's values, and selector shortcuts became locators.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                    <span class="c1"># was set_default_timeout(10000)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_default_navigation_timeout</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>            <span class="c1"># was set_default_navigation_timeout(20000)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"products.html"</span><span class="p">,</span> <span class="n">wait_until</span><span class="o">=</span><span class="s2">"complete"</span><span class="p">)</span>  <span class="c1"># was wait_until="load"</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"tbody tr"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># was wait_for_selector("tbody tr", timeout=2000)</span>
+        <span class="n">add</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Add Blue mug to cart"</span><span class="p">)</span>
+        <span class="n">add</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>                             <span class="c1"># was click(..., timeout=500)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>  <span class="c1"># was timeout=1500</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Cart:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Each converted line keeps the old value in a comment, which makes a migration review quick.
+<code>wait_for_selector</code> becomes <code>locator(...).first.wait_for()</code>: it waits for the first row to be
+visible. Native <code>page.wait_for_selector()</code> would also work; it returns a locator, where the
+layer returns an element handle.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Moving a line to native kaprevo and keeping its milliseconds.</strong> <code>click(timeout=5000)</code> in
+  native code waits 83 minutes instead of five seconds. Convert the numbers in the same edit.</li>
+<li><strong>Mixing the layer's objects with native ones.</strong> A compat <code>page</code> passed to native
+  <code>kaprevo.sync_api.expect</code> raises a <code>TypeError</code> (currently with a confusing message such as
+  "this assertion needs a page, not a locator"), and the reverse fails too. Import <code>expect</code>
+  from the same API as the page, and move a whole script or module at a time.</li>
+<li><strong><code>wait_until="domcontentloaded"</code> in native code.</strong> The browser rejects it with
+  <code>ProtocolError: browsingContext.navigate: invalid argument ...</code>. Native kaprevo spells it
+  <code>"interactive"</code> (and <code>"load"</code> is <code>"complete"</code>).</li>
+<li><strong><code>page.goto(...).ok</code> on <code>about:blank</code> or a <code>data:</code> URL.</strong> There is no network response, so
+  <code>goto()</code> returns <code>None</code> there, in kaprevo as in Playwright. Check for <code>None</code> first.</li>
+<li><strong>Expecting the plugin without <code>-p</code>.</strong> Without <code>-p kaprevo.compat.playwright.pytest</code> (or the
+  <code>addopts</code> line), pytest reports <code>fixture 'page' not found</code>.</li>
+<li><strong><code>--browser firefox</code> is "unrecognized".</strong> pytest-playwright is installed and owns the plain
+  options. Use <code>--kaprevo-browser firefox</code> (and <code>--kaprevo-base-url</code> and so on).</li>
+<li><strong>Catching <code>UnsupportedFeature</code> to keep a test green.</strong> The feature still does nothing.
+  Replace the call; the error's <code>feature</code> tells you which one.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>from kaprevo.compat.playwright.sync_api import ...</code> runs Playwright code unchanged on stock
+  Chrome, Edge and Firefox, with timeouts in milliseconds.</li>
+<li><code>-p kaprevo.compat.playwright.pytest</code> keeps pytest-playwright's <code>page</code> and friends; it is
+  opt-in so it never clashes with the real plugin.</li>
+<li>What kaprevo cannot do raises <code>UnsupportedFeature</code> naming the feature.</li>
+<li>Moving to native: <code>launch()</code>, seconds, <code>interactive</code>/<code>complete</code>, locators, <code>kaprevo_page</code>.</li>
+<li>Use the layer to start quickly; write new code natively.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../16-capstone/">16. Capstone: a ControlLab suite</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

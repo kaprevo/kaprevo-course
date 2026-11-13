@@ -1,0 +1,1754 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/11-codegen/">
+      
+      
+        <link rel="prev" href="../10-debugging/">
+      
+      
+        <link rel="next" href="../12-self-healing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>11. Recording with codegen - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11-recording-with-codegen" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              11. Recording with codegen
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recording
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-toolbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The toolbar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-locators-are-chosen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How locators are chosen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How locators are chosen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#locators-from-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locators from code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-a-recording-to-a-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From a recording to a test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-record-a-pytest-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: record a pytest test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-an-assertion-from-the-toolbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: an assertion from the toolbar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-what-would-the-recorder-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: what would the recorder write?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#recording" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recording
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-toolbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The toolbar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-locators-are-chosen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How locators are chosen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How locators are chosen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#locators-from-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locators from code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-a-recording-to-a-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From a recording to a test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-record-a-pytest-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: record a pytest test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-an-assertion-from-the-toolbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: an assertion from the toolbar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-what-would-the-recorder-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: what would the recorder write?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer C -->
+<h1 id="11-recording-with-codegen">11. Recording with codegen<a class="headerlink" href="#11-recording-with-codegen" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (structural text assertions; expect imported only when used) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>record a script with <code>kaprevo codegen</code> in Chrome or Firefox</li>
+<li>choose a target (sync script, async script or pytest test) and write it to a file</li>
+<li>use the toolbar: pause, pick a locator, add assertions</li>
+<li>explain how the recorder chooses locators, and ask it from code with <code>generate_locator</code></li>
+<li>tidy a recording into a good test</li>
+</ul>
+<p><strong>Time:</strong> about 25 minutes. <strong>Before this:</strong> <a href="../10-debugging/">10. Debugging</a>.
+<strong>Code:</strong> <code>examples/course/11-codegen/</code></p>
+</div>
+<p>Writing the first draft of a test by hand means looking up every label and role on the page.
+<strong>codegen</strong> does that part for you: you use the page in a real browser, and kaprevo writes the
+script that does the same thing, with the user-facing locators you learned in lesson 02. What
+it cannot do is decide what your test should check. This lesson covers both halves.</p>
+<h2 id="recording">Recording<a class="headerlink" href="#recording" title="Permanent link">&para;</a></h2>
+<p>Start the practice site, then:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>codegen<span class="w"> </span>http://127.0.0.1:8765/login.html
+</code></pre></div>
+<p>A visible Chrome window opens on the sign-in page, with a small toolbar at the bottom. Type a
+user name and a password, click <strong>Sign in</strong>, and watch the terminal: the script appears as you
+go. Close the window (or press Ctrl+C in the terminal) to finish. Either way the browser is
+shut down and its profile deleted.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Recorded with kaprevo codegen."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"http://127.0.0.1:8765/login.html"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"username"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>Typing is recorded as one <code>fill()</code> per field with its final value, not one line per key. The
+script runs unmodified: save it and run it with <code>python</code>.</p>
+<p>The options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td>the first page, recorded as <code>page.goto(...)</code>; optional</td>
+</tr>
+<tr>
+<td><code>--browser chrome\|firefox</code></td>
+<td>which browser to record in (default <code>chrome</code>)</td>
+</tr>
+<tr>
+<td><code>--target python</code></td>
+<td>a sync script (the default)</td>
+</tr>
+<tr>
+<td><code>--target python-async</code></td>
+<td>an <code>async with kaprevo.launch(...)</code> script</td>
+</tr>
+<tr>
+<td><code>--target python-pytest</code></td>
+<td>a pytest test using the <code>kaprevo_page</code> fixture (lesson 09)</td>
+</tr>
+<tr>
+<td><code>--output FILE</code></td>
+<td>also write the script to <code>FILE</code>, rewritten after every change</td>
+</tr>
+<tr>
+<td><code>--viewport 1280x720</code></td>
+<td>the page's viewport size</td>
+</tr>
+<tr>
+<td><code>--device "iPhone 13"</code></td>
+<td>the viewport of a common device (only its size is applied)</td>
+</tr>
+<tr>
+<td><code>--test-id-attribute data-qa</code></td>
+<td>the attribute <code>get_by_test_id</code> reads (default <code>data-testid</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>For a test you will keep, record straight into a test file:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>codegen<span class="w"> </span>http://127.0.0.1:8765/login.html<span class="w"> </span>--target<span class="w"> </span>python-pytest<span class="w"> </span>--output<span class="w"> </span>test_sign_in.py
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p><code>kaprevo codegen</code> is the counterpart of <code>playwright codegen</code>, with the same idea of targets
+and a toolbar. It records with the stock browser you have installed, and the script it
+writes uses kaprevo's API (seconds for timeouts, <code>kaprevo_page</code> in pytest). There is no
+separate inspector window: the script streams to the terminal and to <code>--output</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Recording works the same in Chrome and Firefox: the recorder is a script kaprevo installs
+in every frame over WebDriver BiDi, not a browser extension. A script recorded in one
+browser runs in the other once you change the name in <code>launch(...)</code> (or pass
+<code>--browser</code> to pytest).</p>
+</div>
+<h2 id="the-toolbar">The toolbar<a class="headerlink" href="#the-toolbar" title="Permanent link">&para;</a></h2>
+<p>The toolbar at the bottom of the page controls the recorder. It sits in a closed shadow root,
+so the page's CSS cannot restyle it, its buttons are invisible to locators, and its clicks
+never reach the page's own event handlers.</p>
+<ul>
+<li><strong>Pause / Record</strong> stops and resumes recording. Use it to get the page into the right state
+  (close a cookie banner, scroll to a section) without those steps ending up in the script.</li>
+<li><strong>Pick locator</strong> shows, as you move the pointer, the locator the recorder would write for the
+  element under it. Clicking prints it in the terminal (and copies it to the clipboard when the
+  browser allows); the click does not reach the page. This is the quickest way to get a good
+  locator for a test you are writing by hand.</li>
+<li><strong>Assert visible</strong>, <strong>Assert text</strong> and <strong>Assert value</strong>: click one, then click an element,
+  and the recorder adds <code>expect(...).to_be_visible()</code>, <code>to_contain_text(...)</code> or
+  <code>to_have_value(...)</code> for it, instead of a click. Escape leaves these modes.</li>
+</ul>
+<h2 id="how-locators-are-chosen">How locators are chosen<a class="headerlink" href="#how-locators-are-chosen" title="Permanent link">&para;</a></h2>
+<p>For each action, the page proposes candidate locators for the element, and kaprevo counts each
+candidate with <strong>its own selector engine</strong>. A locator is written only if kaprevo resolves it to
+exactly that element, so a recorded locator is never ambiguous and never relies on a
+difference between the browser's idea of a role and kaprevo's. The first unique candidate wins,
+in this order:</p>
+<ol>
+<li><code>get_by_test_id</code></li>
+<li><code>get_by_role(role, name=...)</code></li>
+<li><code>get_by_label</code></li>
+<li><code>get_by_placeholder</code></li>
+<li><code>get_by_alt_text</code></li>
+<li><code>get_by_text</code></li>
+<li><code>get_by_title</code></li>
+<li><code>get_by_role(role)</code> without a name</li>
+<li>short CSS: an id, then stable attributes</li>
+<li><code>.first</code> or <code>.nth(i)</code> on the best candidate, as a last resort</li>
+</ol>
+<p>Ids and class names that look generated by a framework or a build (<code>css-1x2y3z</code>, <code>:r1:</code>,
+<code>ember1234</code>, hashes) are never used, because they change from one build to the next.</p>
+<p>That order explains the recording above: the sign-in form's inputs have <code>data-testid</code>
+attributes, so they are recorded as <code>get_by_test_id("username")</code>, while the button has none
+and is recorded by its role and name.</p>
+<h3 id="locators-from-code">Locators from code<a class="headerlink" href="#locators-from-code" title="Permanent link">&para;</a></h3>
+<p>The same choice is available as a coroutine, for tools and for your own curiosity:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.codegen</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_locator</span>
+
+<span class="n">code</span> <span class="o">=</span> <span class="k">await</span> <span class="n">generate_locator</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#sign-in"</span><span class="p">))</span>  <span class="c1"># 'page.get_by_role("button", name="Sign in")'</span>
+</code></pre></div>
+<p>It takes any locator that matches exactly one element and returns source code. Pass
+<code>test_id_attribute=</code> to match your project's attribute, and <code>receiver=</code> to start the chain with
+another variable name than <code>page</code>.</p>
+<h2 id="from-a-recording-to-a-test">From a recording to a test<a class="headerlink" href="#from-a-recording-to-a-test" title="Permanent link">&para;</a></h2>
+<p>A recording is a first draft. Before it becomes a test, go through it once:</p>
+<ol>
+<li><strong>Remove the noise.</strong> Clicks that only focused a field, a scroll that does not matter, a
+   step you made by mistake. (Pause the recorder next time.)</li>
+<li><strong>Add the checks.</strong> The recorder writes what you did, not what should be true afterwards. A
+   recorded sign-in clicks the button and stops; the test must also assert the welcome
+   message. Use the toolbar's assert buttons, or write <code>expect(...)</code> yourself.</li>
+<li><strong>Prefer the assertion you mean.</strong> An <strong>Assert text</strong> click locates the element by what it
+   is (a test id, a role, a label, CSS) rather than by the text it checks, so the status line
+   here becomes <code>expect(page.get_by_role("status")).to_contain_text("Welcome, ada")</code>. When the
+   element's own text is the only way to find it, the recorder writes <code>to_be_visible()</code> on
+   <code>get_by_text(...)</code> instead, because <code>to_contain_text</code> of the same text could never fail.
+   Tighten <code>to_contain_text</code> to <code>to_have_text</code> when the whole text matters.</li>
+<li><strong>Replace literal data.</strong> The user name you typed, today's date, an order number: move them
+   into variables or fixtures, and the URL into <code>--base-url</code> (lesson 09).</li>
+<li><strong>Name it.</strong> <code>test_recorded</code> becomes <code>test_sign_in_shows_welcome</code>.</li>
+</ol>
+<p>The tidied version of the recording above:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sign_in_shows_welcome</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"username"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
+<p>What is recorded: clicks (with modifier keys) and double clicks; typing; Enter, Tab, Escape
+and shortcuts as <code>press()</code>; checking, <code>select_option</code> and file uploads (file names only);
+navigations you make from the address bar; popups and new tabs; actions inside iframes,
+through <code>frame_locator(...)</code> chains.</p>
+<p>What is not recorded:</p>
+<ul>
+<li><strong>hover, drag and drop, scrolling and right clicks.</strong> Add them by hand (lesson 03).</li>
+<li><strong>The files themselves</strong> for an upload: the script names the files, and they must exist next
+  to it.</li>
+<li><strong>Waits.</strong> The recorder does not know that you waited for a message before clicking on; the
+  auto-waiting of actions covers most of this, and assertions cover the rest.</li>
+</ul>
+<p>Navigations are told apart by timing: a navigation shortly after a click or a key press is left
+to that action, and one that happens on its own a few seconds after your last action is
+recorded as a <code>goto</code>. A page that redirects itself late may therefore get an extra <code>goto</code>
+line; delete it.</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p><code>kaprevo codegen</code> needs you at the keyboard, so the course cannot run it as it is. Instead, the
+example uses the same <code>Recorder</code> class the command uses, headless, and drives the page with
+kaprevo's own actions. Those reach the page as real input, exactly as your clicks would, so the
+recorder cannot tell the difference. The script records signing in, prints what was recorded,
+saves it to your temporary directory and runs it in a fresh Python process, unmodified.</p>
+<p>Notice that it drives the page with brittle <code>#id</code> locators, and the recording comes out with
+good ones: the recorder chooses its own locators from the element, not from how you found it.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 11: record signing in with the codegen recorder, then run the script it wrote.</span>
+
+<span class="sd">``kaprevo codegen`` is interactive: you click in a visible browser. To run unattended, this</span>
+<span class="sd">example uses the same ``Recorder`` headless and drives the page with kaprevo's own actions, which</span>
+<span class="sd">reach the page as real input, exactly like yours. The script it records is saved to your</span>
+<span class="sd">temporary directory and run in a new Python process, unmodified.</span>
+
+<span class="sd">    python examples/course/11-codegen/example_record_sign_in.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.codegen</span><span class="w"> </span><span class="kn">import</span> <span class="n">Recorder</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"11-codegen"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""What you would do by hand after ``kaprevo codegen &lt;url&gt;/login.html``."""</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">recorder</span> <span class="o">=</span> <span class="n">Recorder</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#sign-in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+            <span class="k">await</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">script</span> <span class="o">=</span> <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">script</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">record</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">OUT</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">OUT</span> <span class="o">/</span> <span class="s2">"recorded_sign_in.py"</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Saved and replayed:"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>"""Recorded with kaprevo codegen."""
+
+from kaprevo.sync_api import launch
+
+with launch("chrome", headless=True) as browser:
+    page = browser.new_page()
+    page.goto("http://127.0.0.1:8765/login.html")
+    page.get_by_test_id("username").fill("ada")
+    page.get_by_test_id("password").fill("lovelace")
+    page.get_by_role("button", name="Sign in").click()
+
+Saved and replayed: C:\Users\you\AppData\Local\Temp\kaprevo-course\11-codegen\recorded_sign_in.py
+</code></pre></div>
+<p>Now record the same thing yourself with <code>kaprevo codegen http://127.0.0.1:8765/login.html</code> and
+compare: the only difference should be <code>headless=False</code>.</p>
+<p>A second example asks <code>generate_locator</code> about every control on the sign-in form:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 11: which locator would the recorder write for each control on the sign-in form?</span>
+
+<span class="sd">``generate_locator`` runs the recorder's own choice (test id, then role and name, then label ...)</span>
+<span class="sd">on any element you point at, so you can see its decisions without recording anything.</span>
+
+<span class="sd">    python examples/course/11-codegen/example_generate_locators.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.codegen</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_locator</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="c1"># The sign-in form's controls, found by id: the brittle way the recorder improves on.</span>
+<span class="n">CONTROLS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#username"</span><span class="p">,</span> <span class="s2">"#password"</span><span class="p">,</span> <span class="s2">"#remember"</span><span class="p">,</span> <span class="s2">"#sign-in"</span><span class="p">,</span> <span class="s2">"#status"</span><span class="p">,</span> <span class="s2">"header a[href='products.html']"</span><span class="p">]</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">CONTROLS</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="k">await</span> <span class="n">generate_locator</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="n">selector</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">selector</span><span class="si">:</span><span class="s2">32</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># A different test id attribute changes the choice (this page has none called data-qa).</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="k">await</span> <span class="n">generate_locator</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">),</span> <span class="n">test_id_attribute</span><span class="o">=</span><span class="s2">"data-qa"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'#username (data-qa)'</span><span class="si">:</span><span class="s2">32</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#username                        -&gt; page.get_by_test_id("username")
+#password                        -&gt; page.get_by_test_id("password")
+#remember                        -&gt; page.get_by_role("checkbox", name="Remember me")
+#sign-in                         -&gt; page.get_by_role("button", name="Sign in")
+#status                          -&gt; page.get_by_role("status")
+header a[href='products.html']   -&gt; page.get_by_role("link", name="Products")
+#username (data-qa)              -&gt; page.get_by_role("textbox", name="User name")
+</code></pre></div>
+<p>The last line shows the order at work: with <code>data-qa</code> as the test id attribute, the field has no
+test id, so the next rule, role and name, wins.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-record-a-pytest-test">Exercise 1: record a pytest test<a class="headerlink" href="#exercise-1-record-a-pytest-test" title="Permanent link">&para;</a></h3>
+<p>Record signing in on the practice site as a pytest test, into a file, and run it with pytest.</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>codegen<span class="w"> </span>http://127.0.0.1:8765/login.html<span class="w"> </span>--target<span class="w"> </span>python-pytest<span class="w"> </span>--output<span class="w"> </span>test_recorded.py
+pytest<span class="w"> </span>test_recorded.py
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<p>The solution does the same unattended, with <code>Recorder(..., target="python-pytest")</code>, and then
+runs the recorded file with pytest:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 11, exercise 1: record signing in as a pytest test, then run the test with pytest.</span>
+
+<span class="sd">The same as ``kaprevo codegen &lt;url&gt;/login.html --target python-pytest --output test_recorded.py``,</span>
+<span class="sd">driven headless. The recorded test uses the ``kaprevo_page`` fixture from lesson 09.</span>
+
+<span class="sd">    python examples/course/11-codegen/solution_1_record_pytest.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.codegen</span><span class="w"> </span><span class="kn">import</span> <span class="n">Recorder</span>
+
+<span class="c1"># course: timeout=180</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"11-codegen"</span> <span class="o">/</span> <span class="s2">"pytest"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">recorder</span> <span class="o">=</span> <span class="n">Recorder</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"python-pytest"</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"grace"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hopper"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">script</span> <span class="o">=</span> <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">script</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">record</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s2">"def test_recorded(kaprevo_page: Page) -&gt; None:"</span> <span class="ow">in</span> <span class="n">script</span>
+    <span class="n">OUT</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"pytest.ini"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"[pytest]</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>  <span class="c1"># its own small project</span>
+    <span class="n">test_file</span> <span class="o">=</span> <span class="n">OUT</span> <span class="o">/</span> <span class="s2">"test_recorded.py"</span>
+    <span class="n">test_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">test_file</span><span class="p">),</span> <span class="s2">"-q"</span><span class="p">,</span> <span class="s2">"-p"</span><span class="p">,</span> <span class="s2">"no:cacheprovider"</span><span class="p">,</span>
+                             <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"the recorded test should pass"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"The recorded test passed:"</span><span class="p">,</span> <span class="n">test_file</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_recorded</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">kaprevo_page</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"http://127.0.0.1:8765/login.html"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"username"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"grace"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hopper"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>It passes, but it checks nothing: it would pass even if signing in were broken. That is
+what exercise 2 is for.</p>
+</details>
+<h3 id="exercise-2-an-assertion-from-the-toolbar">Exercise 2: an assertion from the toolbar<a class="headerlink" href="#exercise-2-an-assertion-from-the-toolbar" title="Permanent link">&para;</a></h3>
+<p>Record signing in again. When the welcome message appears, click <strong>Assert text</strong> in the
+toolbar and then click the message. Check that the script gained an <code>expect(...)</code> line, and
+run it.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The toolbar's button switches the recorder's mode; from code that is <code>set_mode("assert-text")</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 11, exercise 2: add a text assertion while recording, the way the toolbar does.</span>
+
+<span class="sd">Clicking the toolbar's **Assert text** button switches the recorder to ``assert-text`` mode; the</span>
+<span class="sd">next click on the page adds an assertion instead of a click. ``set_mode`` is what that button</span>
+<span class="sd">calls. The recorded script is then replayed, so the assertion is checked for real.</span>
+
+<span class="sd">    python examples/course/11-codegen/solution_2_assert_text.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (the assertion target is structural now)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.codegen</span><span class="w"> </span><span class="kn">import</span> <span class="n">Recorder</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"11-codegen"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">recorder</span> <span class="o">=</span> <span class="n">Recorder</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">expect</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>  <span class="c1"># wait, as you would by eye</span>
+
+            <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="s2">"assert-text"</span><span class="p">)</span>  <span class="c1"># the Assert text button</span>
+            <span class="k">await</span> <span class="n">status</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>  <span class="c1"># this click becomes an assertion, and never reaches the page</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">script</span> <span class="o">=</span> <span class="k">await</span> <span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">script</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">record</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># The recorder finds the status line by its role, not by the text it checks.</span>
+    <span class="k">assert</span> <span class="s1">'expect(page.get_by_role("status")).to_contain_text("Welcome, ada")'</span> <span class="ow">in</span> <span class="n">script</span>
+    <span class="n">OUT</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">OUT</span> <span class="o">/</span> <span class="s2">"recorded_with_assertion.py"</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Replayed, assertion included:"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>    page.get_by_role("button", name="Sign in").click()
+    expect(page.get_by_role("status")).to_contain_text("Welcome, ada")
+</code></pre></div>
+<p>The assertion finds the message by its role, not by the text it checks, so it fails if the
+status line shows anything else. The script imports <code>expect</code> because it now has an
+assertion; a recording without one imports only <code>launch</code>.</p>
+</details>
+<h3 id="exercise-3-what-would-the-recorder-write">Exercise 3: what would the recorder write?<a class="headerlink" href="#exercise-3-what-would-the-recorder-write" title="Permanent link">&para;</a></h3>
+<p>Open <code>/testsite/form.html</code> and print the locator the recorder would choose for at least five
+of its elements, found by CSS: the user name field, the password, the search box, the country
+list, the submit button, the logo and the second list item.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 11, exercise 3: the locators the recorder would choose on kaprevo's test form.</span>
+
+<span class="sd">Points ``generate_locator`` at seven elements of ``/testsite/form.html`` by CSS and prints the</span>
+<span class="sd">user-facing locator the recorder would write instead.</span>
+
+<span class="sd">    python examples/course/11-codegen/solution_3_form_locators.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.codegen</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_locator</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">ELEMENTS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#user"</span><span class="p">,</span> <span class="s2">"#pass"</span><span class="p">,</span> <span class="s2">"#search"</span><span class="p">,</span> <span class="s2">"#country"</span><span class="p">,</span> <span class="s2">"button[type=submit]"</span><span class="p">,</span> <span class="s2">"img"</span><span class="p">,</span> <span class="s2">"#items li:nth-child(2)"</span><span class="p">]</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">chosen</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">selector</span> <span class="ow">in</span> <span class="n">ELEMENTS</span><span class="p">:</span>
+            <span class="n">chosen</span><span class="p">[</span><span class="n">selector</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">generate_locator</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="n">selector</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">selector</span><span class="si">:</span><span class="s2">24</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">chosen</span><span class="p">[</span><span class="n">selector</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="c1"># #user has a data-testid, so the test id wins over its label.</span>
+        <span class="k">assert</span> <span class="n">chosen</span><span class="p">[</span><span class="s2">"#user"</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'page.get_by_test_id("user-input")'</span><span class="p">,</span> <span class="n">chosen</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#user                    -&gt; page.get_by_test_id("user-input")
+#pass                    -&gt; page.get_by_role("textbox", name="Password")
+#search                  -&gt; page.get_by_role("searchbox", name="Search")
+#country                 -&gt; page.get_by_role("combobox", name="Country")
+button[type=submit]      -&gt; page.get_by_role("button", name="Sign in")
+img                      -&gt; page.get_by_role("img", name="Company logo")
+#items li:nth-child(2)   -&gt; page.get_by_role("listitem", name="Banana")
+</code></pre></div>
+<p>Every positional or id-based CSS locator became a user-facing one. <code>#user</code> has a
+<code>data-testid</code>, so the test id wins over its label.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Nothing is recorded.</strong> The recorder is paused (the toolbar shows <strong>Record</strong>), or a pick
+  or assert mode is still on. Click <strong>Record</strong>, or press Escape.</li>
+<li><strong>The script has a <code>goto</code> you did not type.</strong> The page navigated by itself late (a
+  redirect, a timed refresh) and the timing rule read it as yours. Delete the line.</li>
+<li><strong>A recorded test passes but proves nothing.</strong> Recordings hold actions, not checks. Add
+  at least one <code>expect(...)</code> for the outcome the test is about.</li>
+<li><strong><code>set_input_files</code> fails with a missing file.</strong> Only the file names were recorded; put
+  the files next to the script or fix the paths.</li>
+<li><strong>The recorded locator uses <code>.nth(1)</code>.</strong> Nothing about the element was unique. Add a test
+  id or an accessible name to the page if you can; otherwise check the position is really
+  stable.</li>
+<li><strong><code>generate_locator</code> raises <code>StrictModeViolation</code>.</strong> The locator you passed matched more
+  than one element; it needs exactly one.</li>
+<li><strong><code>&lt;coroutine object generate_locator ...&gt;</code> is printed instead of a locator.</strong>
+  <code>generate_locator</code> is async: call it with <code>await</code> inside <code>async def</code>, as in the examples.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>kaprevo codegen &lt;url&gt;</code> records what you do in a visible browser and streams a runnable
+  script; <code>--target python-pytest --output test_x.py</code> writes a test.</li>
+<li>The toolbar pauses, picks locators and adds <code>to_be_visible</code>, <code>to_contain_text</code> and
+  <code>to_have_value</code> assertions.</li>
+<li>Locators are chosen in a fixed order (test id, role and name, label, ...) and only if kaprevo's
+  engine resolves them to exactly that element; generated ids and classes are never used.</li>
+<li><code>generate_locator(locator)</code> gives the same choice from code.</li>
+<li>A recording is a draft: remove noise, add the checks, replace data, and name the test.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../12-self-healing/">12. Self-healing locators</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1792 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/04-assertions/">
+      
+      
+        <link rel="prev" href="../03-actions-and-auto-waiting/">
+      
+      
+        <link rel="next" href="../05-visual-testing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>04. Assertions - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-assertions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04. Assertions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-web-first-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why web-first assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-everyday-matchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The everyday matchers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#negation-and-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Negation and timeouts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Messages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soft assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polling-any-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polling any value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aria-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARIA snapshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-whole-list-in-one-assertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a whole list in one assertion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-read-the-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: read the message
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-poll-an-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: poll an API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-a-template-that-ignores-the-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: a template that ignores the errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-web-first-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why web-first assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-everyday-matchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The everyday matchers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#negation-and-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Negation and timeouts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Messages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soft assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polling-any-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polling any value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aria-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARIA snapshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-whole-list-in-one-assertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a whole list in one assertion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-read-the-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: read the message
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-poll-an-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: poll an API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-a-template-that-ignores-the-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: a template that ignores the errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer A -->
+<h1 id="04-assertions">04. Assertions<a class="headerlink" href="#04-assertions" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (library fixes from the course bug list) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>write web-first assertions with <code>expect</code> for locators, pages and responses</li>
+<li>use the common matchers: text, value, visibility, count, URL, title, attribute, enabled and checked</li>
+<li>negate with <code>not_</code> (or <code>not_to_*</code>) and set a timeout per assertion or for all of them</li>
+<li>collect several failures at once with <code>expect.soft</code>, and assert on any value with <code>expect.poll</code></li>
+<li>check structure with <code>aria_snapshot</code> and <code>to_match_aria_snapshot</code></li>
+</ul>
+<p><strong>Time:</strong> about 40 minutes. <strong>Before this:</strong> <a href="../03-actions-and-auto-waiting/">03. Actions and auto-waiting</a>.
+<strong>Code:</strong> <code>examples/course/04-assertions/</code></p>
+</div>
+<p>A script that clicks through a page proves only that nothing crashed. Assertions are what turn it
+into a test: they say what the page must show. This lesson teaches kaprevo's <code>expect</code>, which checks
+the page the way the actions in lesson 03 act on it, by waiting until the page is ready.</p>
+<h2 id="why-web-first-assertions">Why web-first assertions<a class="headerlink" href="#why-web-first-assertions" title="Permanent link">&para;</a></h2>
+<p>Here are two ways to check the welcome message on the sign-in page:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="k">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"Welcome, ada"</span>   <span class="c1"># reads once</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>      <span class="c1"># waits until true</span>
+</code></pre></div>
+<p>The first line reads the text once, straight after the click. The page answers half a second
+later, so the read sees "Signing in..." and the <code>assert</code> fails, although nothing is wrong. The
+usual "fix" is a sleep before the read, with all the problems lesson 03 described.</p>
+<p>The second line is a <strong>web-first assertion</strong>. <code>expect(locator)</code> builds an assertion about what the
+locator finds, and <code>to_have_text(...)</code> keeps checking, about ten times a second, until the text
+matches or <strong>5 seconds</strong> pass. On a fast page it returns at once; on a slow one it waits as long
+as needed; and when the text really is wrong, it fails with both values:</p>
+<div class="highlight"><pre><span></span><code>AssertionError: expect(get_by_role('status')).to_have_text: expected 'Welcome, ada', got 'Signing in...' after 5 s
+</code></pre></div>
+<p>State assertions name the states instead, for example
+<code>expect(get_by_text('Saved')).to_be_hidden: expected hidden, got visible after 5 s</code>, or
+<code>got no element matches</code> when the locator found nothing.</p>
+<p><code>expect</code> comes from the same import as <code>launch</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+</code></pre></div>
+<p>It takes a locator, a page (<code>expect(page).to_have_title(...)</code>) or a response
+(<code>expect(response).to_be_ok()</code>, for lesson 07).</p>
+<h2 id="the-everyday-matchers">The everyday matchers<a class="headerlink" href="#the-everyday-matchers" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Matcher</th>
+<th>Passes when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>to_have_text(text)</code></td>
+<td>the element's whole text equals <code>text</code> (whitespace squashed; a regex is searched)</td>
+</tr>
+<tr>
+<td><code>to_contain_text(text)</code></td>
+<td>the text contains <code>text</code></td>
+</tr>
+<tr>
+<td><code>to_have_value(value)</code></td>
+<td>an input, textarea or select has this value</td>
+</tr>
+<tr>
+<td><code>to_be_visible()</code>, <code>to_be_hidden()</code></td>
+<td>the element is shown; or hidden or absent</td>
+</tr>
+<tr>
+<td><code>to_have_count(n)</code></td>
+<td>exactly <code>n</code> elements match</td>
+</tr>
+<tr>
+<td><code>to_be_enabled()</code>, <code>to_be_disabled()</code></td>
+<td>the control can, or cannot, be used</td>
+</tr>
+<tr>
+<td><code>to_be_checked()</code></td>
+<td>a checkbox or radio is ticked (<code>checked=False</code>: it is not)</td>
+</tr>
+<tr>
+<td><code>to_be_editable()</code>, <code>to_be_empty()</code>, <code>to_be_focused()</code></td>
+<td>accepts typing; has no text or value; has focus</td>
+</tr>
+<tr>
+<td><code>to_have_attribute(name, value)</code></td>
+<td>an attribute has this value</td>
+</tr>
+<tr>
+<td><code>to_have_class(...)</code>, <code>to_contain_class(...)</code></td>
+<td>the <code>class</code> attribute is exactly, or includes, these classes</td>
+</tr>
+<tr>
+<td><code>expect(page).to_have_url(url)</code></td>
+<td>the page's URL equals <code>url</code> (or matches a regex)</td>
+</tr>
+<tr>
+<td><code>expect(page).to_have_title(title)</code></td>
+<td>the document title equals <code>title</code></td>
+</tr>
+</tbody>
+</table>
+<p>A few notes on using them well:</p>
+<ul>
+<li><strong>Text matchers take a string or a compiled regex.</strong> A string compares the whole text
+  (<code>to_have_text</code>) or a part (<code>to_contain_text</code>); <code>re.compile(r"Welcome, \w+")</code> is searched.
+  <code>ignore_case=True</code> makes either kind case-insensitive.</li>
+<li><strong>A list checks several elements at once.</strong> <code>expect(page.locator("li")).to_have_text(["Apple",
+  "Banana", "Cherry"])</code> passes only when there are exactly three items with those texts, in that
+  order. Exercise 1 uses this.</li>
+<li><strong>Assertions are strict, like actions.</strong> <code>to_have_text("x")</code> on a locator that matches several
+  elements raises <code>StrictModeViolation</code>. <code>to_have_count</code> and the list forms are made for several.</li>
+<li><strong>Hidden includes absent.</strong> <code>to_be_hidden()</code> passes when nothing matches, which is what you
+  want for "the spinner has gone".</li>
+</ul>
+<p>The visual comparison guide lists the less common
+matchers (<code>to_have_values</code>, <code>to_have_role</code>, <code>to_have_accessible_name</code>, <code>to_have_css</code>, and others).</p>
+<h2 id="negation-and-timeouts">Negation and timeouts<a class="headerlink" href="#negation-and-timeouts" title="Permanent link">&para;</a></h2>
+<p>Every matcher can be turned around with <code>.not_</code>, which then waits until the condition is <strong>false</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"alert"</span><span class="p">))</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Signing in..."</span><span class="p">)</span>
+</code></pre></div>
+<p>Playwright's spelling works too: <code>not_to_be_visible()</code>, <code>not_to_have_text(...)</code>, and so on for every
+matcher. Pick one style per project.</p>
+<p>The 5-second default can be changed per assertion, for every assertion made afterwards, or for a
+named group:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#report"</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>   <span class="c1"># this assertion: 30 seconds</span>
+<span class="n">expect</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>                                  <span class="c1"># every expect() from now on</span>
+<span class="n">slow</span> <span class="o">=</span> <span class="n">expect</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>                             <span class="c1"># a separate expect with its own default</span>
+<span class="n">slow</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#export"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Export finished"</span><span class="p">)</span>
+</code></pre></div>
+<p>As everywhere in kaprevo, timeouts are seconds. And as with actions, a long timeout costs nothing
+when the page is quick: the assertion returns as soon as it passes.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p><code>expect</code> and its matchers have Playwright's names and behaviour, including the 5-second
+default, <code>.not_</code>, <code>expect.soft</code>, <code>expect.poll</code>, <code>expect.configure</code> and the custom message.
+The differences: timeouts are seconds (<code>timeout=10</code>, not <code>timeout=10_000</code>), and soft failures
+are raised by <code>expect.raise_soft_failures()</code> (or by the pytest plugin in lesson 09) rather
+than by a test runner you cannot see.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>You may be used to <code>WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element(...))</code>
+followed by a plain <code>assert</code>. <code>expect(...)</code> is both in one: the wait and the check, with a
+failure message that says what was expected and what the page showed.</p>
+</div>
+<h2 id="messages">Messages<a class="headerlink" href="#messages" title="Permanent link">&para;</a></h2>
+<p>A failure says what was checked, but not why. When a script has many similar checks, add a
+message as the second argument of <code>expect</code>; it is printed above the details:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">),</span> <span class="s2">"cart updated after adding the teapot"</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>AssertionError: cart updated after adding the teapot
+expect(get_by_test_id('cart-count')).to_have_text: expected '1', got '0' after 5 s
+</code></pre></div>
+<p>Write the message as the step's purpose, not a restatement of the matcher: "cart updated after
+adding the teapot" helps the person reading a failure at midnight; "cart count is 1" does not.</p>
+<h2 id="soft-assertions">Soft assertions<a class="headerlink" href="#soft-assertions" title="Permanent link">&para;</a></h2>
+<p>Normally the first failed assertion stops the script, which is right when later steps depend on
+it. Some pages have several independent things to check, though, such as the fields of a profile
+page, and you would like to see every wrong one in a single run. That is what <strong>soft assertions</strong>
+are for:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="o">.</span><span class="n">soft</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"Ada"</span><span class="p">)</span>
+<span class="n">expect</span><span class="o">.</span><span class="n">soft</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"ada@example.com"</span><span class="p">)</span>
+<span class="n">expect</span><span class="o">.</span><span class="n">soft</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"City"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"London"</span><span class="p">)</span>
+<span class="n">expect</span><span class="o">.</span><span class="n">raise_soft_failures</span><span class="p">()</span>
+</code></pre></div>
+<p>A failed <code>expect.soft(...)</code> waits as usual, then records the failure and lets the script go on.
+<code>expect.raise_soft_failures()</code> raises one <code>AssertionError</code> listing everything recorded, and
+clears the list; it does nothing when every check passed:</p>
+<div class="highlight"><pre><span></span><code>AssertionError: 2 soft assertion(s) failed:
+  1. expect(get_by_label('Email')).to_have_value: expected 'ada@example.com', got 'ada@example.org' after 5 s
+  2. expect(get_by_label('City')).to_have_value: expected 'London', got '' after 5 s
+</code></pre></div>
+<p>Always end a group of soft checks with <code>raise_soft_failures()</code>; without it, the failures are
+collected and never reported, and the script passes.</p>
+<h2 id="polling-any-value">Polling any value<a class="headerlink" href="#polling-any-value" title="Permanent link">&para;</a></h2>
+<p><code>expect(...)</code> works on things in a page. For anything else (a row in a database, a file a job
+writes, a count an API returns) use <code>expect.poll(fn)</code>. It calls <code>fn</code> again and again until the
+matcher holds or the timeout passes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"api/orders"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p>The poll matchers are <code>to_be</code>, <code>to_equal</code>, <code>to_be_truthy</code>, <code>to_be_falsy</code>, <code>to_be_none</code>,
+<code>to_be_greater_than</code> (and <code>_or_equal</code>), <code>to_be_less_than</code> (and <code>_or_equal</code>), <code>to_contain</code>,
+<code>to_match</code> and <code>to_have_length</code>, each with <code>.not_</code>. In the sync API, <code>fn</code> is called on your own
+thread, so it can use any sync code; it waits a little longer between calls each time (0.1, 0.25,
+0.5, then 1 second; change it with <code>intervals=[...]</code>).</p>
+<h2 id="aria-snapshots">ARIA snapshots<a class="headerlink" href="#aria-snapshots" title="Permanent link">&para;</a></h2>
+<p>Checking a whole form one matcher at a time gets long. An <strong>ARIA snapshot</strong> describes the
+structure of a part of the page as assistive technology sees it: roles, names and states, in a
+small YAML-like format. <code>locator.aria_snapshot()</code> prints it:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">)</span><span class="o">.</span><span class="n">aria_snapshot</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">form</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User name</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">textbox "User name"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Password</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">textbox "Password"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">checkbox "Remember me"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Remember me</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">button "Sign in"</span>
+</code></pre></div>
+<p>Each line is a role, then the accessible name in quotes, then states in brackets (<code>[checked]</code>,
+<code>[disabled]</code>, <code>[level=1]</code>). Children are indented under their parent. Plain containers such as
+<code>div</code> and <code>span</code> are left out, and so is hidden content.</p>
+<p><code>expect(locator).to_match_aria_snapshot(template)</code> compares the snapshot against a <strong>template</strong>
+in the same format. The template is <strong>partial</strong>, which makes it robust:</p>
+<ul>
+<li>the nodes it lists must appear in that order, but the page may have more;</li>
+<li>a role without a name (<code>- textbox</code>) matches any name;</li>
+<li>states are checked only when you write them;</li>
+<li>a name written as <code>/regex/</code> is searched instead of compared.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">))</span><span class="o">.</span><span class="n">to_match_aria_snapshot</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    - textbox "User name"</span>
+<span class="s2">    - textbox "Password"</span>
+<span class="s2">    - checkbox "Remember me"</span>
+<span class="s2">    - button "Sign in"</span>
+<span class="s2">"""</span><span class="p">)</span>
+</code></pre></div>
+<p>That one assertion checks that the form has these four controls, with these names, in this
+order. When it fails, the error includes the actual snapshot, so you can see at a glance what
+changed.</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Snapshots are computed by kaprevo's own script inside the page, so Chrome and Firefox produce
+the same text for the same page. The accessible names are an approximation of the W3C
+algorithm; in rare cases (nested labels, <code>aria-owns</code>, CSS generated content) they can differ
+from Playwright's, so write templates against what kaprevo prints.</p>
+</div>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The script signs in on the practice site, then checks the result five ways: the welcome text,
+the page title, that the URL did not change, that the button is usable again, and the form's
+structure. Three details that do not depend on each other are checked softly, and reported
+together.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 04: sign in, then check the result five ways, with one group of soft checks.</span>
+
+<span class="sd">    python examples/course/04-assertions/example_check_sign_in.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="c1"># 1 to 4: each assertion waits (up to 5 seconds) for the half-second round trip.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Welcome - kaprevo practice site"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>          <span class="c1"># signing in did not navigate</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">button</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_enabled</span><span class="p">()</span>
+
+        <span class="c1"># 5: the structure of the form, as assistive technology sees it (a partial template).</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">))</span><span class="o">.</span><span class="n">to_match_aria_snapshot</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">            - textbox "User name"</span>
+<span class="s2">            - textbox "Password"</span>
+<span class="s2">            - checkbox "Remember me"</span>
+<span class="s2">            - button "Sign in"</span>
+<span class="s2">        """</span><span class="p">)</span>
+
+        <span class="c1"># Soft checks: independent details, all reported together at the end.</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">soft</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">soft</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">))</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_be_checked</span><span class="p">()</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">soft</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"alert"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">raise_soft_failures</span><span class="p">()</span>                                <span class="c1"># raises if any of them failed</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Signed in, and all checks passed"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/04-assertions/example_check_sign_in.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Signed in, and all checks passed
+</code></pre></div>
+<p>A passing run says little, so break it on purpose: change <code>"Welcome, ada"</code> to <code>"Welcome, Ada"</code>
+and run it again to see a hard failure; then change the soft <code>to_have_value("ada")</code> to
+<code>to_have_value("grace")</code> to see the soft report.</p>
+<p><code>example_matchers.py</code> uses most of the matchers in the table above, plus <code>not_</code>, the
+<code>not_to_*</code> spelling and a per-assertion timeout, on <code>/testsite/form.html</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 04: the everyday matchers, their negations and per-assertion timeouts.</span>
+
+<span class="sd">    python examples/course/04-assertions/example_matchers.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+
+        <span class="c1"># The page</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Form"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"/testsite/form\.html$"</span><span class="p">))</span>
+
+        <span class="c1"># Visibility: both assertions wait for the page's timers.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>                <span class="c1"># shown after 0.6 seconds</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#overlay"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_hidden</span><span class="p">()</span>              <span class="c1"># removed after 0.7 seconds</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#overlay"</span><span class="p">))</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>        <span class="c1"># the same check, negated</span>
+
+        <span class="c1"># Text: to_have_text is the whole text, to_contain_text a part of it.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Sign in"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items"</span><span class="p">))</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Banana"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Values, states and attributes of form controls</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_attribute</span><span class="p">(</span><span class="s2">"placeholder"</span><span class="p">,</span> <span class="s2">"you@example.com"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Free"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_checked</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Pro"</span><span class="p">))</span><span class="o">.</span><span class="n">not_to_be_checked</span><span class="p">()</span>          <span class="c1"># Playwright's spelling of not_</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Disabled"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_disabled</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Fixed"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_editable</span><span class="p">(</span><span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># A shorter timeout for one assertion, in seconds.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Every assertion passed"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-a-whole-list-in-one-assertion">Exercise 1: a whole list in one assertion<a class="headerlink" href="#exercise-1-a-whole-list-in-one-assertion" title="Permanent link">&para;</a></h3>
+<p>On <code>/testsite/form.html</code>, check that the fruit list (<code>#items li</code>) has exactly three items,
+"Apple", "Banana" and "Cherry", with a single <code>to_have_text([...])</code> call. Then check that the list
+contains "Banana" with <code>to_contain_text</code>, and that "Cherry" does not come before "Apple".</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 04, exercise 1: check a whole list in one assertion.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">fruit</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">)</span>
+
+        <span class="c1"># A list checks every match, in order: exactly three items, Banana second.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">([</span><span class="s2">"Apple"</span><span class="p">,</span> <span class="s2">"Banana"</span><span class="p">,</span> <span class="s2">"Cherry"</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The list is Apple, Banana, Cherry"</span><span class="p">)</span>
+
+        <span class="c1"># to_contain_text with a list: these texts appear in this order, other items allowed.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">([</span><span class="s2">"Banana"</span><span class="p">])</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">([</span><span class="s2">"Cherry"</span><span class="p">,</span> <span class="s2">"Apple"</span><span class="p">])</span>     <span class="c1"># wrong order</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Banana is in it, and Cherry does not come before Apple"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>With a list, <code>to_contain_text</code> looks for each text in order, skipping elements in between, so
+<code>["Cherry", "Apple"]</code> fails (and <code>.not_</code> passes) because Apple comes first.</p>
+</details>
+<h3 id="exercise-2-read-the-message">Exercise 2: read the message<a class="headerlink" href="#exercise-2-read-the-message" title="Permanent link">&para;</a></h3>
+<p>On the practice sign-in page (<code>login.html</code>), enter a user name but no password and click
+<strong>Sign in</strong>. Assert that the status says "Welcome, ada" with a timeout of 1 second: it never will.
+Catch the <code>AssertionError</code> and print it. Then do the same with a message saying what the step was
+for, and compare the two outputs.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 04, exercise 2: read a failing assertion's message, then add your own.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>     <span class="c1"># no password, so this never signs in</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+
+        <span class="c1"># Catching AssertionError is only for this exercise, so both messages can be printed.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Without a message:</span><span class="se">\n</span><span class="s2"> "</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="s2">"signing in as ada with an empty password"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"With a message:</span><span class="se">\n</span><span class="s2"> "</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">  "</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Without a message:
+  expect(get_by_role('status')).to_have_text: expected 'Welcome, ada', got '' after 1 s
+With a message:
+  signing in as ada with an empty password
+  expect(get_by_role('status')).to_have_text: expected 'Welcome, ada', got '' after 1 s
+</code></pre></div>
+<p>The details are the same; the message says which step of the test they belong to. Catching
+the error is only for this exercise.</p>
+</details>
+<h3 id="exercise-3-poll-an-api">Exercise 3: poll an API<a class="headerlink" href="#exercise-3-poll-an-api" title="Permanent link">&para;</a></h3>
+<p>The practice site serves its product list at <code>/api/products</code>. Without opening a browser, use
+<code>expect.poll</code> to wait until the API reports three products, with a message and a timeout of 10
+seconds. Count how many times your function was called.</p>
+<p>Hint: <code>from kaprevo.sync_api import request</code>, then
+<code>with request.new_context(base_url=BASE_URL) as api:</code> gives you <code>api.get("api/products")</code>, whose
+<code>.json()</code> is the list. Lesson 07 covers the request API properly.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 04, exercise 3: poll a value that is not on any page, here an API's product count.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># No browser needed: a request context sends HTTP requests straight from Python.</span>
+    <span class="k">with</span> <span class="n">request</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">)</span> <span class="k">as</span> <span class="n">api</span><span class="p">:</span>
+        <span class="n">calls</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">product_count</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">nonlocal</span> <span class="n">calls</span>
+            <span class="n">calls</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"api/products"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+        <span class="c1"># Calls product_count until it returns 3, for up to 10 seconds.</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="n">product_count</span><span class="p">,</span> <span class="s2">"the catalogue has three products"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="n">product_count</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_greater_than</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The API reports 3 products (</span><span class="si">{</span><span class="n">calls</span><span class="si">}</span><span class="s2"> calls)"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Here the count is right on the first call. In a real system the value would change over time
+(a background job importing products), and the poll would keep asking until it did.</p>
+</details>
+<h3 id="exercise-4-a-template-that-ignores-the-errors">Exercise 4: a template that ignores the errors<a class="headerlink" href="#exercise-4-a-template-that-ignores-the-errors" title="Permanent link">&para;</a></h3>
+<p>On the sign-in page, write an ARIA snapshot template for the form that passes both before and after
+clicking <strong>Sign in</strong> on the empty form, when the two error messages appear. Print
+<code>aria_snapshot()</code> first to see what you are matching.</p>
+<p>Hint: after the click, the snapshot shows <code>textbox "User name User name is required"</code>, because
+the error text sits inside the label.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 04, exercise 4: a partial ARIA snapshot template that ignores the error messages.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="c1"># Unlisted nodes (the alert spans, the label texts) are ignored. The names are regular</span>
+<span class="c1"># expressions, because an error inside a label becomes part of the field's accessible name.</span>
+<span class="n">TEMPLATE</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">- form:</span>
+<span class="s2">  - textbox /^User name/</span>
+<span class="s2">  - textbox /^Password/</span>
+<span class="s2">  - checkbox "Remember me"</span>
+<span class="s2">  - button "Sign in"</span>
+<span class="s2">"""</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">aria_snapshot</span><span class="p">())</span>
+
+        <span class="n">expect</span><span class="p">(</span><span class="n">form</span><span class="p">)</span><span class="o">.</span><span class="n">to_match_aria_snapshot</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">)</span>               <span class="c1"># before: no errors shown</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>         <span class="c1"># empty form: both errors appear</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Password is required"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">form</span><span class="p">)</span><span class="o">.</span><span class="n">to_match_aria_snapshot</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">)</span>               <span class="c1"># after: still matches</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The template matches with and without the error messages"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Leaving the <code>alert</code> lines out makes the template ignore them, because templates are partial.
+The regular expressions <code>/^User name/</code> and <code>/^Password/</code> accept the name with or without the
+error text appended.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong><code>assert locator.text_content() == ...</code> after an action.</strong> It reads once and fails while the
+  page is still updating. Use <code>expect(locator).to_have_text(...)</code>.</li>
+<li><strong>Forgetting <code>expect.raise_soft_failures()</code>.</strong> Soft failures are recorded and never reported,
+  and the script passes. End every group of soft checks with it.</li>
+<li><strong>Using <code>to_have_text</code> for a part of the text.</strong> It compares the whole text, so "Welcome"
+  does not match "Welcome, ada". Use <code>to_contain_text</code>, or a regex.</li>
+<li><strong>Asserting on a locator that matches several elements.</strong> <code>to_have_text("x")</code> raises
+  <code>StrictModeViolation</code>. Narrow the locator, or use the list form or <code>to_have_count</code>.</li>
+<li><strong><code>timeout=5000</code>.</strong> Seconds, so that is 83 minutes. Write <code>timeout=5</code>.</li>
+<li><strong>Mixing the sync and async <code>expect</code>.</strong> <code>from kaprevo import expect</code> is the async one (it needs
+  <code>await</code>); a sync script imports <code>expect</code> from <code>kaprevo.sync_api</code>.</li>
+<li><strong>Checking a moment that passes.</strong> A state that lasts half a second (a "Saving..." label, a
+  disabled button during a request) may be over before the assertion first looks. Assert on
+  the end state instead.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>expect(locator)</code>, <code>expect(page)</code> and <code>expect(response)</code> start assertions that retry until they
+  pass or 5 seconds go by, so there is no need to wait before checking.</li>
+<li>The common matchers cover text, values, visibility, counts, states, attributes, URL and title;
+  <code>.not_</code> (or <code>not_to_*</code>) inverts any of them.</li>
+<li>Timeouts are seconds: per assertion, with <code>expect.set_options</code>, or with <code>expect.configure</code>.</li>
+<li><code>expect.soft</code> collects failures until <code>expect.raise_soft_failures()</code>; <code>expect.poll</code> asserts on
+  any value; <code>to_match_aria_snapshot</code> checks a whole structure with a partial template.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../05-visual-testing/">05. Visual testing</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

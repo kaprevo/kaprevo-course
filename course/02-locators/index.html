@@ -1,0 +1,1924 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/02-locators/">
+      
+      
+        <link rel="prev" href="../01-getting-started/">
+      
+      
+        <link rel="next" href="../03-actions-and-auto-waiting/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>02. Locators - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#02-locators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              02. Locators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#locators-are-lazy-and-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locators are lazy and strict
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prefer-what-users-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prefer what users see
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-ids-css-and-xpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test ids, CSS and XPath
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#narrowing-and-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narrowing and chaining
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frames-and-shadow-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames and shadow DOM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strictness-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strictness in practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-three-ways-to-one-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: three ways to one button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-the-row-that-has-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: the row that has it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-a-strict-mode-violation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: a strict mode violation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-two-frames-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: two frames down
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#locators-are-lazy-and-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locators are lazy and strict
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prefer-what-users-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prefer what users see
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-ids-css-and-xpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test ids, CSS and XPath
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#narrowing-and-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narrowing and chaining
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frames-and-shadow-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames and shadow DOM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strictness-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strictness in practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-three-ways-to-one-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: three ways to one button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-the-row-that-has-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: the row that has it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-a-strict-mode-violation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: a strict mode violation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-two-frames-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: two frames down
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer A -->
+<h1 id="02-locators">02. Locators<a class="headerlink" href="#02-locators" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (library fixes from the course bug list); Nov-09-2026 (scoped shadow hosts, slotted names, selector lists) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>find elements the way a user sees them: <code>get_by_role</code>, <code>get_by_label</code>, <code>get_by_text</code>, <code>get_by_placeholder</code>, <code>get_by_alt_text</code>, <code>get_by_title</code></li>
+<li>use <code>get_by_test_id</code>, CSS and XPath when nothing user-facing is stable</li>
+<li>narrow and chain: <code>first</code>, <code>nth</code>, <code>filter(has_text=, has=, has_not=)</code>, <code>or_</code>, <code>and_</code>, and locators inside locators</li>
+<li>reach into iframes with <code>frame_locator</code>, and rely on open shadow roots being searched for you</li>
+<li>explain strictness and read a <code>StrictModeViolation</code></li>
+<li>read state from an element (<code>text_content</code>, <code>input_value</code>, <code>count</code>, <code>all</code>) and know when to assert instead</li>
+</ul>
+<p><strong>Time:</strong> about 45 minutes. <strong>Before this:</strong> <a href="../01-getting-started/">01. Getting started</a>.
+<strong>Code:</strong> <code>examples/course/02-locators/</code></p>
+</div>
+<p>Every action and every assertion starts with a locator, so the way you find elements decides how
+readable your scripts are and how often they break. This lesson shows how to describe an element
+so that the description survives a redesign.</p>
+<p>Keep the practice site running (<code>python examples/course/serve.py</code>) for the whole lesson. Most
+examples use <code>/testsite/form.html</code>, a form with one of everything; open it in your own browser
+next to the code.</p>
+<h2 id="locators-are-lazy-and-strict">Locators are lazy and strict<a class="headerlink" href="#locators-are-lazy-and-strict" title="Permanent link">&para;</a></h2>
+<p>A <strong>locator</strong> is a description of how to find elements, not an element you have already found.
+Building one does not touch the page:</p>
+<div class="highlight"><pre><span></span><code><span class="n">button</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span>   <span class="c1"># nothing happens yet</span>
+<span class="n">button</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>                                          <span class="c1"># now kaprevo looks, waits, then clicks</span>
+<span class="n">button</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>                                          <span class="c1"># and looks again, from scratch</span>
+</code></pre></div>
+<p>Because the search runs again on every use, a locator never goes stale: if the page re-renders
+the button between two clicks, the second click finds the new one. You can build locators at the
+top of a script, keep them in variables or page objects, and use them whenever you like.</p>
+<p>A locator is also <strong>strict</strong>. An action needs exactly one element, and when the description
+matches several, kaprevo raises <code>StrictModeViolation</code> instead of guessing which one you meant.
+That sounds fussy, but a guess is how a test clicks "Delete" on the wrong row and still passes.
+You will trigger one on purpose later in the lesson.</p>
+<p>Reads that work on many elements at once (<code>count()</code>, <code>all()</code>, <code>all_inner_texts()</code>) are not
+strict, and neither are assertions about lists such as <code>to_have_count</code>.</p>
+<h2 id="prefer-what-users-see">Prefer what users see<a class="headerlink" href="#prefer-what-users-see" title="Permanent link">&para;</a></h2>
+<p>The <code>get_by_*</code> family finds elements by what a person sees or what assistive technology announces:</p>
+<table>
+<thead>
+<tr>
+<th>Locator</th>
+<th>Finds</th>
+<th>Example on <code>form.html</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_by_role(role, name=...)</code></td>
+<td>elements by ARIA role and accessible name</td>
+<td><code>get_by_role("button", name="Sign in")</code></td>
+</tr>
+<tr>
+<td><code>get_by_label(text)</code></td>
+<td>form controls by their label, <code>aria-label</code> or <code>aria-labelledby</code></td>
+<td><code>get_by_label("User name")</code></td>
+</tr>
+<tr>
+<td><code>get_by_placeholder(text)</code></td>
+<td>inputs by placeholder</td>
+<td><code>get_by_placeholder("you@example.com")</code></td>
+</tr>
+<tr>
+<td><code>get_by_text(text)</code></td>
+<td>the smallest element containing the text</td>
+<td><code>get_by_text("Banana")</code></td>
+</tr>
+<tr>
+<td><code>get_by_alt_text(text)</code></td>
+<td>images by <code>alt</code></td>
+<td><code>get_by_alt_text("Company logo")</code></td>
+</tr>
+<tr>
+<td><code>get_by_title(text)</code></td>
+<td>elements by <code>title</code></td>
+<td><code>get_by_title("Logo")</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>get_by_role</code> is the one to reach for first.</strong> A role is what kind of thing the element is
+(<code>button</code>, <code>link</code>, <code>textbox</code>, <code>checkbox</code>, <code>radio</code>, <code>combobox</code>, <code>heading</code>, <code>row</code>, <code>cell</code> and so on),
+and the <strong>accessible name</strong> is what a screen reader would call it: a button's text, an input's
+label, an image's alt text. Together they describe an element the way a user would, and they keep
+working when the markup or the CSS classes change. <code>get_by_role</code> takes a few extra filters, such
+as <code>level=1</code> for an <code>&lt;h1&gt;</code>, <code>checked=True</code> for a ticked checkbox and <code>disabled=True</code> for a
+disabled control:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"radio"</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>How text is matched.</strong> A text argument (<code>name=</code>, or the text of <code>get_by_label</code>, <code>get_by_text</code>
+and the others) matches a case-insensitive substring by default, with whitespace squashed. So
+<code>get_by_role("button", name="sign")</code> finds "Sign in". Pass <code>exact=True</code> for a whole,
+case-sensitive match, or a compiled regular expression for anything else:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Banana"</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^ban"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">))</span>
+</code></pre></div>
+<p>Why not just CSS? <code>#user</code> or <code>.btn-primary</code> describe how the page is built, and they change
+whenever someone restructures the HTML or renames a class. "The text box labelled User name"
+changes only when the page changes for its users too, and then you want the test to notice.
+Role-based locators also double as a small accessibility check: a button that <code>get_by_role</code> cannot
+find by name is a button a screen reader cannot announce.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>The <code>find_element(By...)</code> calls map like this:</p>
+<table>
+<thead>
+<tr>
+<th>Selenium</th>
+<th>kaprevo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find_element(By.ID, "user")</code></td>
+<td><code>page.locator("#user")</code>, or better <code>page.get_by_label("User name")</code></td>
+</tr>
+<tr>
+<td><code>find_element(By.CSS_SELECTOR, "li.item")</code></td>
+<td><code>page.locator("li.item")</code></td>
+</tr>
+<tr>
+<td><code>find_element(By.XPATH, "//li[2]")</code></td>
+<td><code>page.locator("xpath=//li[2]")</code></td>
+</tr>
+<tr>
+<td><code>find_element(By.LINK_TEXT, "Docs")</code></td>
+<td><code>page.get_by_role("link", name="Docs")</code></td>
+</tr>
+<tr>
+<td><code>find_elements(By.TAG_NAME, "li")</code></td>
+<td><code>page.locator("li").all()</code></td>
+</tr>
+<tr>
+<td><code>element.find_element(...)</code></td>
+<td><code>locator.locator(...)</code> or <code>locator.get_by_role(...)</code></td>
+</tr>
+</tbody>
+</table>
+<p>The big difference is timing: <code>find_element</code> looks once, now, and hands back an element that
+can go stale. A locator looks every time it is used and waits for the element to be ready.</p>
+</div>
+<h2 id="test-ids-css-and-xpath">Test ids, CSS and XPath<a class="headerlink" href="#test-ids-css-and-xpath" title="Permanent link">&para;</a></h2>
+<p>Sometimes nothing user-facing is stable: an icon button with no label, a cell in a grid of
+identical cells, text that is translated. Then use a <strong>test id</strong>, an attribute added to the
+markup only for tests:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user-input"</span><span class="p">)</span>            <span class="c1"># &lt;input data-testid="user-input"&gt;</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart"</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="s2">"data-qa"</span><span class="p">)</span>   <span class="c1"># a different attribute name</span>
+</code></pre></div>
+<p>A test id is a promise between the developers and the tests, so it does not change by accident.
+It says nothing about what the user sees, though, so prefer a role or a label when one exists.</p>
+<p><code>page.locator(selector)</code> takes CSS, or XPath with an <code>xpath=</code> prefix (a selector starting with <code>//</code>
+is read as XPath too):</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"xpath=//ul[@id='items']/li[last()]"</span><span class="p">)</span>
+</code></pre></div>
+<p>CSS selectors in kaprevo also understand three text pseudo-classes that browsers do not:
+<code>:has-text("x")</code> (contains x, ignoring case), <code>:text("x")</code> (the smallest element containing x)
+and <code>:text-is("x")</code> (exactly x). They are handy inside a longer selector:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"label:has-text('Pro') &gt; input"</span><span class="p">)</span>
+</code></pre></div>
+<p>The locators guide lists every option.</p>
+<h2 id="narrowing-and-chaining">Narrowing and chaining<a class="headerlink" href="#narrowing-and-chaining" title="Permanent link">&para;</a></h2>
+<p>A locator that matches a list can be narrowed:</p>
+<table>
+<thead>
+<tr>
+<th>Narrowing</th>
+<th>Keeps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.first</code>, <code>.last</code>, <code>.nth(i)</code></td>
+<td>one match by position (<code>nth(-1)</code> is the last)</td>
+</tr>
+<tr>
+<td><code>.filter(has_text="x")</code></td>
+<td>matches whose text contains x (<code>has_not_text=</code> drops them)</td>
+</tr>
+<tr>
+<td><code>.filter(has=locator)</code></td>
+<td>matches that contain an element matching <code>locator</code> (<code>has_not=</code> drops them)</td>
+</tr>
+<tr>
+<td><code>.filter(visible=True)</code></td>
+<td>visible matches only</td>
+</tr>
+<tr>
+<td><code>a.or_(b)</code></td>
+<td>elements matching a or b (or both), in document order</td>
+</tr>
+<tr>
+<td><code>a.and_(b)</code></td>
+<td>elements matching both a and b</td>
+</tr>
+</tbody>
+</table>
+<p>And any locator can search inside another, which is called <strong>scoping</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">table</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"table"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Products"</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"row"</span><span class="p">)</span>                    <span class="c1"># rows in this table only</span>
+<span class="n">teapot</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_text</span><span class="o">=</span><span class="s2">"Green teapot"</span><span class="p">)</span>      <span class="c1"># the row that mentions the teapot</span>
+<span class="n">teapot</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>               <span class="c1"># the button in that row</span>
+</code></pre></div>
+<p>Read that as a sentence: "in the Products table, the row with Green teapot, its button". Scoping
+and filtering are how you deal with repeated structure (table rows, cards, list items) without
+counting positions. <code>nth(2)</code> breaks as soon as the order changes; "the row with Green teapot"
+does not.</p>
+<p><code>has=</code> takes a locator built from the page, and kaprevo searches for it inside each candidate:</p>
+<div class="highlight"><pre><span></span><code><span class="n">sold_out</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has</span><span class="o">=</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>The locator API is Playwright's, name for name: <code>get_by_role</code>, <code>filter(has=...)</code>, <code>or_</code>,
+<code>and_</code>, <code>nth</code>, <code>first</code>, <code>frame_locator</code>, and the <code>:has-text()</code> pseudo-class all behave the
+same, and text is matched by the same rules (substring and case-insensitive unless
+<code>exact=True</code>). One difference to know about: kaprevo computes accessible names with an
+approximation of the accname algorithm, so in edge cases (nested labels, <code>aria-owns</code>, CSS
+generated content) a name can differ from the one Playwright computes. If a <code>get_by_role</code>
+name that works in Playwright finds nothing here, print <code>locator.aria_snapshot()</code> of the
+surrounding element to see the names kaprevo computed.</p>
+</div>
+<h2 id="frames-and-shadow-dom">Frames and shadow DOM<a class="headerlink" href="#frames-and-shadow-dom" title="Permanent link">&para;</a></h2>
+<p><strong>Open shadow roots need nothing special.</strong> Web components often hide their markup inside a
+shadow root, where <code>document.querySelector</code> cannot see it. kaprevo's CSS, text, label and role
+queries search open shadow roots for you, however deeply they nest. On <code>/testsite/shadow.html</code>
+the Follow button is two shadow roots deep, and this simply works:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Follow"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>Scoping works the same way: <code>page.locator("my-card").locator("button")</code> finds buttons inside
+<code>my-card</code>'s own shadow root as well as its light DOM children. Text projected through a <code>&lt;slot&gt;</code>
+counts toward an element's accessible name, so a shadow button labelled by slotted text is found by
+<code>get_by_role("button", name=...)</code>. CSS selector lists such as <code>page.locator("b, strong")</code> return
+every match once, in document order, including matches inside shadow roots.</p>
+<p>(Closed shadow roots are closed to every tool by design; nothing can reach into them.)</p>
+<p><strong>Iframes must be entered.</strong> An iframe holds a separate document, so a locator built from the
+page does not look inside it. <code>frame_locator(selector)</code> names the iframe, and locators built from
+it search the document inside:</p>
+<div class="highlight"><pre><span></span><code><span class="n">child</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"#child"</span><span class="p">)</span>
+<span class="n">child</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Inner button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>For an iframe inside an iframe, chain one <code>frame_locator</code> per level. Exercise 4 does exactly that.</p>
+<h2 id="strictness-in-practice">Strictness in practice<a class="headerlink" href="#strictness-in-practice" title="Permanent link">&para;</a></h2>
+<p><code>/testsite/form.html</code> has several text boxes: User name, Password, Notes and the read-only Fixed
+field (<code>get_by_role("textbox").count()</code> says 4). The file input at the bottom is not one of them:
+it takes no typed text, and browsers expose it as a button, so kaprevo gives it the <code>button</code> role,
+as Playwright does. Ask for "the text box" and kaprevo refuses:</p>
+<div class="highlight"><pre><span></span><code>StrictModeViolation: get_by_role('textbox') matched 4 elements; use .first, .nth() or a more specific locator
+</code></pre></div>
+<p>The message names the locator and the number of matches. The fix is almost never <code>.first</code>: that
+makes the script pick whichever text box happens to come first today, which is the guess strict
+mode exists to prevent. Say which one you mean instead, with a name (<code>get_by_role("textbox",
+name="Notes")</code>), a filter, or a scope. Use <code>.first</code> only when any of the matches would do, such as
+"click any product".</p>
+<p>A <code>StrictModeViolation</code> is raised at once, without waiting for the timeout, because waiting would
+not change the answer.</p>
+<h2 id="reading-state">Reading state<a class="headerlink" href="#reading-state" title="Permanent link">&para;</a></h2>
+<p>Sometimes you need a value from the page, to print it or to use it later in the script. These
+calls read it:</p>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>count()</code></td>
+<td>how many elements match right now</td>
+</tr>
+<tr>
+<td><code>all()</code></td>
+<td>a list of locators, one per current match</td>
+</tr>
+<tr>
+<td><code>text_content()</code></td>
+<td>the element's text, as in the DOM (<code>textContent</code>)</td>
+</tr>
+<tr>
+<td><code>inner_text()</code></td>
+<td>the text as rendered (hidden text left out, CSS applied)</td>
+</tr>
+<tr>
+<td><code>all_inner_texts()</code></td>
+<td>the rendered text of every match, as a list</td>
+</tr>
+<tr>
+<td><code>input_value()</code></td>
+<td>the current value of an input, textarea or select</td>
+</tr>
+<tr>
+<td><code>get_attribute(name)</code></td>
+<td>an attribute, or <code>None</code></td>
+</tr>
+<tr>
+<td><code>is_visible()</code>, <code>is_enabled()</code>, <code>is_checked()</code></td>
+<td>a yes or no</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p>There is a catch. <code>count()</code>, <code>all()</code>, <code>all_inner_texts()</code> and <code>is_visible()</code> answer <strong>right now</strong>,
+without waiting. On a page that is still loading (the products table arrives a moment after the
+page does) they can see an empty list. The single-element reads (<code>text_content()</code>,
+<code>input_value()</code> and so on) wait for the element to exist, but not for its text to change.</p>
+<p>So for anything you <strong>check</strong>, use an assertion instead of a read plus <code>assert</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span>          <span class="c1"># reads once; fails if the list is late</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>    <span class="c1"># waits until it is true, up to 5 seconds</span>
+</code></pre></div>
+<p>Reads are for values you need; assertions are for facts you check. <a href="../04-assertions/">Lesson 04</a>
+covers assertions in depth.</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>This script opens <code>/testsite/form.html</code> and finds its controls in every user-facing way, then by
+test id, CSS and XPath, printing what each locator found:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02: find every control on a form the way a user would describe it.</span>
+
+<span class="sd">Opens the integration-test form, finds its controls by role, label, placeholder, alt text, title</span>
+<span class="sd">and test id, and prints what each locator found.</span>
+
+<span class="sd">    python examples/course/02-locators/example_user_facing.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+
+        <span class="n">heading</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Heading:"</span><span class="p">,</span> <span class="n">heading</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># Labels, placeholders and test ids all lead to the same User name field.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"By placeholder:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"you@example.com"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"By test id:    "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user-input"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+
+        <span class="c1"># A role plus its accessible name is the most precise user-facing locator.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"checkbox"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"radio"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Pro"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Checked radio: "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"radio"</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">"value"</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Country:       "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"combobox"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Country"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+
+        <span class="c1"># Images by alt text or title; text by a regular expression.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Logo found:    "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_alt_text</span><span class="p">(</span><span class="s2">"Company logo"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="s2">"by alt,"</span><span class="p">,</span>
+              <span class="n">page</span><span class="o">.</span><span class="n">get_by_title</span><span class="p">(</span><span class="s2">"Logo"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="s2">"by title"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Fruit by regex:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^ban"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">))</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># CSS and XPath still work when nothing user-facing is stable.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"By CSS:        "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#items li"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="s2">"list items"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"By XPath:      "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"xpath=//ul[@id='items']/li[last()]"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Run it from the course folder:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/02-locators/example_user_facing.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Heading: Sign in
+By placeholder: ada
+By test id:     ada
+Checked radio:  pro
+Country:        in
+Logo found:     1 by alt, 1 by title
+Fruit by regex: Banana
+By CSS:         3 list items
+By XPath:       Cherry
+</code></pre></div>
+<p>The second and third lines prove that three different locators reach the same field: the value
+filled in through the label is read back through the placeholder and the test id.</p>
+<p>Two more scripts cover the rest of the lesson. <code>example_narrowing.py</code> works on the products page
+(<code>/products.html</code>) with <code>nth</code>, <code>filter(has_text=)</code>, <code>filter(has=)</code>, scoping and <code>or_</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02: narrow a list of matches with nth, filter, has, or_ and scoping.</span>
+
+<span class="sd">Works on the products page, whose table is filled from /api/products after the page loads.</span>
+
+<span class="sd">    python examples/course/02-locators/example_narrowing.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="c1"># The rows arrive a moment after the page loads; wait for them before counting.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"table"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Products"</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"row"</span><span class="p">)</span>                      <span class="c1"># scoped: rows inside this table only</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Rows, header included:"</span><span class="p">,</span> <span class="n">rows</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"First data row:"</span><span class="p">,</span> <span class="n">rows</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Last row:      "</span><span class="p">,</span> <span class="n">rows</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># filter(has_text=...) keeps rows whose text contains the words.</span>
+        <span class="n">teapot</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_text</span><span class="o">=</span><span class="s2">"Green teapot"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Teapot row:    "</span><span class="p">,</span> <span class="n">teapot</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" | "</span><span class="p">))</span>
+
+        <span class="c1"># filter(has=...) keeps rows that contain a matching element; has_not drops them.</span>
+        <span class="n">sold_out</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has</span><span class="o">=</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Sold out:      "</span><span class="p">,</span> <span class="n">sold_out</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"cell"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="n">buyable</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has</span><span class="o">=</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Can be bought: "</span><span class="p">,</span> <span class="n">buyable</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="s2">"rows"</span><span class="p">)</span>
+
+        <span class="c1"># A locator inside a locator: the button in the teapot row, found by its role.</span>
+        <span class="n">teapot</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+
+        <span class="c1"># or_ matches either one, which helps when a page shows one of two states.</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"No products yet"</span><span class="p">)</span><span class="o">.</span><span class="n">or_</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Page state:    "</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p><code>example_shadow_and_frames.py</code> fills an input inside two shadow roots and clicks a button inside
+an iframe:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02: reach elements inside open shadow roots and inside iframes.</span>
+
+<span class="sd">Shadow roots need nothing special; iframes are entered with frame_locator.</span>
+
+<span class="sd">    python examples/course/02-locators/example_shadow_and_frames.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+        <span class="c1"># The input and the button live two shadow roots deep; the locators do not care.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/shadow.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Say hi"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Shadow input:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Say hi"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Follow"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#result"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"followed"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Card name:   "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">".name"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># An iframe is a separate document: enter it first, then locate inside it.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/frames.html"</span><span class="p">)</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"#child"</span><span class="p">)</span>
+        <span class="n">child</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Inner button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#inner-btn"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Inner clicked"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Frame button:"</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#inner-btn"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Each exercise has a solution script; run it the same way as the examples.</p>
+<h3 id="exercise-1-three-ways-to-one-button">Exercise 1: three ways to one button<a class="headerlink" href="#exercise-1-three-ways-to-one-button" title="Permanent link">&para;</a></h3>
+<p>On <code>/testsite/form.html</code>, find the <strong>Sign in</strong> button three different ways: by role, by text, and
+by CSS. Check that all three locate the same element by comparing their <code>bounding_box()</code> (the
+position and size of the element on the page).</p>
+<p>Hint: <code>page.get_by_text("Sign in")</code> matches two elements, because the heading says "Sign in"
+too. How can you search only inside the form?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02, exercise 1: find the Sign in button three ways and prove they find the same element.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+
+        <span class="n">by_role</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span>
+        <span class="c1"># The heading also says "Sign in", so text alone matches two elements; scope it to the form.</span>
+        <span class="n">by_text</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Sign in"</span><span class="p">)</span>
+        <span class="n">by_css</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"button[type=submit]"</span><span class="p">)</span>
+
+        <span class="n">boxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">locator</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span> <span class="k">for</span> <span class="n">locator</span> <span class="ow">in</span> <span class="p">(</span><span class="n">by_role</span><span class="p">,</span> <span class="n">by_text</span><span class="p">,</span> <span class="n">by_css</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">box</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="s2">"role"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">,</span> <span class="s2">"CSS"</span><span class="p">),</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"By </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;4</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">box</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">boxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">boxes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">boxes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">"the three locators found different elements"</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"All three locators found the same button"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Scoping the text search to <code>#login</code> leaves out the heading, which is outside the form. Equal
+boxes mean equal elements here, because two elements cannot occupy exactly the same box on
+this page.</p>
+</details>
+<h3 id="exercise-2-the-row-that-has-it">Exercise 2: the row that has it<a class="headerlink" href="#exercise-2-the-row-that-has-it" title="Permanent link">&para;</a></h3>
+<p>On <code>/products.html</code>, add the <strong>Green teapot</strong> to the cart by clicking the button in its row, and
+check that the cart count shows 1. Then print the names of the products that are still in stock
+(their button is enabled).</p>
+<p>Hint: start from <code>page.get_by_role("row")</code>, and use <code>filter(has_text=...)</code> for the first part and
+<code>filter(has=...)</code> for the second.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02, exercise 2: add the Green teapot to the cart, then list the products still in stock.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"row"</span><span class="p">)</span>
+
+        <span class="c1"># Actions wait for the row to appear, so no wait is needed before this click.</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_text</span><span class="o">=</span><span class="s2">"Green teapot"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Add"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+
+        <span class="c1"># Rows with an enabled button are in stock; the header row has no button at all.</span>
+        <span class="n">in_stock</span> <span class="o">=</span> <span class="n">rows</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has</span><span class="o">=</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">in_stock</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># all_inner_texts() reads every match at once; a row's cells are separated by tabs.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"In stock:"</span><span class="p">,</span> <span class="p">[</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">in_stock</span><span class="o">.</span><span class="n">all_inner_texts</span><span class="p">()])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>In stock: ['Blue mug', 'Green teapot']
+</code></pre></div>
+<p>The header row has no button, so <code>has=</code> leaves it out without any extra work. The
+<code>to_have_count(2)</code> assertion comes before <code>all_inner_texts()</code> because the read does not wait;
+after the assertion the rows are certainly there.</p>
+</details>
+<h3 id="exercise-3-a-strict-mode-violation">Exercise 3: a strict mode violation<a class="headerlink" href="#exercise-3-a-strict-mode-violation" title="Permanent link">&para;</a></h3>
+<p>On <code>/testsite/form.html</code>, call <code>page.get_by_role("textbox").fill("hello")</code>, catch the
+<code>StrictModeViolation</code> (import it with <code>from kaprevo import StrictModeViolation</code>) and print it.
+Then fix the locator two ways: once with a better name, once by scoping to a part of the page.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02, exercise 3: trigger a StrictModeViolation, read it, then fix the locator two ways.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (four text boxes: the file input is a button now)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrictModeViolation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"textbox"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>  <span class="c1"># four text boxes on this form</span>
+        <span class="k">except</span> <span class="n">StrictModeViolation</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Refused:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+        <span class="c1"># Fix 1: give the role an accessible name, so only one text box qualifies.</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"textbox"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Notes"</span><span class="p">)</span>
+        <span class="n">notes</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Fix 1, a better name:"</span><span class="p">,</span> <span class="n">notes</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+
+        <span class="c1"># Fix 2: scope the search to the part of the page you mean (the label wraps its input).</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"label"</span><span class="p">,</span> <span class="n">has_text</span><span class="o">=</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"textbox"</span><span class="p">)</span>
+        <span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"secret"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Fix 2, scoping:      "</span><span class="p">,</span> <span class="n">password</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Refused: get_by_role('textbox') matched 4 elements; use .first, .nth() or a more specific locator
+Fix 1, a better name: hello
+Fix 2, scoping:       secret
+</code></pre></div>
+<p>The second fix works because the Password label wraps its input, so the text box is inside
+the label. Catching the error is only for this exercise: in a real script, let it fail.</p>
+</details>
+<h3 id="exercise-4-two-frames-down">Exercise 4: two frames down<a class="headerlink" href="#exercise-4-two-frames-down" title="Permanent link">&para;</a></h3>
+<p><code>/testsite/frames.html</code> holds an iframe (<code>#child</code>), which holds another iframe (<code>#grandchild</code>)
+with a button in it. Print the button's text, click it, and check that its text changed to
+"Deep clicked".</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 02, exercise 4: read and click the button inside an iframe inside an iframe.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/frames.html"</span><span class="p">)</span>
+
+        <span class="c1"># One frame_locator per iframe on the way down: page &gt; #child &gt; #grandchild.</span>
+        <span class="n">deep</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"#child"</span><span class="p">)</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"#grandchild"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Before:"</span><span class="p">,</span> <span class="n">deep</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="n">deep</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">deep</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Deep clicked"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"After: "</span><span class="p">,</span> <span class="n">deep</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p><code>get_by_role("button")</code> is not ambiguous here, because inside the grandchild frame there is
+only one button. The locator is scoped by the two frames it entered.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Adding <code>.first</code> to silence a <code>StrictModeViolation</code>.</strong> The script now clicks whichever match
+  comes first, and breaks silently when the order changes. Name the element you mean with a
+  role and name, a filter or a scope.</li>
+<li><strong>Expecting <code>get_by_text</code> to be exact.</strong> It matches a case-insensitive substring, so
+  <code>get_by_text("Sign in")</code> also finds "Sign in to continue". Pass <code>exact=True</code>, or use
+  <code>get_by_role</code> with a name.</li>
+<li><strong>Using <code>count()</code> or <code>all()</code> before the content has loaded.</strong> They answer right now and
+  happily return 0 or <code>[]</code>. Wait first with an assertion (<code>to_have_count</code>, or <code>to_have_text</code>
+  on a status line), or assert on the list directly.</li>
+<li><strong>Looking for an element inside an iframe from the page.</strong> The locator times out with "no
+  element matches", although you can see the element. Enter the frame with
+  <code>page.frame_locator("#frame")</code> first.</li>
+<li><strong>Copying a long CSS path from DevTools</strong> (<code>div:nth-child(3) &gt; div &gt; span</code>). It breaks on the
+  next layout change. Find a role, a label or a test id instead.</li>
+<li><strong>Building a locator from an element's current text when the text changes.</strong> A button found
+  by <code>name="Save"</code> is gone once it says "Saved". Use a name that stays the same, a test id, or
+  <code>or_</code> to accept both.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A locator is a lazy description: it is resolved again on every action, so it never goes stale.</li>
+<li>Locators are strict: an action on several matches raises <code>StrictModeViolation</code> at once; fix the
+  description rather than adding <code>.first</code>.</li>
+<li>Prefer <code>get_by_role</code> with a name, then labels and text; use test ids, CSS and XPath when nothing
+  user-facing is stable.</li>
+<li>Narrow with <code>filter</code>, <code>nth</code>, <code>or_</code> and <code>and_</code>, and scope one locator inside another.</li>
+<li>Open shadow roots are searched for you; iframes are entered with <code>frame_locator</code>.</li>
+<li>Reads such as <code>count()</code> answer right now; use <code>expect</code> for anything you check.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../03-actions-and-auto-waiting/">03. Actions and auto-waiting</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

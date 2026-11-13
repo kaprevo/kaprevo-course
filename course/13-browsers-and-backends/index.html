@@ -1,0 +1,1804 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/13-browsers-and-backends/">
+      
+      
+        <link rel="prev" href="../12-self-healing/">
+      
+      
+        <link rel="next" href="../14-mcp-agents/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>13. Browsers and backends - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#13-browsers-and-backends" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              13. Browsers and backends
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#one-protocol-two-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One protocol, two browsers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chrome-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chrome backends
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-and-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge and channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pinned-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pinned versions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chrome-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chrome extras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firefox-specifics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Firefox specifics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-slower-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a slower CPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-two-backends-one-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: two backends, one script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-skip-a-chrome-only-step-keep-the-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: skip a Chrome-only step, keep the rest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#one-protocol-two-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One protocol, two browsers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chrome-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chrome backends
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-and-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge and channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pinned-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pinned versions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chrome-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chrome extras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firefox-specifics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Firefox specifics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-slower-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a slower CPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-two-backends-one-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: two backends, one script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-skip-a-chrome-only-step-keep-the-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: skip a Chrome-only step, keep the rest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer D -->
+<h1 id="13-browsers-and-backends">13. Browsers and backends<a class="headerlink" href="#13-browsers-and-backends" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (channel mismatch message); Nov-07-2026 (Chrome video from the CDP screencast) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>explain why kaprevo's main API works the same in Chrome and Firefox, and where CDP still appears</li>
+<li>choose a Chrome backend (<code>chromedriver</code> or <code>chromium-bidi</code>) and know the trade-offs</li>
+<li>launch Edge and release channels such as <code>channel="chrome-beta"</code> or <code>firefox-nightly</code></li>
+<li>pin browser versions with <code>kaprevo install chrome@&lt;version&gt;</code> and <code>KAPREVO_CHROME_VERSION</code></li>
+<li>use the Chrome-only extras in <code>kaprevo.chromium</code> and handle <code>UnsupportedOnBrowser</code></li>
+<li>know the Firefox specifics: no driver, Firefox preferences, emulation gaps, video by screencast</li>
+</ul>
+<p><strong>Time:</strong> about 35 minutes. <strong>Before this:</strong> <a href="../12-self-healing/">12. Self-healing locators</a>.
+<strong>Code:</strong> <code>examples/course/13-browsers-and-backends/</code></p>
+</div>
+<p>Until now you have switched browsers with one environment variable and never thought about
+what happens underneath. This lesson opens that box: how kaprevo reaches each browser, how to
+pick the exact build you test against, and what to do with the few features only one browser
+has.</p>
+<h2 id="one-protocol-two-browsers">One protocol, two browsers<a class="headerlink" href="#one-protocol-two-browsers" title="Permanent link">&para;</a></h2>
+<p>Every page action in this course (navigate, click, fill, evaluate, screenshot, route) travels
+over <strong>WebDriver BiDi</strong>, the W3C standard protocol that Chrome, Edge and Firefox all implement.
+kaprevo has one implementation of each feature, written against the standard, so a script that
+passes in Chrome is not a different program in Firefox.</p>
+<p>The older <strong>Chrome DevTools Protocol</strong> (CDP) still exists in Chrome and Edge, and it can do a
+few things BiDi cannot yet: performance counters, CPU throttling, JavaScript coverage. Firefox
+removed CDP entirely. So kaprevo keeps CDP out of its main API and puts those extras in one
+module, <code>kaprevo.chromium</code>, which says plainly that it is Chrome only. If you never import
+<code>kaprevo.chromium</code>, nothing in your script depends on CDP.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">chromium</span>
+
+<span class="n">metrics</span> <span class="o">=</span> <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">performance_metrics</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>  <span class="c1"># Chrome and Edge only</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>Playwright drives Chromium mostly over CDP and Firefox through a patched build ("Juggler").
+kaprevo drives the stock browsers you install, over the standard. The price is that a few
+Chrome features only exist where CDP does, and they are marked as such.</p>
+</div>
+<h2 id="chrome-backends">Chrome backends<a class="headerlink" href="#chrome-backends" title="Permanent link">&para;</a></h2>
+<p>kaprevo can reach Chrome in two ways. Both end at the same BiDi connection, so the rest of your
+script cannot tell them apart. You pick one with <code>backend=</code> or the <code>KAPREVO_CHROME_BACKEND</code>
+environment variable.</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>How it works</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chromedriver</code> (default)</td>
+<td>kaprevo starts chromedriver, the Chrome team's own driver, matched to your Chrome version and downloaded from Chrome for Testing</td>
+<td>Google's supported path; the safest default</td>
+</tr>
+<tr>
+<td><code>chromium-bidi</code></td>
+<td>kaprevo starts Chrome alone and loads the chromium-bidi mapper (the same code chromedriver runs) into a hidden tab</td>
+<td>no driver binary on disk; useful where you cannot run extra executables</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"chromium-bidi"</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:KAPREVO_CHROME_BACKEND</span> <span class="p">=</span> <span class="s2">"chromium-bidi"</span>
+<span class="n">python</span> <span class="n">examples</span><span class="p">/</span><span class="n">course</span><span class="p">/</span><span class="n">01-getting-started</span><span class="p">/</span><span class="n">example_first_script</span><span class="p">.</span><span class="n">py</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">KAPREVO_CHROME_BACKEND</span><span class="o">=</span>chromium-bidi<span class="w"> </span>python<span class="w"> </span>examples/course/01-getting-started/example_first_script.py
+</code></pre></div>
+<p>The mapper is a JavaScript file published on npm. kaprevo downloads it on first use, checks it
+against npm's SHA-512 hash and caches it, just as it caches chromedriver. To fetch it ahead of
+time (for example on a build machine):</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>install<span class="w"> </span>chromium-bidi
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chromium-bidi 158.0.8110-0: 1,018,728 bytes cached
+</code></pre></div>
+<p><code>KAPREVO_CHROMIUM_BIDI_VERSION</code> pins another mapper version, and <code>KAPREVO_CHROMIUM_BIDI_PATH</code>
+points at a local <code>mapperTab.js</code> and skips the download. The course test runs every example on
+both backends (<code>KAPREVO_BROWSERS=chrome,chrome:chromium-bidi,firefox</code>), which is a cheap way to
+make sure a suite does not depend on one of them.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>The <code>chromedriver</code> backend is the driver you know, but you never download, start or match
+it yourself: kaprevo reads the Chrome version, fetches the right driver and stops it when
+the browser closes.</p>
+</div>
+<h2 id="edge-and-channels">Edge and channels<a class="headerlink" href="#edge-and-channels" title="Permanent link">&para;</a></h2>
+<p>Microsoft Edge is Chromium, so kaprevo drives it like Chrome, through msedgedriver (downloaded
+the same way) or through <code>backend="chromium-bidi"</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="s2">"edge"</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>   <span class="c1"># "msedge" works too</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">browser</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>   <span class="c1"># edge 157.0.4341.42</span>
+</code></pre></div>
+<p>A <strong>release channel</strong> is a separately installed build: Chrome Beta, Dev or Canary, Edge Beta,
+Firefox Nightly. <code>channel=</code> picks its executable, using Playwright's channel names:</p>
+<div class="highlight"><pre><span></span><code><span class="n">launch</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">"chrome-beta"</span><span class="p">)</span>
+<span class="n">launch</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">"msedge"</span><span class="p">)</span>          <span class="c1"># switches the browser to Edge</span>
+<span class="n">launch</span><span class="p">(</span><span class="s2">"firefox"</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">"firefox-nightly"</span><span class="p">)</span>
+</code></pre></div>
+<p>A channel that is not installed raises <code>LaunchError</code>, naming the environment variable to set if
+it lives somewhere unusual (<code>KAPREVO_CHROME_BETA_PATH</code>, <code>KAPREVO_FIREFOX_NIGHTLY_PATH</code> ...). For a
+binary kaprevo does not know at all, <code>executable_path=</code> names it directly. <code>kaprevo doctor</code>
+(lesson 01) lists Chrome, Firefox and Edge with their versions, so it is the first thing to run
+when a launch cannot find a browser.</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Edge has the same BiDi support as Chrome (same engine), and <code>kaprevo.chromium</code> works in it.
+A channel must belong to the browser you launch: <code>launch("firefox", channel="msedge")</code>
+raises <code>LaunchError</code>.</p>
+</div>
+<h2 id="pinned-versions">Pinned versions<a class="headerlink" href="#pinned-versions" title="Permanent link">&para;</a></h2>
+<p>The browser on your machine updates itself every few weeks. A suite that must keep working on
+the versions your users run should be tested against those versions on purpose. kaprevo can
+install specific builds into its cache, without touching the system browser:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>install<span class="w"> </span>chrome@154<span class="w">            </span><span class="c1"># newest 154.x from Chrome for Testing, plus its chromedriver</span>
+kaprevo<span class="w"> </span>install<span class="w"> </span>firefox@esr<span class="w">           </span><span class="c1"># newest Extended Support Release</span>
+kaprevo<span class="w"> </span>install<span class="w"> </span>firefox@157
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chrome@154: C:\Users\you\AppData\Local\kaprevo\browsers\chrome-154.0.8037.92\chrome-win64\chrome.exe
+</code></pre></div>
+<p>Then select one with an environment variable. Nothing in your script changes:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:KAPREVO_CHROME_VERSION</span> <span class="p">=</span> <span class="s2">"154"</span>
+<span class="n">python</span> <span class="n">examples</span><span class="p">/</span><span class="n">course</span><span class="p">/</span><span class="n">01-getting-started</span><span class="p">/</span><span class="n">example_first_script</span><span class="p">.</span><span class="n">py</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">KAPREVO_CHROME_VERSION</span><span class="o">=</span><span class="m">154</span><span class="w"> </span>python<span class="w"> </span>examples/course/01-getting-started/example_first_script.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Running chrome 154.0.8037.92
+Title: Sign in - kaprevo practice site
+Saved signed-in.png
+</code></pre></div>
+<p><code>KAPREVO_FIREFOX_VERSION</code> does the same for Firefox. If the version is not installed, the launch
+fails at once with the command that fixes it:</p>
+<div class="highlight"><pre><span></span><code>LaunchError: KAPREVO_CHROME_VERSION=153 but that version is not installed; run: kaprevo install chrome@153
+</code></pre></div>
+<p><code>KAPREVO_CHROME_PATH</code> and <code>KAPREVO_FIREFOX_PATH</code> still win over a pinned version. A useful habit:
+run the suite against the current stable, the previous major version and, for Firefox, the ESR
+your users are on. The pinned browsers guide lists the limits
+(Chrome for Testing starts at about version 113; macOS Firefox is not installable this way).</p>
+<div class="admonition warning">
+<p class="admonition-title">Downloads</p>
+<p><code>kaprevo install chrome@...</code> and <code>firefox@...</code> download a whole browser (well over 100 MB).
+The examples in this lesson never do; they only report what is already installed.</p>
+</div>
+<h2 id="chrome-extras">Chrome extras<a class="headerlink" href="#chrome-extras" title="Permanent link">&para;</a></h2>
+<p><code>kaprevo.chromium</code> is a handful of async functions that take a <code>Page</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>What it gives you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>performance_metrics(page)</code></td>
+<td>Chrome's counters: <code>Nodes</code>, <code>JSEventListeners</code>, <code>JSHeapUsedSize</code>, <code>LayoutCount</code> ...</td>
+</tr>
+<tr>
+<td><code>set_cpu_throttling(page, rate)</code></td>
+<td>a CPU <code>rate</code> times slower (1 switches it off), for testing slow devices</td>
+</tr>
+<tr>
+<td><code>start_js_coverage(page)</code> / <code>stop_js_coverage(page)</code></td>
+<td>which JavaScript ran, per script</td>
+</tr>
+<tr>
+<td><code>heap_usage(page)</code></td>
+<td>the JavaScript heap's <code>used</code> and <code>total</code> bytes</td>
+</tr>
+<tr>
+<td><code>cdp(page, method, params)</code></td>
+<td>any CDP command, when you know exactly what you need</td>
+</tr>
+</tbody>
+</table>
+<p>They are async only, so a script that uses them uses the async API (lesson 01). In Firefox each
+one raises <strong><code>UnsupportedOnBrowser</code></strong>, a <code>KaprevoError</code> that says what is missing:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedOnBrowser</span><span class="p">,</span> <span class="n">chromium</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">heap</span> <span class="o">=</span> <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">heap_usage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">UnsupportedOnBrowser</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>   <span class="c1"># Chrome DevTools Protocol extras are not available in firefox</span>
+</code></pre></div>
+<p>The same error comes from the main API when a browser cannot apply an option, so it is the one
+exception to handle when a script must run everywhere but use a feature only some browsers have.
+The Chromium extras guide has the full list, including the listener
+tools that reach objects a page keeps out of scope.</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>The extras work in Chrome and Edge, on both backends. In Firefox they raise
+<code>UnsupportedOnBrowser</code> before anything is sent to the browser.</p>
+</div>
+<h2 id="firefox-specifics">Firefox specifics<a class="headerlink" href="#firefox-specifics" title="Permanent link">&para;</a></h2>
+<p>Firefox needs no driver at all: it has a BiDi server built in, and kaprevo starts Firefox with a
+fresh profile and connects to it directly. Three differences are worth knowing.</p>
+<p><strong>Preferences.</strong> Firefox is configured through preferences (the settings in <code>about:config</code>).
+<code>prefs=</code> writes extra ones into the fresh profile before Firefox starts:</p>
+<div class="highlight"><pre><span></span><code><span class="n">launch</span><span class="p">(</span><span class="s2">"firefox"</span><span class="p">,</span> <span class="n">prefs</span><span class="o">=</span><span class="p">{</span><span class="s2">"intl.accept_languages"</span><span class="p">:</span> <span class="s2">"fr-FR, en"</span><span class="p">})</span>
+</code></pre></div>
+<p>Chrome ignores <code>prefs=</code>; there, use <code>args=</code> for command-line switches.</p>
+<p><strong>Emulation gaps.</strong> Firefox cannot yet apply <code>is_mobile</code>, <code>has_touch</code>, <code>java_script_enabled=False</code>,
+<code>reduced_motion</code> or <code>forced_colors</code> over BiDi. Passing one raises <code>UnsupportedOnBrowser</code> naming
+the option; kaprevo never falls back to something that only looks right. Lesson 06 and the
+emulation guide have the table.</p>
+<p><strong>Video.</strong> Firefox records video itself (<code>browsingContext.startScreencast</code>) and writes a <code>.webm</code>.
+Chrome has no BiDi screencast yet, so kaprevo captures frames from the CDP screencast and encodes
+them with ffmpeg when it is installed (lesson 10).</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The script below opens the products page in whatever browser the course runs. In Chrome or Edge
+it also starts JavaScript coverage before the page loads, then prints a few metrics; in Firefox
+the first extra raises <code>UnsupportedOnBrowser</code>, and the script prints that and carries on with the
+part every browser can do.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 13: the same page in any browser, plus the Chrome-only extras where they exist.</span>
+
+<span class="sd">Prints the browser's name and version. In Chrome (or Edge) it also prints a few performance</span>
+<span class="sd">metrics and how many scripts JS coverage saw; in Firefox it shows the ``UnsupportedOnBrowser``</span>
+<span class="sd">error those extras raise instead.</span>
+
+<span class="sd">    python examples/course/13-browsers-and-backends/example_browser_info.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedOnBrowser</span><span class="p">,</span> <span class="n">chromium</span><span class="p">,</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Browser: </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Coverage must start before the page's scripts run, so start it before goto.</span>
+            <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">start_js_coverage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UnsupportedOnBrowser</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"No Chrome extras here:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+
+        <span class="n">coverage</span> <span class="o">=</span> <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">stop_js_coverage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">performance_metrics</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="n">heap</span> <span class="o">=</span> <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">heap_usage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DOM nodes: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'Nodes'</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">, event listeners: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'JSEventListeners'</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"JS heap used: </span><span class="si">{</span><span class="n">heap</span><span class="p">[</span><span class="s1">'used'</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> KiB"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Scripts with coverage: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">coverage</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/13-browsers-and-backends/example_browser_info.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Browser: chrome 157.0.8103.38
+DOM nodes: 103, event listeners: 4
+JS heap used: 740 KiB
+Scripts with coverage: 7
+</code></pre></div>
+<p>In Firefox:</p>
+<div class="highlight"><pre><span></span><code>Browser: firefox 159.0.1
+No Chrome extras here: Chrome DevTools Protocol extras are not available in firefox
+</code></pre></div>
+<p>Two more examples cover the other launch options. <code>example_edge_and_channels.py</code> launches Edge
+and the <code>chrome-beta</code> channel if they are installed, and says "Skipping" for each one that is
+not, so it runs anywhere:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 13: launch Microsoft Edge and a Chrome release channel, when they are installed.</span>
+
+<span class="sd">Edge is found the way Chrome is; a channel such as ``chrome-beta`` picks that channel's</span>
+<span class="sd">executable. Anything not installed is reported and skipped, so the script always exits 0</span>
+<span class="sd">on a machine that has Chrome.</span>
+
+<span class="sd">    python examples/course/13-browsers-and-backends/example_edge_and_channels.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: browsers=chrome</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.launch.discover</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_browser</span><span class="p">,</span> <span class="n">find_channel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sign_in</span><span class="p">(</span><span class="n">browser_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Sign in on the practice site and print which browser did it."""</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">browser_name</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"edge"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"secret"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, edge"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  signed in with </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Edge at"</span><span class="p">,</span> <span class="n">find_browser</span><span class="p">(</span><span class="s2">"edge"</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">LaunchError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>  <span class="c1"># not installed: say so and carry on</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Skipping Edge:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sign_in</span><span class="p">(</span><span class="s2">"edge"</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">family</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">find_channel</span><span class="p">(</span><span class="s2">"chrome-beta"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chrome-beta (</span><span class="si">{</span><span class="n">family</span><span class="si">}</span><span class="s2">) at </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">LaunchError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Skipping chrome-beta:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sign_in</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">"chrome-beta"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Edge at C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+  signed in with edge 157.0.4341.42
+Skipping chrome-beta: the chrome-beta channel is not installed; install it or set KAPREVO_CHROME_BETA_PATH to its executable
+</code></pre></div>
+<p><code>example_firefox_specifics.py</code> (Firefox only) sets a preference and shows the error an
+unsupported emulation option raises:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 13: Firefox preferences, and an emulation option Firefox cannot apply.</span>
+
+<span class="sd">``prefs=`` writes Firefox preferences into the fresh profile before Firefox starts. Here</span>
+<span class="sd">``intl.accept_languages`` makes the browser ask for French first. Then a context with</span>
+<span class="sd">``is_mobile=True`` (Chrome only) shows the ``UnsupportedOnBrowser`` error it raises in Firefox.</span>
+
+<span class="sd">    python examples/course/13-browsers-and-backends/example_firefox_specifics.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: browsers=firefox</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedOnBrowser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"firefox"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">prefs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"intl.accept_languages"</span><span class="p">:</span> <span class="s2">"fr-FR, en"</span><span class="p">}</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">prefs</span><span class="o">=</span><span class="n">prefs</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">languages</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"navigator.languages"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"navigator.languages:"</span><span class="p">,</span> <span class="n">languages</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"fr-FR"</span><span class="p">,</span> <span class="n">languages</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">is_mobile</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UnsupportedOnBrowser</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"As expected:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"This Firefox accepted is_mobile: its BiDi support has grown since this lesson"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>navigator.languages: ['fr-FR', 'en']
+As expected: is_mobile is not supported on firefox 159.0.1: the browser does not implement emulation.setViewportMetaOverride (emulation.setViewportMetaOverride)
+</code></pre></div>
+<p>The <code># course: browsers=...</code> lines tell the course test which browsers a script is for
+(conventions page); you can run any of them by hand.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-a-slower-cpu">Exercise 1: a slower CPU<a class="headerlink" href="#exercise-1-a-slower-cpu" title="Permanent link">&para;</a></h3>
+<p>In Chrome, time the products page at normal speed and again with <code>set_cpu_throttling(page, 4)</code>.
+Page loads on a local server are so fast that the difference is small, so also time a fixed
+piece of JavaScript inside the page with <code>performance.now()</code>. Check that the throttled run is
+clearly slower, and switch throttling off again at the end.</p>
+<p>Hint: <code>page.evaluate()</code> can run a function that returns how long a loop took.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 13, exercise 1: time a page at normal speed and with the CPU four times slower.</span>
+
+<span class="sd">Chrome only (``set_cpu_throttling`` is a DevTools Protocol extra). The page load is timed</span>
+<span class="sd">from Python; a fixed piece of JavaScript work is timed inside the page with</span>
+<span class="sd">``performance.now()``, which shows the throttling most clearly.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: browsers=chrome,edge</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">chromium</span><span class="p">,</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">WORK</span> <span class="o">=</span> <span class="s2">"""() =&gt; {</span>
+<span class="s2">    const t = performance.now();</span>
+<span class="s2">    let x = 0;</span>
+<span class="s2">    for (let i = 0; i &lt; 3e6; i++) x += i % 7;</span>
+<span class="s2">    return performance.now() - t;</span>
+<span class="s2">}"""</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Seconds to load the products page, and milliseconds of in-page work."""</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+    <span class="n">load</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">started</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">WORK</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>  <span class="c1"># the best of three is the least noisy</span>
+    <span class="k">return</span> <span class="n">load</span><span class="p">,</span> <span class="n">work</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">measure</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>  <span class="c1"># warm up: the first load also starts the page's processes</span>
+
+        <span class="n">normal_load</span><span class="p">,</span> <span class="n">normal_work</span> <span class="o">=</span> <span class="k">await</span> <span class="n">measure</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">set_cpu_throttling</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">slow_load</span><span class="p">,</span> <span class="n">slow_work</span> <span class="o">=</span> <span class="k">await</span> <span class="n">measure</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">chromium</span><span class="o">.</span><span class="n">set_cpu_throttling</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 switches throttling off again</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"normal:    load </span><span class="si">{</span><span class="n">normal_load</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s, work </span><span class="si">{</span><span class="n">normal_work</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> ms"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"4x slower: load </span><span class="si">{</span><span class="n">slow_load</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s, work </span><span class="si">{</span><span class="n">slow_work</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> ms"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"the work took </span><span class="si">{</span><span class="n">slow_work</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">normal_work</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> times as long"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">slow_work</span> <span class="o">&gt;</span> <span class="n">normal_work</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">,</span> <span class="s2">"throttling should slow the in-page work down"</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>normal:    load 0.08 s, work 15.1 ms
+4x slower: load 0.19 s, work 33.1 ms
+the work took 2.2 times as long
+</code></pre></div>
+<p>The first <code>measure()</code> is a warm-up: the first load also starts processes and compiles code,
+which would make the normal run look slow. Taking the best of three runs of the loop keeps
+one noisy run from deciding the result. The ratio is rarely exactly 4, because throttling
+slows the page's main thread, not the whole machine.</p>
+</details>
+<h3 id="exercise-2-two-backends-one-script">Exercise 2: two backends, one script<a class="headerlink" href="#exercise-2-two-backends-one-script" title="Permanent link">&para;</a></h3>
+<p>Run the lesson 01 sign-in with <code>backend="chromedriver"</code> and again with <code>backend="chromium-bidi"</code>,
+and print how long each launch took. Do not let the script download the mapper: if it is not
+cached yet, print the <code>kaprevo install</code> command instead.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 13, exercise 2: run the lesson 01 sign-in on both Chrome backends and compare launch times.</span>
+
+<span class="sd">``chromium-bidi`` needs the BiDi mapper in kaprevo's cache. This script never downloads it:</span>
+<span class="sd">when it is missing, the script says how to fetch it (``kaprevo install chromium-bidi``) and</span>
+<span class="sd">times the default backend only.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: browsers=chrome</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.launch.discover</span><span class="w"> </span><span class="kn">import</span> <span class="n">cache_dir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.launch.mapper</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_VERSION</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mapper_available</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""True when chromium-bidi can start without a download."""</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_CHROMIUM_BIDI_PATH"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_CHROMIUM_BIDI_VERSION"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">DEFAULT_VERSION</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">cache_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">"chromium-bidi"</span> <span class="o">/</span> <span class="n">version</span> <span class="o">/</span> <span class="s2">"mapperTab.js"</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sign_in</span><span class="p">(</span><span class="n">backend</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Launch with ``backend``, sign in, and return the seconds the launch took."""</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">launched</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">started</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">launched</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chromedriver:  launched in </span><span class="si">{</span><span class="n">sign_in</span><span class="p">(</span><span class="s1">'chromedriver'</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mapper_available</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"chromium-bidi: skipped, the mapper is not cached; run: kaprevo install chromium-bidi"</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chromium-bidi: launched in </span><span class="si">{</span><span class="n">sign_in</span><span class="p">(</span><span class="s1">'chromium-bidi'</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chromedriver:  launched in 1.79 s
+chromium-bidi: launched in 1.74 s
+</code></pre></div>
+<p>On a warm machine the two are close; the difference shows on the very first launch, when
+chromedriver is downloaded, and on machines where starting an extra executable is slow.
+The behaviour of the script is identical, which is the point.</p>
+</details>
+<h3 id="exercise-3-skip-a-chrome-only-step-keep-the-rest">Exercise 3: skip a Chrome-only step, keep the rest<a class="headerlink" href="#exercise-3-skip-a-chrome-only-step-keep-the-rest" title="Permanent link">&para;</a></h3>
+<p>Write a small async helper that awaits a Chrome-only step and, in Firefox, prints which step was
+skipped and why, then returns <code>None</code>. Use it to read the heap size on the products page, then
+add a product to the cart, which must work in every browser.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 13, exercise 3: a helper that runs a Chrome-only step, or skips it with a clear message.</span>
+
+<span class="sd">The same script runs in every browser. In Chrome and Edge the step runs; in Firefox the</span>
+<span class="sd">helper prints why it was skipped and the rest of the script carries on.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Awaitable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeVar</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnsupportedOnBrowser</span><span class="p">,</span> <span class="n">chromium</span><span class="p">,</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">chrome_only</span><span class="p">(</span><span class="n">step</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Await ``action``; if the browser cannot do it, print a message and return None."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">action</span>
+    <span class="k">except</span> <span class="n">UnsupportedOnBrowser</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"skipped </span><span class="si">{</span><span class="n">step</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+
+        <span class="n">heap</span> <span class="o">=</span> <span class="k">await</span> <span class="n">chrome_only</span><span class="p">(</span><span class="s2">"heap usage"</span><span class="p">,</span> <span class="n">chromium</span><span class="o">.</span><span class="n">heap_usage</span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">heap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"heap used: </span><span class="si">{</span><span class="n">heap</span><span class="p">[</span><span class="s1">'used'</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> KiB"</span><span class="p">)</span>
+
+        <span class="c1"># The part of the check that every browser can do still runs.</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Add Blue mug to cart"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cart-count"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cart updated in </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>skipped 'heap usage': Chrome DevTools Protocol extras are not available in firefox
+cart updated in firefox
+</code></pre></div>
+<p>Catching <code>UnsupportedOnBrowser</code> (and nothing wider) is what makes this safe: a real failure,
+such as a timeout, still raises.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Calling a <code>kaprevo.chromium</code> function from sync code.</strong> It returns a coroutine and nothing
+  happens (<code>RuntimeWarning: coroutine ... was never awaited</code>). The extras are async: write
+  that script with <code>kaprevo.launch</code> and <code>await</code>.</li>
+<li><strong>Expecting <code>prefs=</code> to change Chrome.</strong> It is for Firefox preferences only. Chrome takes
+  command-line switches through <code>args=</code>.</li>
+<li><strong>Catching <code>KaprevoError</code> to skip a Chrome-only step.</strong> That also hides timeouts and real
+  failures. Catch <code>UnsupportedOnBrowser</code>.</li>
+<li><strong>Setting <code>KAPREVO_CHROME_VERSION</code> without installing the build.</strong> The launch fails with
+  <code>... that version is not installed; run: kaprevo install chrome@&lt;version&gt;</code>. Run that command.</li>
+<li><strong>Leaving <code>KAPREVO_CHROME_PATH</code> set from an earlier experiment.</strong> It outranks a pinned version
+  and the channel lookup, so the run quietly uses another browser. <code>kaprevo doctor</code> shows which
+  executable is picked; remove the variable when you are done.</li>
+<li><strong>Passing a Chromium channel to Firefox</strong> (<code>launch("firefox", channel="msedge")</code>). It raises
+  <code>LaunchError: channel 'msedge' is an edge channel, not a firefox one</code>, before kaprevo even looks for the executable. Launch <code>"chrome"</code> or
+  <code>"edge"</code> with that channel instead.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Everything in the main API is WebDriver BiDi and behaves the same in Chrome, Edge and Firefox;
+  CDP appears only in <code>kaprevo.chromium</code>.</li>
+<li>Chrome has two backends, <code>chromedriver</code> (default) and <code>chromium-bidi</code> (no driver binary);
+  pick one with <code>backend=</code> or <code>KAPREVO_CHROME_BACKEND</code>.</li>
+<li><code>launch("edge")</code>, <code>channel="chrome-beta"</code> and <code>executable_path=</code> choose the build;
+  <code>kaprevo install chrome@154</code> with <code>KAPREVO_CHROME_VERSION=154</code> pins a version.</li>
+<li>A feature a browser lacks raises <code>UnsupportedOnBrowser</code>; catch exactly that to skip a step.</li>
+<li>Firefox needs no driver, takes <code>prefs=</code>, and has a few emulation gaps listed in the guide.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../14-mcp-agents/">14. AI agents with MCP</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1809 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/06-contexts-and-emulation/">
+      
+      
+        <link rel="prev" href="../05-visual-testing/">
+      
+      
+        <link rel="next" href="../07-network/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>06. Contexts and emulation - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#06-contexts-and-emulation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              06. Contexts and emulation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-context-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a context is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-users-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two users at once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#devices-and-viewports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Devices and viewports
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locale-time-zone-geolocation-and-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locale, time zone, geolocation and permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookies-headers-and-init-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookies, headers and init scripts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-in-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log in once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-german-visitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a German visitor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-the-phone-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: the phone layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-cookies-stay-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: cookies stay home
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: where am I?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-context-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a context is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-users-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two users at once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#devices-and-viewports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Devices and viewports
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locale-time-zone-geolocation-and-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locale, time zone, geolocation and permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookies-headers-and-init-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookies, headers and init scripts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-in-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log in once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-german-visitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a German visitor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-the-phone-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: the phone layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-cookies-stay-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: cookies stay home
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: where am I?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer B -->
+<h1 id="06-contexts-and-emulation">06. Contexts and emulation<a class="headerlink" href="#06-contexts-and-emulation" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (library fixes from the course bug list) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>explain what a browser context is, and use one per user or per test</li>
+<li>emulate a device with <code>devices[...]</code>, and set the viewport, locale, time zone and color scheme</li>
+<li>grant permissions and set a geolocation</li>
+<li>work with cookies (<code>add_cookies</code>, <code>cookies</code>, <code>clear_cookies</code>), extra headers and init scripts</li>
+<li>log in once and reuse the session with <code>storage_state</code></li>
+</ul>
+<p><strong>Time:</strong> about 45 minutes. <strong>Before this:</strong> <a href="../05-visual-testing/">05. Visual testing</a>.
+<strong>Code:</strong> <code>examples/course/06-contexts-and-emulation/</code></p>
+</div>
+<p>So far every script has used one browser and one page. Real tests need more: a clean session
+for each test, two users at once, a phone instead of a laptop, a visitor from Berlin, a user
+who is already signed in. All of these are one idea, the browser context, plus a handful of
+options you pass when you create it.</p>
+<h2 id="what-a-context-is">What a context is<a class="headerlink" href="#what-a-context-is" title="Permanent link">&para;</a></h2>
+<p>A <strong>browser context</strong> is an isolated session inside one browser, like a private window. Each
+context has its own cookies, localStorage, cache and permissions. What one context stores, no
+other context can see, even though they all run in the same browser process.</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>      <span class="c1"># a fresh, empty session</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>            <span class="c1"># a tab inside it</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>                      <span class="c1"># closes its pages and throws its data away</span>
+</code></pre></div>
+<p>Creating a context takes milliseconds; launching a browser takes a second or more. That is why
+the usual pattern is <strong>one browser per test run and one context per test</strong>: every test starts
+with no cookies and no storage, and none of them pays for a new browser. The pytest plugin in
+<a href="../09-pytest-plugin/">lesson 09</a> does exactly this for you.</p>
+<p>Every browser also has a <strong>default context</strong>, <code>browser.contexts[0]</code>. <code>browser.new_page()</code> with
+no arguments opens a tab there, which is what lessons 01 to 05 did. The default context lives
+as long as the browser and cannot be closed, so use <code>browser.new_context()</code> whenever isolation
+matters.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>The same model and names: <code>browser.new_context(...)</code>, <code>context.new_page()</code>,
+<code>context.close()</code>, <code>browser.contexts</code>. <code>browser.new_page(locale="de-DE")</code> with any context
+option also works: the page gets a context of its own, closed together with the page.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>Selenium has one session per driver, so isolating two users means two browsers. A context
+gives you the same isolation without a second browser: open as many as you like.</p>
+</div>
+<h2 id="two-users-at-once">Two users at once<a class="headerlink" href="#two-users-at-once" title="Permanent link">&para;</a></h2>
+<p>Because contexts do not share anything, two users can be signed in side by side: an admin and
+a guest, a buyer and a seller, or a chat between two people. This script signs Ada in, leaves a
+guest signed out, and checks what the <strong>Who am I</strong> page (<code>whoami.html</code>) tells each of them:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06: two users at once, in two contexts of one browser.</span>
+
+<span class="sd">Ada signs in in one context; a guest browses in another. Neither sees the other's</span>
+<span class="sd">cookies or localStorage, although both pages run in the same browser process.</span>
+
+<span class="sd">    python examples/course/06-contexts-and-emulation/example_two_users.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">ada</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">guest</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">ada_page</span> <span class="o">=</span> <span class="n">ada</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">guest_page</span> <span class="o">=</span> <span class="n">guest</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+        <span class="n">ada_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">ada_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">ada_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">ada_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">ada_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+
+        <span class="n">ada_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">guest_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">ada_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">guest_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"nobody"</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Ada's cookies:  "</span><span class="p">,</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ada</span><span class="o">.</span><span class="n">cookies</span><span class="p">()])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Guest's cookies:"</span><span class="p">,</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">guest</span><span class="o">.</span><span class="n">cookies</span><span class="p">()])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Open pages:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">pages</span><span class="p">),</span> <span class="s2">"in"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">contexts</span><span class="p">),</span> <span class="s2">"contexts (one is the default)"</span><span class="p">)</span>
+
+        <span class="n">ada</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># closes Ada's page and throws her cookies and storage away</span>
+        <span class="n">guest</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Ada's cookies:   ['session']
+Guest's cookies: []
+Open pages: 3 in 3 contexts (one is the default)
+</code></pre></div>
+<p>The guest's page never sees Ada's <code>session</code> cookie or her <code>localStorage</code> entry. Three pages are
+open: the blank tab the browser started with in the default context, and one tab in each new
+context. <code>context.pages</code> lists only the pages of one context.</p>
+<h2 id="devices-and-viewports">Devices and viewports<a class="headerlink" href="#devices-and-viewports" title="Permanent link">&para;</a></h2>
+<p>The same page can look completely different on a phone. Context options tell the browser what
+kind of device to pretend to be:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What the page sees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>viewport={"width": 390, "height": 664}</code></td>
+<td>the size of the visible area, in CSS pixels</td>
+</tr>
+<tr>
+<td><code>screen={"width": 390, "height": 844}</code></td>
+<td>what <code>window.screen</code> reports</td>
+</tr>
+<tr>
+<td><code>device_scale_factor=3</code></td>
+<td><code>window.devicePixelRatio</code></td>
+</tr>
+<tr>
+<td><code>user_agent="..."</code></td>
+<td>the <code>User-Agent</code> header and <code>navigator.userAgent</code></td>
+</tr>
+<tr>
+<td><code>is_mobile=True</code></td>
+<td>honour <code>&lt;meta name=viewport&gt;</code> the way a phone does (Chrome only)</td>
+</tr>
+<tr>
+<td><code>has_touch=True</code></td>
+<td>a touch screen, <code>navigator.maxTouchPoints</code> (Chrome only)</td>
+</tr>
+<tr>
+<td><code>color_scheme="dark"</code></td>
+<td><code>prefers-color-scheme: dark</code> in CSS and <code>matchMedia</code></td>
+</tr>
+</tbody>
+</table>
+<p>Setting all of these by hand is tedious, so kaprevo has <strong>device presets</strong>: <code>devices</code> maps a
+name to the options of a real device.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="s2">"Pixel 7"</span><span class="p">][</span><span class="s2">"viewport"</span><span class="p">])</span>         <span class="c1"># {'width': 412, 'height': 839}</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="o">**</span><span class="n">devices</span><span class="p">[</span><span class="s2">"Pixel 7"</span><span class="p">],</span> <span class="n">color_scheme</span><span class="o">=</span><span class="s2">"dark"</span><span class="p">)</span>
+</code></pre></div>
+<p>There are iPhones, iPads, Pixel and Galaxy phones and tablets (each also as
+<code>"&lt;name&gt; landscape"</code>) and desktop presets such as <code>"Desktop Chrome"</code>; <code>list(devices)</code> prints
+them all. The <code>**</code> spreads the preset into keyword arguments, so you can add more options next
+to it.</p>
+<p><code>page.viewport_size</code> reads the size back: the context's <code>viewport</code> (from the options or the
+preset), or <code>None</code> when the browser window decides. To resize a page that is already open, use
+<code>page.set_viewport_size</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">viewport_size</span><span class="p">)</span>                               <span class="c1"># {'width': 412, 'height': 839}</span>
+<span class="n">page</span><span class="o">.</span><span class="n">set_viewport_size</span><span class="p">({</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">768</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">viewport_size</span><span class="p">)</span>                               <span class="c1"># {'width': 1024, 'height': 768}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Firefox cannot emulate <code>is_mobile</code> or <code>has_touch</code> over WebDriver BiDi, so passing a phone
+preset there raises <code>UnsupportedOnBrowser</code>, naming the option. <code>desktop_only</code> drops those
+two keys and keeps the viewport, screen, scale factor and user agent, which is enough for
+most responsive layouts:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.api.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">desktop_only</span>
+
+<span class="n">phone</span> <span class="o">=</span> <span class="n">devices</span><span class="p">[</span><span class="s2">"Pixel 7"</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">browser</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"firefox"</span><span class="p">:</span>
+    <span class="n">phone</span> <span class="o">=</span> <span class="n">desktop_only</span><span class="p">(</span><span class="n">phone</span><span class="p">)</span>
+</code></pre></div>
+<p>The other Chrome-only options are <code>java_script_enabled=False</code>, <code>reduced_motion</code> and
+<code>forced_colors</code>. kaprevo never quietly ignores an option: if the browser cannot apply it,
+you get the error. The full table is in Emulation.</p>
+</div>
+<h2 id="locale-time-zone-geolocation-and-permissions">Locale, time zone, geolocation and permissions<a class="headerlink" href="#locale-time-zone-geolocation-and-permissions" title="Permanent link">&para;</a></h2>
+<p><strong><code>locale</code></strong> sets the language the page sees (<code>navigator.language</code>, the <code>Accept-Language</code>
+header) and how <code>Intl</code> formats dates and numbers. <strong><code>timezone_id</code></strong> sets the clock's time zone,
+with an IANA name such as <code>"Europe/Berlin"</code> or <code>"Asia/Tokyo"</code>. Together they let you test the
+page a visitor from another country sees, from your own machine:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s2">"ja-JP"</span><span class="p">,</span> <span class="n">timezone_id</span><span class="o">=</span><span class="s2">"Asia/Tokyo"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Permissions</strong> are what a browser normally asks the user about: location, notifications, the
+clipboard. A test cannot click "Allow" in a browser prompt, so grant the permission up front.
+<strong><code>geolocation</code></strong> is the position the Geolocation API then reports:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span>
+    <span class="n">geolocation</span><span class="o">=</span><span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">48.8584</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="mf">2.2945</span><span class="p">},</span>
+    <span class="n">permissions</span><span class="o">=</span><span class="p">[</span><span class="s2">"geolocation"</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">set_geolocation</span><span class="p">({</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">51.5007</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.1246</span><span class="p">})</span>  <span class="c1"># move, later</span>
+<span class="n">context</span><span class="o">.</span><span class="n">grant_permissions</span><span class="p">([</span><span class="s2">"clipboard-read"</span><span class="p">])</span>                          <span class="c1"># grant more, later</span>
+<span class="n">context</span><span class="o">.</span><span class="n">clear_permissions</span><span class="p">()</span>                                            <span class="c1"># back to "ask"</span>
+</code></pre></div>
+<p>A position without the permission is useless: the page asks, nobody answers. Grants apply to
+every origin the context visits; pass <code>origin="https://example.com"</code> to grant to one only.</p>
+<h2 id="cookies-headers-and-init-scripts">Cookies, headers and init scripts<a class="headerlink" href="#cookies-headers-and-init-scripts" title="Permanent link">&para;</a></h2>
+<p>You can read and change a context's cookies directly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span><span class="o">.</span><span class="n">add_cookies</span><span class="p">([{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"theme"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="n">BASE_URL</span><span class="p">}])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">cookies</span><span class="p">())</span>          <span class="c1"># [{'name': 'theme', 'value': 'dark', 'domain': '127.0.0.1', ...}]</span>
+<span class="n">context</span><span class="o">.</span><span class="n">clear_cookies</span><span class="p">()</span>           <span class="c1"># all of them; or clear_cookies(name="theme")</span>
+</code></pre></div>
+<p>A cookie needs a <code>name</code>, a <code>value</code>, and either a <code>url</code> or a <code>domain</code> (with an optional <code>path</code>).
+Adding cookies before the first page loads is a quick way to set a preference or a consent
+banner's "already answered" flag.</p>
+<p>Two more tools change every page of a context:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span><span class="o">.</span><span class="n">set_extra_http_headers</span><span class="p">({</span><span class="s2">"X-Test-Run"</span><span class="p">:</span> <span class="s2">"lesson-06"</span><span class="p">})</span>       <span class="c1"># sent with every request</span>
+<span class="n">context</span><span class="o">.</span><span class="n">add_init_script</span><span class="p">(</span><span class="s2">"localStorage.setItem('user', 'grace')"</span><span class="p">)</span>  <span class="c1"># runs before the page's own scripts</span>
+</code></pre></div>
+<p>An <strong>init script</strong> runs in every new document, before any script of the page itself. Use it to
+seed storage, stub a browser API, or switch on a test mode the page checks for. <code>page</code> has the
+same two methods, for one page only.</p>
+<h2 id="log-in-once">Log in once<a class="headerlink" href="#log-in-once" title="Permanent link">&para;</a></h2>
+<p>Signing in through the form at the start of every test is slow, and it tests the login page a
+hundred times instead of once. The better pattern: sign in once, save the session, and start
+every later context from it.</p>
+<p>A site remembers you in cookies and in localStorage. <code>context.storage_state()</code> returns both,
+and with <code>path=</code> also writes them to a JSON file. <code>new_context(storage_state=...)</code> takes the
+file (or the dict) and starts a context with that state already in place:</p>
+<div class="highlight"><pre><span></span><code><span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">storage_state</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">state_file</span><span class="p">)</span>     <span class="c1"># after signing in</span>
+<span class="n">signed_in</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">storage_state</span><span class="o">=</span><span class="n">state_file</span><span class="p">)</span>
+</code></pre></div>
+<p>The file uses Playwright's storage-state format, so files move between the two tools.
+localStorage is read from the origins of the pages open at the moment you call
+<code>storage_state()</code>, so call it while the signed-in page is still open.</p>
+<div class="admonition warning">
+<p class="admonition-title">Keep the state file private</p>
+<p>The file holds a live session cookie: anyone with the file is signed in as that user. Write
+it to a temporary or gitignored folder, never into the repository.</p>
+</div>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>This script signs Ada in on the practice login page, saves the storage state to a file in a
+temporary folder, and closes that context. Then it opens a new context from the file: the
+<strong>Who am I</strong> page shows Ada as the stored user with her session cookie, and the login page
+greets her as a returning user. A third context without the file is a stranger.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06: log in once, save the storage state, and start a second context already signed in.</span>
+
+<span class="sd">Signs in on the practice site in one context, saves its cookies and localStorage with</span>
+<span class="sd">``context.storage_state()``, then opens a fresh context from that file and shows the page</span>
+<span class="sd">already knows the user.</span>
+
+<span class="sd">    python examples/course/serve.py                                          # terminal 1</span>
+<span class="sd">    python examples/course/06-contexts-and-emulation/example_log_in_once.py  # terminal 2</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># The state file holds a live session: keep it out of the repository.</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">folder</span><span class="p">,</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">state_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"state.json"</span>
+
+        <span class="c1"># 1. Sign in once, in a context of its own, and save what the site stored.</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">storage_state</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">state_file</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Saved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">'cookies'</span><span class="p">])</span><span class="si">}</span><span class="s2"> cookie(s) and localStorage for "</span>
+              <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">'origins'</span><span class="p">])</span><span class="si">}</span><span class="s2"> origin(s)"</span><span class="p">)</span>
+
+        <span class="c1"># 2. Any later context can start from the file, already signed in.</span>
+        <span class="n">signed_in</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">storage_state</span><span class="o">=</span><span class="n">state_file</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">signed_in</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cookies"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"session=ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"returning"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome back, ada. You are already signed in."</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The new context is signed in as"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"() =&gt; localStorage.getItem('user')"</span><span class="p">))</span>
+
+        <span class="c1"># 3. A context without the state is a stranger.</span>
+        <span class="n">guest</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">guest</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"nobody"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"A fresh context is signed in as nobody"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Run it with the practice site running:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/06-contexts-and-emulation/example_log_in_once.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Saved 1 cookie(s) and localStorage for 1 origin(s)
+The new context is signed in as ada
+A fresh context is signed in as nobody
+</code></pre></div>
+<p>In a test suite you would sign in once per run (in a session fixture, lesson 09), keep the file
+for the rest of the run, and pass <code>storage_state=</code> to every test's context. When the session
+expires, delete the file and the next run signs in again.</p>
+<details class="example">
+<summary>Async version</summary>
+<p>The same three steps with the async API; only the <code>await</code>s differ:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+<span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<span class="c1"># ... sign in ...</span>
+<span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">storage_state</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">state_file</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">signed_in</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">storage_state</span><span class="o">=</span><span class="n">state_file</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<p>A second example puts several options together: a Pixel 7 in Tokyo, in Japanese, with a dark
+theme. On Firefox it uses <code>desktop_only</code>, as the note above explains.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06: emulate a phone with a locale, a time zone and a dark color scheme.</span>
+
+<span class="sd">Opens the "Who am I" page in a context built from the Pixel 7 device preset, set to</span>
+<span class="sd">Japanese in Tokyo with a dark theme, and prints what the page sees.</span>
+
+<span class="sd">    python examples/course/06-contexts-and-emulation/example_emulation.py</span>
+
+<span class="sd">Firefox cannot emulate a phone's mobile viewport or touch screen, so on Firefox the</span>
+<span class="sd">script drops those two settings with ``desktop_only`` and keeps the rest.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.api.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">desktop_only</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">phone</span> <span class="o">=</span> <span class="n">devices</span><span class="p">[</span><span class="s2">"Pixel 7"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">browser</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"firefox"</span><span class="p">:</span>
+            <span class="n">phone</span> <span class="o">=</span> <span class="n">desktop_only</span><span class="p">(</span><span class="n">phone</span><span class="p">)</span>  <span class="c1"># no is_mobile or has_touch on Firefox</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="o">**</span><span class="n">phone</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s2">"ja-JP"</span><span class="p">,</span> <span class="n">timezone_id</span><span class="o">=</span><span class="s2">"Asia/Tokyo"</span><span class="p">,</span> <span class="n">color_scheme</span><span class="o">=</span><span class="s2">"dark"</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"locale"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"ja-JP"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"timezone"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Asia/Tokyo"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"scheme"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">)</span>
+        <span class="c1"># The page shows a menu button instead of links below 600 pixels wide.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Menu"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"viewport"</span><span class="p">,</span> <span class="s2">"dpr"</span><span class="p">,</span> <span class="s2">"touch"</span><span class="p">,</span> <span class="s2">"date"</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">field</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># Resize the running page: wide enough for the desktop links again.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_viewport_size</span><span class="p">({</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">768</span><span class="p">})</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Menu"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_hidden</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"At 1024 pixels wide the menu button is hidden"</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>viewport: 412 x 839
+     dpr: 2.625
+   touch: 5
+    date: 2026年11月7日土曜日 21:00
+At 1024 pixels wide the menu button is hidden
+</code></pre></div>
+<p>On Firefox, <code>touch</code> prints <code>0</code>, because <code>has_touch</code> was dropped. The date is the same moment
+in every run (12:00 UTC on 7 November 2026), so the only thing that changes it is the context's
+locale and time zone: 21:00 in Tokyo.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-a-german-visitor">Exercise 1: a German visitor<a class="headerlink" href="#exercise-1-a-german-visitor" title="Permanent link">&para;</a></h3>
+<p>Open <code>whoami.html</code> in a context with <code>locale="de-DE"</code> and <code>timezone_id="Europe/Berlin"</code>. Check
+that the page reports the language <code>de-DE</code>, and print the date it formats.</p>
+<p>Hint: the date field has the test id <code>date</code>. What time is 12:00 UTC in Berlin in November?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06, exercise 1: the same moment, formatted for a German user in Berlin.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="s2">"de-DE"</span><span class="p">,</span> <span class="n">timezone_id</span><span class="o">=</span><span class="s2">"Europe/Berlin"</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"locale"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"de-DE"</span><span class="p">)</span>
+        <span class="c1"># 12:00 UTC is 13:00 in Berlin in November (CET, one hour ahead).</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"date"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Samstag, 7. November 2026 um 13:00"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Berlin sees:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"date"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The page formats the date with <code>Intl</code> and no explicit language, so the context's locale
+decides the words ("Samstag") and the time zone decides the hour (13:00, one hour ahead of
+UTC in winter). Nothing on your machine had to change.</p>
+</details>
+<h3 id="exercise-2-the-phone-layout">Exercise 2: the phone layout<a class="headerlink" href="#exercise-2-the-phone-layout" title="Permanent link">&para;</a></h3>
+<p>The <strong>Who am I</strong> page shows its own links on wide screens and a <strong>Menu</strong> button below 600
+pixels. Open it once in a normal page and once in an <code>"iPhone 13"</code> context, and assert that the
+Menu button is hidden on the first and visible on the second. Make the script work on Firefox
+too.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06, exercise 2: emulate a phone and check that the page switched to its narrow layout.</span>
+
+<span class="sd">On Firefox the phone preset loses ``is_mobile`` and ``has_touch`` (``desktop_only``), which</span>
+<span class="sd">Firefox cannot emulate; the narrow viewport is enough for the layout to switch.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.api.devices</span><span class="w"> </span><span class="kn">import</span> <span class="n">desktop_only</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">devices</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">phone</span> <span class="o">=</span> <span class="n">devices</span><span class="p">[</span><span class="s2">"iPhone 13"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">browser</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"firefox"</span><span class="p">:</span>
+            <span class="n">phone</span> <span class="o">=</span> <span class="n">desktop_only</span><span class="p">(</span><span class="n">phone</span><span class="p">)</span>
+
+        <span class="n">desktop_page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">desktop_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">desktop_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Menu"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_hidden</span><span class="p">()</span>
+
+        <span class="n">phone_context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="o">**</span><span class="n">phone</span><span class="p">)</span>
+        <span class="n">phone_page</span> <span class="o">=</span> <span class="n">phone_context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">phone_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">phone_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Menu"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+        <span class="n">site_nav</span> <span class="o">=</span> <span class="n">phone_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"navigation"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Site"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">site_nav</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Products"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_hidden</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Desktop shows links, the phone shows a Menu button"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Phone viewport:"</span><span class="p">,</span> <span class="n">phone_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"viewport"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The header also has a <strong>Products</strong> link, so the solution looks for the hidden one inside
+the page's "Site" navigation. On Firefox, <code>desktop_only</code> keeps the 390 pixel viewport,
+which is what the CSS media query reacts to.</p>
+</details>
+<h3 id="exercise-3-cookies-stay-home">Exercise 3: cookies stay home<a class="headerlink" href="#exercise-3-cookies-stay-home" title="Permanent link">&para;</a></h3>
+<p>Create two contexts. Add a cookie <code>theme=dark</code> to the first only, open <code>whoami.html</code> in both,
+and check that the first page sees the cookie and the second does not. Then clear the first
+context's cookies and check that it sees none either.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06, exercise 3: a cookie added to one context is invisible to another.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="c1"># "url" sets the domain and path from an address; "domain" and "path" work too.</span>
+        <span class="n">first</span><span class="o">.</span><span class="n">add_cookies</span><span class="p">([{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"theme"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"dark"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="n">BASE_URL</span><span class="p">}])</span>
+
+        <span class="n">first_page</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">second_page</span> <span class="o">=</span> <span class="n">second</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">first_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">second_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+
+        <span class="n">expect</span><span class="p">(</span><span class="n">first_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cookies"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"theme=dark"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">second_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cookies"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"none"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">first</span><span class="o">.</span><span class="n">cookies</span><span class="p">()]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"theme"</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">second</span><span class="o">.</span><span class="n">cookies</span><span class="p">()</span> <span class="o">==</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"First context has theme=dark, the second has no cookies"</span><span class="p">)</span>
+
+        <span class="n">first</span><span class="o">.</span><span class="n">clear_cookies</span><span class="p">()</span>
+        <span class="n">first_page</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">first_page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cookies"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"none"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"After clear_cookies() the first context has none either"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The page reads <code>document.cookie</code> when it loads, so after <code>clear_cookies()</code> the solution
+reloads it before checking again.</p>
+</details>
+<h3 id="exercise-4-where-am-i">Exercise 4: where am I?<a class="headerlink" href="#exercise-4-where-am-i" title="Permanent link">&para;</a></h3>
+<p>Start a context at the Eiffel Tower (latitude 48.8584, longitude 2.2945) with the
+<code>geolocation</code> permission. Click <strong>Show my location</strong> and assert the coordinates. Then move the
+context to Big Ben (51.5007, -0.1246) and check again.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 06, exercise 4: set a geolocation, read it back, then move.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">EIFFEL_TOWER</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">48.8584</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="mf">2.2945</span><span class="p">}</span>
+<span class="n">BIG_BEN</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">51.5007</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.1246</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="c1"># Without the permission the page is never told where it is.</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">geolocation</span><span class="o">=</span><span class="n">EIFFEL_TOWER</span><span class="p">,</span> <span class="n">permissions</span><span class="o">=</span><span class="p">[</span><span class="s2">"geolocation"</span><span class="p">])</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"whoami.html"</span><span class="p">)</span>
+        <span class="n">locate</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Show my location"</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"location"</span><span class="p">)</span>
+
+        <span class="n">locate</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"48.8584, 2.2945"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"In Paris:"</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="n">context</span><span class="o">.</span><span class="n">set_geolocation</span><span class="p">(</span><span class="n">BIG_BEN</span><span class="p">)</span>
+        <span class="n">locate</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"51.5007, -0.1246"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"In London:"</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p><code>set_geolocation</code> changes the position of a running context; the page sees it the next
+time it asks.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Using <code>browser.new_page()</code> and expecting a clean session.</strong> Pages without options share
+  the default context, so cookies from one test leak into the next. Create a context per
+  test (or per user) with <code>browser.new_context()</code>.</li>
+<li><strong>Passing a phone preset on Firefox.</strong> It raises <code>UnsupportedOnBrowser: is_mobile is not
+  supported on firefox</code>. Wrap the preset in <code>desktop_only(...)</code> when <code>browser.name</code> is
+  <code>"firefox"</code>.</li>
+<li><strong>Setting <code>geolocation</code> without <code>permissions=["geolocation"]</code>.</strong> The page asks for the
+  position and is never answered: Chrome refuses it ("User denied Geolocation") and Firefox
+  keeps waiting for a prompt nobody sees. Grant the permission too.</li>
+<li><strong>Calling <code>storage_state()</code> after closing the page.</strong> localStorage is read from the pages
+  that are open, so the file has the cookies but no <code>origins</code>. Save the state while the
+  signed-in page is still open.</li>
+<li><strong>Committing <code>state.json</code>.</strong> It is a working session. Write it to a temporary or
+  gitignored folder.</li>
+<li><strong>Adding a cookie with only a name and a value.</strong> <code>add_cookies</code> raises
+  <code>ValueError: cookie 'theme' needs 'domain' or 'url'</code>. Give it the site's <code>url</code>.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A context is an isolated session (cookies, storage, cache, permissions) inside one browser:
+  cheap to create, so use one per test or per user.</li>
+<li><code>browser.new_context(...)</code> takes the emulation options: viewport, locale, time zone, color
+  scheme, geolocation, permissions, user agent; <code>devices[...]</code> fills in a whole device.</li>
+<li>Firefox lacks <code>is_mobile</code>, <code>has_touch</code>, <code>java_script_enabled=False</code>, <code>reduced_motion</code> and
+  <code>forced_colors</code>; kaprevo raises <code>UnsupportedOnBrowser</code> rather than ignoring them.</li>
+<li><code>add_cookies</code>, <code>cookies</code>, <code>clear_cookies</code>, <code>set_extra_http_headers</code> and <code>add_init_script</code>
+  shape what every page of a context starts with.</li>
+<li>Log in once: <code>context.storage_state(path=...)</code>, then <code>new_context(storage_state=...)</code>.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../07-network/">07. Network</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

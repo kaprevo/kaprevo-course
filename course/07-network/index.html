@@ -1,0 +1,1876 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/07-network/">
+      
+      
+        <link rel="prev" href="../06-contexts-and-emulation/">
+      
+      
+        <link rel="next" href="../08-events-dialogs-downloads/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>07. Network - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#07-network" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              07. Network
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seeing-the-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeing the traffic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-a-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for a response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response bodies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mocking-with-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mocking with route
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocking-and-changing-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocking and changing requests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-a-real-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing a real response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-api-request-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The API request context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-no-pictures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: no pictures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-one-more-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: one more product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-an-echo-no-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: an echo, no browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-members-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: members only
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seeing-the-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeing the traffic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-a-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for a response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response bodies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mocking-with-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mocking with route
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocking-and-changing-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocking and changing requests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-a-real-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing a real response
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-api-request-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The API request context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-no-pictures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: no pictures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-one-more-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: one more product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-an-echo-no-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: an echo, no browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-members-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: members only
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer B -->
+<h1 id="07-network">07. Network<a class="headerlink" href="#07-network" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (401 without credentials shows the page; library fixes from the course bug list); Nov-09-2026 (expect_response predicate and new-requests-only rule) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>watch requests and responses with page events</li>
+<li>wait for the response an action triggers with <code>expect_response</code></li>
+<li>mock an endpoint with <code>page.route</code> and <code>route.fulfill</code>, block requests with <code>route.abort</code>,
+  and change requests with <code>route.continue_</code></li>
+<li>change a real response with <code>route.fetch</code>, and pass a request on with <code>route.fallback</code></li>
+<li>answer HTTP authentication, and call APIs directly with <code>kaprevo.request</code> and <code>context.request</code></li>
+</ul>
+<p><strong>Time:</strong> about 60 minutes. <strong>Before this:</strong> <a href="../06-contexts-and-emulation/">06. Contexts and emulation</a>.
+<strong>Code:</strong> <code>examples/course/07-network/</code></p>
+</div>
+<p>A web page is mostly a conversation with servers. Being able to listen to that conversation,
+and to answer in the server's place, lets you test what a page does when the API is empty,
+slow, broken or offline, without changing the server at all. This lesson uses the
+<strong>Products</strong> page (<code>products.html</code>), which loads its table from <code>/api/products</code>.</p>
+<h2 id="seeing-the-traffic">Seeing the traffic<a class="headerlink" href="#seeing-the-traffic" title="Permanent link">&para;</a></h2>
+<p>Every request a page makes fires a <code>request</code> event, and every answer a <code>response</code> event. A
+request that fails without an answer (a refused connection, a blocked request) fires
+<code>requestfailed</code> instead. Listen with <code>page.on</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"request"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">request</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt;"</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+<span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"response"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">response</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"&lt;&lt;"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+<span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"requestfailed"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">request</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"failed:"</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">failure</span><span class="p">))</span>
+<span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+</code></pre></div>
+<p>A <strong>Request</strong> has <code>url</code>, <code>method</code>, <code>headers</code>, <code>resource_type</code> and, once answered, <code>response</code>.
+A <strong>Response</strong> has <code>url</code>, <code>status</code>, <code>ok</code> (true for 200 to 299), <code>headers</code> and its <code>request</code>.
+Header names are lower case in <code>headers</code>; <code>headers_array()</code> keeps them as sent.</p>
+<p>Lesson 08 covers events in general. For now, one rule: a listener only sees what happens after
+you register it, so register it before <code>goto</code>.</p>
+<h2 id="waiting-for-a-response">Waiting for a response<a class="headerlink" href="#waiting-for-a-response" title="Permanent link">&para;</a></h2>
+<p>Often you want one particular response: the one a click causes. <code>page.expect_response(url)</code>
+wraps the action in a <code>with</code> block. It starts listening when the block starts, so a fast
+response cannot slip past, and when the block ends it waits (up to 30 seconds) for a matching
+response:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">)</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>          <span class="c1"># 200</span>
+</code></pre></div>
+<p>The pattern is a <strong>glob</strong>: <code>**</code> matches any text, <code>*</code> any text without a slash, <code>?</code> one
+character, and <code>{a,b}</code> either alternative. You can also pass a compiled regex
+(<code>re.compile(r"/api/products$")</code>) or a function that takes the URL and returns <code>True</code> or
+<code>False</code>. The same patterns work everywhere in this lesson. <code>expect_request</code> is the same for
+requests.</p>
+<p>To check more than the URL, add <code>predicate=</code>, a function that takes the <code>Response</code>:
+<code>page.expect_response("**/api/products", predicate=lambda r: r.ok)</code>. And <code>expect_response</code> only
+counts responses to requests that start after the <code>with</code> block begins, so a response from earlier
+(such as a mocked one you just removed with <code>unroute_all()</code>) never satisfies it.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p><code>page.goto()</code> returns the main document's <code>Response</code>, as in Playwright (<code>None</code> for
+<code>about:blank</code> and other pages with no response), so <code>page.goto(url).status</code> works. To wait
+for any other response, wrap the action in <code>expect_response</code>, as the worked example does.
+Timeouts are in seconds: <code>expect_response("**/api/*", timeout=5)</code>.</p>
+</div>
+<h2 id="response-bodies">Response bodies<a class="headerlink" href="#response-bodies" title="Permanent link">&para;</a></h2>
+<p>A browser does not keep response bodies around for scripts unless asked, because they can be
+large. Call <code>browser.collect_response_bodies()</code> once, before the requests you care about, and
+then <code>response.body()</code>, <code>text()</code> and <code>json()</code> work:</p>
+<div class="highlight"><pre><span></span><code><span class="n">browser</span><span class="o">.</span><span class="n">collect_response_bodies</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">)</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">products</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</code></pre></div>
+<p>The same collector keeps request bodies, so <code>request.post_data()</code> and <code>request.post_data_json()</code>
+return what the page sent. Here is all of it in one script:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07: watch the traffic a page makes, and wait for the response a click triggers.</span>
+
+<span class="sd">Logs every request and response of the products page, then reloads the product list with the</span>
+<span class="sd">Reload button and reads the JSON the page received.</span>
+
+<span class="sd">    python examples/course/serve.py                     # terminal 1</span>
+<span class="sd">    python examples/course/07-network/example_traffic.py # terminal 2</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">browser</span><span class="o">.</span><span class="n">collect_response_bodies</span><span class="p">()</span>  <span class="c1"># keep bodies, so response.json() works</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"request"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">request</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt;"</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"response"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">response</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"&lt;&lt;"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)))</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+
+        <span class="c1"># Subscribe first, then act: the waiter catches the response the click causes.</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">)</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">products</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Reload answered </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">products</span><span class="p">)</span><span class="si">}</span><span class="s2"> products:"</span><span class="p">,</span>
+              <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">products</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&gt;&gt; GET /products.html
+&lt;&lt; 200 /products.html
+&gt;&gt; GET /course.css
+&lt;&lt; 200 /course.css
+&gt;&gt; GET /api/products
+&lt;&lt; 200 /api/products
+&gt;&gt; GET /api/products
+&lt;&lt; 200 /api/products
+Reload answered 200 with 3 products: Blue mug, Green teapot, Red kettle
+</code></pre></div>
+<p>The order of the lines can differ between runs and browsers, because the browser fetches in
+parallel; Firefox also asks for <code>/favicon.ico</code>.</p>
+<h2 id="mocking-with-route">Mocking with route<a class="headerlink" href="#mocking-with-route" title="Permanent link">&para;</a></h2>
+<p><code>page.route(pattern, handler)</code> <strong>intercepts</strong> every matching request before it leaves the
+browser. The handler receives a <strong>Route</strong> and decides what happens. <code>route.fulfill(...)</code>
+answers the request itself, so the server never sees it:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">[]))</span>             <span class="c1"># an empty list</span>
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>          <span class="c1"># a server error</span>
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/user"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Ada"</span><span class="p">}))</span>    <span class="c1"># any JSON</span>
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/logo.png"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"tests/logo.png"</span><span class="p">))</span>   <span class="c1"># a file</span>
+</code></pre></div>
+<p><code>fulfill</code> takes <code>status</code>, <code>headers</code>, <code>body</code> (text or bytes), <code>json</code> (any value, sent as JSON
+with the right content type), <code>content_type</code> and <code>path</code>. Three rules decide which handler
+runs:</p>
+<ul>
+<li><strong>The newest matching route wins.</strong> Add a new route for the same pattern and it takes over.</li>
+<li><strong>Unmatched requests go to the network</strong> as usual.</li>
+<li><strong><code>page.unroute(pattern)</code> removes a route, <code>page.unroute_all()</code> removes them all.</strong></li>
+</ul>
+<p><code>context.route(...)</code> works the same for every page of a context; a page's own routes are tried
+first.</p>
+<p>A one-call handler fits in a <code>lambda</code>, as above. A handler that has to do several things (look
+at the request, decide, then answer) is an ordinary function:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">products_or_error</span><span class="p">(</span><span class="n">route</span><span class="p">:</span> <span class="n">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"x-break"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"1"</span><span class="p">:</span>
+        <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">()</span>
+
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="n">products_or_error</span><span class="p">)</span>
+</code></pre></div>
+<p>In the sync API the handler gets a sync <code>Route</code> and runs on a worker thread, so it can call
+<code>route.fetch()</code>, <code>route.fulfill()</code> or any other sync method, as many times as it needs. With the
+async API, write the handler as an <code>async def</code> and <code>await</code> each call; the async version of the
+worked example shows one.</p>
+<h2 id="blocking-and-changing-requests">Blocking and changing requests<a class="headerlink" href="#blocking-and-changing-requests" title="Permanent link">&para;</a></h2>
+<p><code>route.abort()</code> fails the request as if the network were down. Blocking images, fonts,
+analytics or third-party scripts makes a test faster and keeps it away from servers you do not
+control:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\.(png|jpe?g|svg)$"</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/analytics/**"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
+</code></pre></div>
+<p><code>route.continue_(...)</code> sends the request to the network, optionally changed: a different
+<code>url</code>, <code>method</code>, <code>headers</code> or <code>post_data</code>. (The trailing underscore is because <code>continue</code> is a
+Python keyword.)</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/**"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">(</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="s2">"x-test-run"</span><span class="p">:</span> <span class="s2">"lesson-07"</span><span class="p">}))</span>
+</code></pre></div>
+<h2 id="changing-a-real-response">Changing a real response<a class="headerlink" href="#changing-a-real-response" title="Permanent link">&para;</a></h2>
+<p>Sometimes you want the real data with one thing changed: an extra product, a feature flag
+switched on, an error in one field. <code>route.fetch()</code> performs the request and returns the real
+response without answering the page; you then <code>fulfill</code> with it, changing what you need:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_product</span><span class="p">(</span><span class="n">route</span><span class="p">:</span> <span class="n">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">route</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>                             <span class="c1"># the real answer</span>
+    <span class="n">products</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Yellow cup"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">6.25</span><span class="p">,</span> <span class="s2">"stock"</span><span class="p">:</span> <span class="mi">9</span><span class="p">})</span>
+    <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">products</span><span class="p">)</span>      <span class="c1"># same status and headers, new body</span>
+</code></pre></div>
+<p><code>fulfill(response=...)</code> keeps the fetched status and headers unless you override them.
+<code>route.fetch()</code> is made by Python's own HTTP client with the page's headers and cookies, not by
+the browser, so it does not use the browser's cache or proxy.</p>
+<p><strong><code>route.fallback()</code></strong> passes the request on to the next matching handler: an older route of
+the page, then the context's routes. That lets a general route set a default and a specific one
+step aside:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/**"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"mocked"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}))</span>   <span class="c1"># default for every page</span>
+<span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fallback</span><span class="p">())</span>                     <span class="c1"># this page: let the context decide</span>
+</code></pre></div>
+<p><code>fallback</code> takes the same changes as <code>continue_</code> (<code>headers=</code>, <code>url=</code>, ...), applied when a later
+handler continues the request. If no handler is left, the request goes to the network.</p>
+<h2 id="http-authentication">HTTP authentication<a class="headerlink" href="#http-authentication" title="Permanent link">&para;</a></h2>
+<p>Some pages are protected by <strong>HTTP authentication</strong>: the server answers <code>401</code> with a
+<code>WWW-Authenticate</code> header, and a browser would show a sign-in dialog. A test answers it with
+credentials instead, for a whole context or for one page:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">http_credentials</span><span class="o">=</span><span class="p">{</span><span class="s2">"username"</span><span class="p">:</span> <span class="s2">"ada"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"secret"</span><span class="p">})</span>
+<span class="n">page</span><span class="o">.</span><span class="n">set_http_credentials</span><span class="p">({</span><span class="s2">"username"</span><span class="p">:</span> <span class="s2">"ada"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"secret"</span><span class="p">})</span>    <span class="c1"># one page only</span>
+</code></pre></div>
+<p>The practice site's <code>/api/basic-auth</code> accepts user <code>ada</code> with password <code>secret</code>. Credentials
+that the server refuses are not retried: the page gets the 401 response, which on the practice
+site is a page saying "Sign-in required". With no credentials at all the challenge is cancelled
+the same way, so the page shows the 401 rather than a sign-in dialog. Page credentials win over
+the context's when both are set. Browsers remember credentials that worked for the
+rest of the session, so test the failure case in a context of its own.</p>
+<h2 id="the-api-request-context">The API request context<a class="headerlink" href="#the-api-request-context" title="Permanent link">&para;</a></h2>
+<p>Not every check needs a page. <strong><code>kaprevo.request</code></strong> is an HTTP client with no browser at all:
+it is the quickest way to set up test data, call an API, or check one directly.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="k">with</span> <span class="n">request</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">)</span> <span class="k">as</span> <span class="n">api</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"api/echo"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Ada"</span><span class="p">})</span>   <span class="c1"># a dict or list is sent as JSON</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_ok</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<p>It has <code>get</code>, <code>post</code>, <code>put</code>, <code>patch</code>, <code>delete</code>, <code>head</code> and <code>fetch</code>. <code>data=</code> sends JSON,
+<code>form=</code> a form, <code>params=</code> a query string. A 404 or 500 comes back as a response (check
+<code>response.ok</code> or <code>response.status</code>) rather than raising, unless you pass
+<code>fail_on_status_code=True</code>. <code>expect(response).to_be_ok()</code> fails with the status and the URL.</p>
+<p><strong><code>context.request</code></strong> is the same client attached to a browser context: it <strong>shares the
+context's cookies</strong>. Sign in through the API and the context's pages are signed in too, which
+is faster than filling in a form:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07: sign in through the API with context.request, and the pages are signed in too.</span>
+
+<span class="sd">``context.request`` sends HTTP requests from Python that share the context's cookies. The</span>
+<span class="sd">script posts to /api/login, then opens a page in the same context: it already has the cookie.</span>
+
+<span class="sd">    python examples/course/07-network/example_api_request.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">)</span>
+
+        <span class="n">refused</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"api/login"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"user"</span><span class="p">:</span> <span class="s2">"ada"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">""</span><span class="p">})</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Without a password:"</span><span class="p">,</span> <span class="n">refused</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">refused</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"api/login"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"user"</span><span class="p">:</span> <span class="s2">"ada"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"lovelace"</span><span class="p">})</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_ok</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Signed in through the API:"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"whoami.html"</span><span class="p">)</span>  <span class="c1"># relative to base_url</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cookies"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"session=ada"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The page has the cookie:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"cookies"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The API agrees:"</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"api/me"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Without a password: 401 {'error': 'user and password are required'}
+Signed in through the API: {'user': 'ada'}
+The page has the cookie: session=ada
+The API agrees: {'user': 'ada'}
+</code></pre></div>
+<p><code>base_url=</code> on the context makes <code>page.goto("whoami.html")</code> and <code>context.request.post("api/login")</code>
+relative to the practice site.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>Selenium cannot see or change network traffic without a proxy or CDP-only extras. In kaprevo
+events, routes and <code>context.request</code> are part of the core API and work the same in Chrome
+and Firefox, because they are WebDriver BiDi commands.</p>
+</div>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The products page shows a table when <code>/api/products</code> returns products, "No products yet" for an
+empty list, and an error message when the request fails or returns an error status. Testing
+those states against a real server would mean emptying its database or breaking it. With
+<code>route</code>, each state is one line. The script:</p>
+<ol>
+<li>loads the page normally, waits for the real <code>/api/products</code> response, and checks the table;</li>
+<li>routes the endpoint to an empty list and reloads;</li>
+<li>routes it to a <code>500</code>, which replaces the empty list because the newest route wins;</li>
+<li>aborts it, so the page sees a network failure;</li>
+<li>removes every route, and the real data comes back.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07: mock an API with page.route and check every state the page can show.</span>
+
+<span class="sd">The products page loads /api/products. The script checks the real answer first, then answers</span>
+<span class="sd">the same request itself: with an empty list, with a server error, and with a network failure.</span>
+
+<span class="sd">    python examples/course/07-network/example_mock_products.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+
+        <span class="c1"># 1. The real server: wait for its response, then for the page to show it.</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">)</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Real API answered"</span><span class="p">,</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+
+        <span class="c1"># 2. An empty list, without touching the server.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">[]))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"No products yet"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Empty list:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># 3. A server error. The newest matching route wins, so this one replaces the empty list.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Could not load products (HTTP 500)"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Server error:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># 4. No answer at all: the request fails as a network error.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Could not load products"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Network failure:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># Remove every route: the real server answers again.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">unroute_all</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Routes removed:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/07-network/example_mock_products.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Real API answered 200
+Empty list: No products yet
+Server error: Could not load products (HTTP 500)
+Network failure: Could not load products (Failed to fetch)
+Routes removed: 3 products
+</code></pre></div>
+<p>The network failure text comes from the browser: Chrome says "Failed to fetch", Firefox
+"NetworkError when attempting to fetch resource.", which is why that step checks with
+<code>to_contain_text</code>.</p>
+<details class="example">
+<summary>Async version</summary>
+<p>Here the route handler is an <code>async def</code> that counts the requests and answers each one
+differently: an empty list first, then a <code>503</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07: the routing example with the async API and async route handlers.</span>
+
+<span class="sd">A handler that does more than one thing (look at the request, decide, answer) reads best as an</span>
+<span class="sd">``async def``. This one sends an empty list for the first request and a server error after that.</span>
+
+<span class="sd">    python examples/course/07-network/example_mock_products_async.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">calls</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">products</span><span class="p">(</span><span class="n">route</span><span class="p">:</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">nonlocal</span> <span class="n">calls</span>
+            <span class="n">calls</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Request </span><span class="si">{</span><span class="n">calls</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">,</span><span class="w"> </span><span class="s1">'/'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">calls</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">[])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">503</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="n">products</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"No products yet"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"First load:"</span><span class="p">,</span> <span class="k">await</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reload"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Could not load products (HTTP 503)"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Reload:"</span><span class="p">,</span> <span class="k">await</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>The handler awaits <code>route.fulfill(...)</code>. A handler that returns without fulfilling,
+continuing or aborting is continued for you, so a mistake in a handler cannot hang the page.</p>
+</details>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-no-pictures">Exercise 1: no pictures<a class="headerlink" href="#exercise-1-no-pictures" title="Permanent link">&para;</a></h3>
+<p>The <strong>Gallery</strong> page (<code>gallery.html</code>) shows three pictures and a line saying how many loaded.
+Block every image with one route, check that the page reports "0 of 3 pictures loaded", and
+that its <strong>Like</strong> button still works. Print the names of the blocked files.</p>
+<p>Hint: the pictures are <code>.svg</code> files; a regex can match several extensions at once.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07, exercise 1: block every image with one route and check the page still works.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">blocked</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"requestfailed"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">request</span><span class="p">:</span> <span class="n">blocked</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="c1"># A regex matches anywhere in the URL; this one catches the usual image types.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\.(png|jpe?g|gif|webp|svg)$"</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"gallery.html"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"0 of 3 pictures loaded"</span><span class="p">)</span>
+
+        <span class="c1"># The rest of the page still works without its pictures.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Like"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"likes"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Blocked:"</span><span class="p">,</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">blocked</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The Like button still works"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Every aborted request fires <code>requestfailed</code>, which is how the solution collects the names.</p>
+</details>
+<h3 id="exercise-2-one-more-product">Exercise 2: one more product<a class="headerlink" href="#exercise-2-one-more-product" title="Permanent link">&para;</a></h3>
+<p>Use <code>route.fetch</code> to get the real product list, add a fourth product to it, and fulfil the
+request with the changed list. Check that the page shows "4 products" and the new row.</p>
+<p>Hint: the handler fetches, changes and fulfils: three calls in one ordinary function. Each row
+has the test id <code>product-&lt;id&gt;</code>.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07, exercise 2: fetch the real product list and add a fourth product to it.</span>
+
+<span class="sd">``route.fetch()`` gets the real response; ``route.fulfill(response=..., json=...)`` sends it on</span>
+<span class="sd">with a changed body. The handler does three steps, so it is an ordinary function: in the sync</span>
+<span class="sd">API it gets a sync ``Route`` and runs on a worker thread, so each call simply blocks.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (a plain sync handler now that sync route handlers get a sync Route)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Route</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">YELLOW_CUP</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Yellow cup"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">6.25</span><span class="p">,</span> <span class="s2">"stock"</span><span class="p">:</span> <span class="mi">9</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_product</span><span class="p">(</span><span class="n">route</span><span class="p">:</span> <span class="n">Route</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">route</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>  <span class="c1"># the real answer from the server</span>
+    <span class="n">products</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">YELLOW_CUP</span><span class="p">)</span>
+    <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">products</span><span class="p">)</span>  <span class="c1"># same status and headers, new body</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/products"</span><span class="p">,</span> <span class="n">add_product</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"products.html"</span><span class="p">)</span>
+
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"4 products"</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"product-4"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Yellow cup"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"$6.25"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The page shows 4 products, the last one:"</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"cell"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The first three products come from the server, so if someone changes them there, this test
+still checks the real data plus the one you added.</p>
+</details>
+<h3 id="exercise-3-an-echo-no-browser">Exercise 3: an echo, no browser<a class="headerlink" href="#exercise-3-an-echo-no-browser" title="Permanent link">&para;</a></h3>
+<p>Post the JSON <code>{"product": "Blue mug", "quantity": 2}</code> to <code>/api/echo</code> with <code>kaprevo.request</code>,
+and assert that the server echoes the method, the body and the <code>Content-Type</code> it received. Add
+an <code>X-Course</code> header to every request of the client and check that it arrives too. Then show
+that <code>/api/status/404</code> comes back as a response with status 404.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07, exercise 3: post JSON to /api/echo with kaprevo.request, no browser at all.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">request</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">extra_http_headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"X-Course"</span><span class="p">:</span> <span class="s2">"lesson-07"</span><span class="p">})</span> <span class="k">as</span> <span class="n">api</span><span class="p">:</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"product"</span><span class="p">:</span> <span class="s2">"Blue mug"</span><span class="p">,</span> <span class="s2">"quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"api/echo"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>  <span class="c1"># a dict is sent as JSON</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_ok</span><span class="p">()</span>
+
+        <span class="n">echoed</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">echoed</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"POST"</span>
+        <span class="k">assert</span> <span class="n">echoed</span><span class="p">[</span><span class="s2">"body"</span><span class="p">]</span> <span class="o">==</span> <span class="n">order</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">value</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">echoed</span><span class="p">[</span><span class="s2">"headers"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">assert</span> <span class="n">headers</span><span class="p">[</span><span class="s2">"content-type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"application/json"</span>
+        <span class="k">assert</span> <span class="n">headers</span><span class="p">[</span><span class="s2">"x-course"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"lesson-07"</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The server echoed:"</span><span class="p">,</span> <span class="n">echoed</span><span class="p">[</span><span class="s2">"body"</span><span class="p">])</span>
+
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"api/status/404"</span><span class="p">)</span>  <span class="c1"># 4xx and 5xx come back as responses, not errors</span>
+        <span class="k">assert</span> <span class="n">missing</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">404</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">missing</span><span class="o">.</span><span class="n">ok</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"A 404 is a response too:"</span><span class="p">,</span> <span class="n">missing</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The echo shows header names as the client sent them, so the solution compares them in
+lower case.</p>
+</details>
+<h3 id="exercise-4-members-only">Exercise 4: members only<a class="headerlink" href="#exercise-4-members-only" title="Permanent link">&para;</a></h3>
+<p>Open <code>/api/basic-auth</code> once with the wrong password and once with the right one (<code>ada</code> /
+<code>secret</code>). Assert the 401 and the "Sign-in required" heading the first time, and the 200 and
+"Welcome, ada" the second time.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 07, exercise 4: HTTP basic authentication, refused and accepted.</span>
+
+<span class="sd">Each attempt uses a context of its own, because a browser remembers credentials that worked.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">password</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">heading</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"wrong"</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="s2">"Sign-in required"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"secret"</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Welcome, ada"</span><span class="p">)):</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">http_credentials</span><span class="o">=</span><span class="p">{</span><span class="s2">"username"</span><span class="p">:</span> <span class="s2">"ada"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="n">password</span><span class="p">})</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="s2">"**/api/basic-auth"</span><span class="p">)</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+                <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"api/basic-auth"</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">status</span><span class="p">,</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">status</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Password </span><span class="si">{</span><span class="n">password</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">heading</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Each attempt gets a fresh context, so the browser cannot reuse credentials that worked
+earlier.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Starting <code>expect_response</code> after the click.</strong> The response may already have arrived,
+  and the waiter times out with <code>no 'response' event within 30 s</code>. Put the action inside
+  the <code>with</code> block.</li>
+<li><strong><code>response.json()</code> raises <code>UnsupportedOnBrowser: response bodies are off</code>.</strong> Bodies are
+  only kept after <code>browser.collect_response_bodies()</code>; call it before the request is made.</li>
+<li><strong>A route that never matches.</strong> <code>"/api/products"</code> is compared with the full URL
+  (<code>http://127.0.0.1:8765/api/products</code>) and matches nothing. Start globs with <code>**/</code>, or
+  use a regex.</li>
+<li><strong>Two routes for one URL, and the older one seems ignored.</strong> The newest matching route
+  wins. Remove the newer one with <code>unroute</code>, or have it call <code>route.fallback()</code>.</li>
+<li><strong>Mixing the two APIs in a handler.</strong> A sync handler (<code>def</code> or <code>lambda</code>) gets a sync <code>Route</code>
+  and calls it without <code>await</code>. An <code>async def</code> handler gets the async <code>Route</code>, even when you
+  register it with the sync API, and must <code>await</code> every call; forgetting one sends the
+  request to the real server.</li>
+<li><strong>Expecting a sign-in dialog for a protected page.</strong> A test never sees one: with no
+  credentials kaprevo cancels the challenge and the page shows the 401 response. Assert that
+  response, or give credentials.</li>
+<li><strong>Expecting <code>route.fetch()</code> to go through the browser's proxy or cache.</strong> It is made from
+  Python. Use <code>route.continue_()</code> when the browser itself must send the request.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>page.on("request" / "response" / "requestfailed")</code> shows the traffic; <code>expect_response</code>
+  waits for the one an action causes, if you start it before the action.</li>
+<li><code>page.route(pattern, handler)</code> intercepts requests: <code>fulfill</code> answers, <code>abort</code> fails,
+  <code>continue_</code> sends on (changed), <code>fallback</code> passes to the next handler. The newest route wins.</li>
+<li><code>route.fetch()</code> plus <code>fulfill(response=..., json=...)</code> changes a real response.</li>
+<li><code>http_credentials</code> (context) and <code>set_http_credentials</code> (page) answer HTTP authentication.</li>
+<li><code>kaprevo.request</code> calls APIs with no browser; <code>context.request</code> shares the context's cookies.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../08-events-dialogs-downloads/">08. Events, dialogs, downloads and popups</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

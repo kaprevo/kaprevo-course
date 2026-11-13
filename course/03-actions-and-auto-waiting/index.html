@@ -1,0 +1,1953 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/03-actions-and-auto-waiting/">
+      
+      
+        <link rel="prev" href="../02-locators/">
+      
+      
+        <link rel="next" href="../04-assertions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>03. Actions and auto-waiting - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#03-actions-and-auto-waiting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              03. Actions and auto-waiting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your first actions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-auto-waiting-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What auto-waiting checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeouts-in-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeouts in seconds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyboard-and-mouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard and mouse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-and-drag-and-drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files and drag and drop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-things-that-are-not-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for things that are not actions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-read-a-failed-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: read a failed check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-upload-two-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: upload two files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-drag-and-drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: drag and drop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-remove-a-sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: remove a sleep
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your first actions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-auto-waiting-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What auto-waiting checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeouts-in-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeouts in seconds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyboard-and-mouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard and mouse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-and-drag-and-drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files and drag and drop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiting-for-things-that-are-not-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiting for things that are not actions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-read-a-failed-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: read a failed check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-upload-two-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: upload two files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-drag-and-drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: drag and drop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-remove-a-sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: remove a sleep
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer A -->
+<h1 id="03-actions-and-auto-waiting">03. Actions and auto-waiting<a class="headerlink" href="#03-actions-and-auto-waiting" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (library fixes from the course bug list) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>click, double click, hover, fill, clear, press keys and type key by key</li>
+<li>check boxes and radios, select options, upload files and drag and drop</li>
+<li>explain the actionability checks (attached, visible, stable, enabled, editable, receives the click) and read the error that names the failed one</li>
+<li>set timeouts in seconds per call and per page (<code>set_default_timeout</code>)</li>
+<li>wait for a condition (<code>wait_for</code>, <code>wait_for_url</code>, <code>wait_for_function</code>) instead of sleeping</li>
+</ul>
+<p><strong>Time:</strong> about 45 minutes. <strong>Before this:</strong> <a href="../02-locators/">02. Locators</a>.
+<strong>Code:</strong> <code>examples/course/03-actions-and-auto-waiting/</code></p>
+</div>
+<p>A locator says which element; an <strong>action</strong> says what to do with it. This lesson covers every
+common action and, more importantly, what kaprevo does before each one: it waits until the
+element is ready. That waiting is why a kaprevo script needs no <code>sleep()</code> calls, and knowing how
+it works lets you read a timeout error in seconds instead of guessing.</p>
+<p>The practice page for this lesson is <code>/testsite/form.html</code>. Open it in your own browser and
+reload it a few times: a dark overlay covers the page for 0.7 seconds, and a "Late button"
+appears after 0.6 seconds. Both are there on purpose, to give auto-waiting something to wait for.</p>
+<h2 id="your-first-actions">Your first actions<a class="headerlink" href="#your-first-actions" title="Permanent link">&para;</a></h2>
+<p>Most scripts use a handful of actions, and each reads like what a user does:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>                          <span class="c1"># type into a field</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>                            <span class="c1"># tick a checkbox</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Pro"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>                                    <span class="c1"># choose a radio button</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Country"</span><span class="p">)</span><span class="o">.</span><span class="n">select_option</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"United Kingdom"</span><span class="p">)</span>  <span class="c1"># pick from a &lt;select&gt;</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Notes"</span><span class="p">)</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Enter"</span><span class="p">)</span>                           <span class="c1"># press one key</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>                  <span class="c1"># click</span>
+</code></pre></div>
+<p>A few details are worth knowing from the start:</p>
+<ul>
+<li><strong><code>fill(value)</code></strong> replaces the whole value of an input, textarea or editable element, then fires
+  <code>input</code> and <code>change</code> events, which frameworks such as React listen for. It does not press
+  individual keys. <code>clear()</code> is <code>fill("")</code>.</li>
+<li><strong><code>check()</code></strong> and <strong><code>uncheck()</code></strong> are better than <code>click()</code> for checkboxes: they do nothing when
+  the box is already in the state you asked for, and they verify the state afterwards.
+  <code>set_checked(True)</code> is the same with a flag.</li>
+<li><strong><code>select_option()</code></strong> takes a value (<code>select_option("uk")</code>), a <code>label=</code>, or an <code>index=</code>, or a
+  list of them for a multi-select, and returns the values it selected.</li>
+<li><strong><code>click()</code></strong> sends real mouse events (move, press, release) at the centre of the element. It
+  takes <code>button="right"</code>, <code>modifiers=["Shift"]</code>, <code>click_count=2</code> and <code>position={"x": 5, "y": 5}</code>
+  (relative to the element's top-left corner) when you need them.</li>
+</ul>
+<h2 id="what-auto-waiting-checks">What auto-waiting checks<a class="headerlink" href="#what-auto-waiting-checks" title="Permanent link">&para;</a></h2>
+<p>Before every action, kaprevo finds the element again and runs the <strong>actionability checks</strong> in the
+page. If a check fails, it waits a little and tries again, until the checks pass or the timeout
+runs out. Which checks run depends on the action:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Means</th>
+<th>click</th>
+<th>fill</th>
+<th>hover</th>
+<th>check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>attached</td>
+<td>the element is in the DOM</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>visible</td>
+<td>it has a size and is not hidden by CSS</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>stable</td>
+<td>it is not moving (same box over two animation frames)</td>
+<td>yes</td>
+<td></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>not <code>disabled</code>, not <code>aria-disabled</code>, not in a disabled fieldset</td>
+<td>yes</td>
+<td>yes</td>
+<td></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>editable</td>
+<td>not read-only</td>
+<td></td>
+<td>yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>receives the click</td>
+<td>nothing else covers its centre point</td>
+<td>yes</td>
+<td></td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>The last check is the one other tools often miss. On <code>form.html</code> the overlay is a transparent
+layer over the whole page. A click on the Covered button during the first 0.7 seconds would land
+on the overlay, not on the button; a script that clicked blindly would "succeed" and the button
+would never know. kaprevo sees that the point is covered and waits:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Covered button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>   <span class="c1"># waits for the overlay to go</span>
+</code></pre></div>
+<p>If the timeout passes first, the error names the action, the locator, the time it waited, and the
+check that was still failing:</p>
+<div class="highlight"><pre><span></span><code>click get_by_role('button', name='Covered button'): timed out after 0.2 s: element is covered by &lt;div#overlay&gt;
+</code></pre></div>
+<p>The ending tells you where to look:</p>
+<table>
+<thead>
+<tr>
+<th>Error ends with</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>no element matches</code></td>
+<td>the locator: wrong name, wrong frame, element not created yet</td>
+</tr>
+<tr>
+<td><code>element is not visible</code></td>
+<td>CSS (<code>display: none</code>, zero size), or the element appears later than the timeout</td>
+</tr>
+<tr>
+<td><code>element is not stable (still moving)</code></td>
+<td>an animation or transition that never settles</td>
+</tr>
+<tr>
+<td><code>element is disabled</code></td>
+<td>the app has not enabled it yet: a form not filled in, a request still running</td>
+</tr>
+<tr>
+<td><code>element is not editable</code></td>
+<td>a read-only field</td>
+</tr>
+<tr>
+<td><code>element is covered by &lt;...&gt;</code></td>
+<td>an overlay, a cookie banner, a toast, a sticky header</td>
+</tr>
+</tbody>
+</table>
+<p><code>force=True</code> skips the checks (<code>click(force=True)</code>). Use it only when you are sure a check is
+wrong for your page; usually the check is right and the page is not ready.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>There is no <code>WebDriverWait</code>, no <code>expected_conditions</code> and no implicit wait to configure. Each
+action waits for exactly what it needs. There is also no <code>StaleElementReferenceException</code>:
+a locator finds the element again on every action, so a re-render between two steps does not
+break the script. And <code>ElementClickInterceptedException</code> becomes a wait plus, if the page
+never clears, a timeout that names the element in the way.</p>
+</div>
+<h2 id="timeouts-in-seconds">Timeouts in seconds<a class="headerlink" href="#timeouts-in-seconds" title="Permanent link">&para;</a></h2>
+<p>Every action waits up to <strong>10 seconds</strong> by default. Timeouts in kaprevo are always in seconds,
+so <code>timeout=2</code> means two seconds:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Save"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># this call only</span>
+<span class="n">page</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>                                <span class="c1"># every action and wait on this page</span>
+<span class="n">page</span><span class="o">.</span><span class="n">set_default_navigation_timeout</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>                    <span class="c1"># goto, reload, wait_for_url</span>
+</code></pre></div>
+<p>Navigations (<code>goto</code>, <code>reload</code>, <code>wait_for_url</code>) have their own default of 30 seconds, because loading
+a page usually takes longer than finding a button. Assertions have a third default, 5 seconds,
+which lesson 04 covers.</p>
+<p>When a wait runs out, kaprevo raises <code>KaprevoTimeoutError</code> (<code>from kaprevo import KaprevoTimeoutError</code>).
+It is also a Python <code>TimeoutError</code>, so code that already catches <code>TimeoutError</code> works.</p>
+<p>Pick timeouts for what the app really does. A longer timeout costs nothing when the page is
+fast, because kaprevo stops waiting the moment the checks pass; it only matters when something is
+wrong. Shortening a timeout does not make a script faster.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>Same actions, same checks, but <strong>seconds, not milliseconds</strong>: <code>click(timeout=2)</code> is two
+seconds. A Playwright habit of <code>timeout=5000</code> asks for 83 minutes. The default action
+timeout is 10 seconds (Playwright's is 30); <code>page.set_default_timeout(30)</code> restores
+Playwright's.</p>
+</div>
+<h2 id="keyboard-and-mouse">Keyboard and mouse<a class="headerlink" href="#keyboard-and-mouse" title="Permanent link">&para;</a></h2>
+<p><code>press(key)</code> focuses the element and presses one key or a combination. Key names follow the
+browser's <code>KeyboardEvent.key</code> values: <code>Enter</code>, <code>Tab</code>, <code>Escape</code>, <code>Backspace</code>, <code>ArrowDown</code>, <code>F2</code>,
+or a single character. Combinations join keys with <code>+</code>, modifiers first:</p>
+<div class="highlight"><pre><span></span><code><span class="n">notes</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Notes"</span><span class="p">)</span>
+<span class="n">notes</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Shift+A"</span><span class="p">)</span>             <span class="c1"># a capital A</span>
+<span class="n">notes</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"ControlOrMeta+A"</span><span class="p">)</span>     <span class="c1"># select all: Meta on macOS, Control elsewhere</span>
+<span class="n">notes</span><span class="o">.</span><span class="n">press_sequentially</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>  <span class="c1"># five separate key presses</span>
+</code></pre></div>
+<p><strong><code>fill</code> or <code>press_sequentially</code>?</strong> Use <code>fill</code> almost always: it is fast and it sets the value in
+one step. Use <code>press_sequentially(text)</code> when the page reacts to individual keys, such as an
+autocomplete box that searches as you type, or an input that formats a card number. It takes a
+<code>delay=</code> in seconds between keys.</p>
+<p><code>page.keyboard</code> sends keys to whatever has focus, without a locator: <code>page.keyboard.press("Tab")</code>
+moves focus like a user would, and <code>page.keyboard.type("text")</code> types into the focused field.</p>
+<p>For the mouse, the locator actions are usually enough: <code>hover()</code>, <code>click()</code>, <code>dblclick()</code>, and
+<code>click(button="right")</code> for a context menu. <code>page.mouse</code> works in viewport pixels for the rare case
+where you need a point rather than an element (drawing on a canvas, for example):
+<code>page.mouse.move(x, y)</code>, <code>down()</code>, <code>up()</code>, <code>click(x, y)</code> and <code>wheel(0, 300)</code>. <code>page.mouse</code> does
+<strong>not</strong> auto-wait: it acts at that point, whatever is there now.</p>
+<h2 id="files-and-drag-and-drop">Files and drag and drop<a class="headerlink" href="#files-and-drag-and-drop" title="Permanent link">&para;</a></h2>
+<p><code>set_input_files()</code> sets the files of an <code>&lt;input type="file"&gt;</code>, as if the user had picked them in
+the file dialog (which never opens):</p>
+<div class="highlight"><pre><span></span><code><span class="n">upload</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#file"</span><span class="p">)</span>
+<span class="n">upload</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">(</span><span class="s2">"report.pdf"</span><span class="p">)</span>                    <span class="c1"># one file</span>
+<span class="n">upload</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">([</span><span class="s2">"report.pdf"</span><span class="p">,</span> <span class="s2">"photo.png"</span><span class="p">])</span>     <span class="c1"># several, if the input allows it</span>
+<span class="n">upload</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"hello.txt"</span><span class="p">,</span> <span class="s2">"mimeType"</span><span class="p">:</span> <span class="s2">"text/plain"</span><span class="p">,</span> <span class="s2">"buffer"</span><span class="p">:</span> <span class="sa">b</span><span class="s2">"hi"</span><span class="p">})</span>  <span class="c1"># in memory</span>
+<span class="n">upload</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">([])</span>                              <span class="c1"># clear the selection</span>
+</code></pre></div>
+<p>Paths are relative to the current directory. The in-memory form is handy in tests: no file to
+create and clean up.</p>
+<p><code>drag_to(target)</code> drags one element onto another with real pointer events (press, several moves,
+release), which works for pages that implement drag with mouse or pointer events and for HTML5
+drag and drop:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#box"</span><span class="p">)</span><span class="o">.</span><span class="n">drag_to</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#target"</span><span class="p">))</span>
+<span class="n">page</span><span class="o">.</span><span class="n">drag_and_drop</span><span class="p">(</span><span class="s2">"#box"</span><span class="p">,</span> <span class="s2">"#target"</span><span class="p">)</span>                   <span class="c1"># the same, with two selectors</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Firefox starts a native HTML5 drag but does not deliver the final button release to it
+through WebDriver BiDi, so the page would never see the drop. For elements marked
+<code>draggable="true"</code> kaprevo replays the HTML5 drag events itself in Firefox. Pages that drag
+with pointer events, such as <code>/testsite/dnd.html</code>, get real pointer input in both browsers.
+Your script is the same either way.</p>
+</div>
+<h2 id="waiting-for-things-that-are-not-actions">Waiting for things that are not actions<a class="headerlink" href="#waiting-for-things-that-are-not-actions" title="Permanent link">&para;</a></h2>
+<p>Actions wait for their own element. Sometimes you need to wait for something else: a spinner to
+go away, a URL to change, a value in the page to be ready. There is a wait for each:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#spinner"</span><span class="p">)</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">"hidden"</span><span class="p">)</span>       <span class="c1"># or "visible", "attached", "detached"</span>
+<span class="n">page</span><span class="o">.</span><span class="n">wait_for_url</span><span class="p">(</span><span class="s2">"**/orders/*"</span><span class="p">)</span>                         <span class="c1"># after a click that navigates</span>
+<span class="n">page</span><span class="o">.</span><span class="n">wait_for_function</span><span class="p">(</span><span class="s2">"() =&gt; window.appReady === true"</span><span class="p">)</span> <span class="c1"># any JavaScript condition</span>
+</code></pre></div>
+<p><code>wait_for_url</code> takes the same patterns as <code>page.route</code> in lesson 07: a glob string (<code>**</code> any
+text, <code>*</code> any text without a slash; a URL without wildcards must match exactly), a compiled
+regex such as <code>re.compile(r"/orders/\d+$")</code>, or a function that takes the URL.</p>
+<p><code>wait_for_function</code> returns the truthy value the function produced, so it can also fetch the
+value you were waiting for. Each takes a <code>timeout=</code> in seconds.</p>
+<p>And then there is the wait you should not use. <code>time.sleep(1)</code> (or <code>page.wait_for_timeout(1)</code>)
+waits a fixed time whatever the page does:</p>
+<ul>
+<li>when the page is faster than the sleep, the script wastes the rest of the second, on every run;</li>
+<li>when the page is slower (a busy build machine, a cold cache), the script fails anyway, and you
+  raise the sleep, and every run gets slower.</li>
+</ul>
+<p>A condition-based wait stops the moment the condition is true and fails only when it is really not
+going to happen. Exercise 4 measures the difference. Before you reach for a wait at all, ask
+whether the next action or an <a href="../04-assertions/">assertion</a> would wait for you; most of the time
+it does.</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>This script fills in every kind of control on <code>/testsite/form.html</code> and submits it. There is no
+sleep anywhere: the checkbox click waits for the overlay to go, the Late button click waits for the
+button to appear, and the assertion waits for the status line.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03: fill in and submit a whole form, with no sleeps anywhere.</span>
+
+<span class="sd">The page shows a "Late button" 0.6 seconds after loading and covers everything with an overlay</span>
+<span class="sd">for 0.7 seconds. Every action below waits for its element to be ready on its own.</span>
+
+<span class="sd">    python examples/course/03-actions-and-auto-waiting/example_fill_the_form.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>                 <span class="c1"># text</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>             <span class="c1"># password</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>                   <span class="c1"># checkbox (waits for the overlay)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Pro"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>                           <span class="c1"># radio</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Country"</span><span class="p">)</span><span class="o">.</span><span class="n">select_option</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"United Kingdom"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Notes"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"Two lines</span><span class="se">\n</span><span class="s2">of notes"</span><span class="p">)</span>     <span class="c1"># textarea</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#file"</span><span class="p">)</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"notes.txt"</span><span class="p">,</span> <span class="s2">"mimeType"</span><span class="p">:</span> <span class="s2">"text/plain"</span><span class="p">,</span> <span class="s2">"buffer"</span><span class="p">:</span> <span class="sa">b</span><span class="s2">"hello"</span><span class="p">})</span>
+
+        <span class="c1"># Hidden at first, then shown: click() waits until it is visible.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Late button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="c1"># Under the overlay at first: click() waits until nothing covers it.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Covered button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Signed in as ada"</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Status:  "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Country: "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Country"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"File:    "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#files"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Buttons: "</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">(),</span> <span class="s2">"/"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#covered"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Done in </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">started</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> s, without a single sleep"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Run it from the course folder:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/03-actions-and-auto-waiting/example_fill_the_form.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Status:   Signed in as ada
+Country:  uk
+File:     notes.txt
+Buttons:  Clicked late / Clicked through
+Done in 1.4 s, without a single sleep
+</code></pre></div>
+<p>The time is about the 0.7 seconds the overlay stays, plus the work itself. Run it with
+<code>KAPREVO_COURSE_HEADED=1</code> to watch it: the form fills in while the overlay is still there, because
+<code>fill</code> does not need to receive a click, and the checkbox waits.</p>
+<details class="example">
+<summary>Async version</summary>
+<p>With the async API several pages can work at once. Here two users fill in the form
+concurrently with <code>asyncio.gather</code>, in one browser; while one waits for its overlay, the
+other one keeps working, and the printed lines interleave.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03: with the async API, actions on several pages run at the same time.</span>
+
+<span class="sd">One browser, two users: each fills in the form in a context of its own, concurrently, with</span>
+<span class="sd">asyncio.gather. Each one waits for the late button and the overlay on its own page, and while one</span>
+<span class="sd">waits, the other keeps working. The contexts keep the users apart (cookies, storage), as two</span>
+<span class="sd">separate browser profiles would.</span>
+
+<span class="sd">    python examples/course/03-actions-and-auto-waiting/example_fill_the_form_async.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (one browser with a context per user, now that background pages no longer stall)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">:</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">Browser</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Fill in the form as ``user`` in a fresh context and return the status text."""</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>  <span class="c1"># a clean, separate session for this user</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">: page loaded"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>              <span class="c1"># waits for the overlay</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Late button"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>  <span class="c1"># waits until it is shown</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Signed in as </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">: signed in"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="c1"># gather starts both coroutines and waits for both; their steps interleave.</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="s2">"ada"</span><span class="p">),</span> <span class="n">sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="s2">"grace"</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Each user gets a <strong>browser context</strong> of its own (<code>browser.new_context()</code>): a separate
+session with its own cookies and storage, so one user's sign-in can never leak into the
+other's page. Two pages of one context would share them. Only one tab can be in front at a
+time, so kaprevo brings a page to the front for the moment it clicks, types or takes a
+screenshot; the other page's waits keep running in the background.</p>
+</details>
+<p>Two more scripts go with the sections above. <code>example_keyboard_and_mouse.py</code> types, uses key
+combinations, double-clicks and clicks with <code>page.mouse</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03: keys, key combinations, typing key by key, double click and hover.</span>
+
+<span class="sd">The form page records every key it receives in a paragraph, so you can see the real key events.</span>
+
+<span class="sd">    python examples/course/03-actions-and-auto-waiting/example_keyboard_and_mouse.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Notes"</span><span class="p">)</span>
+
+        <span class="n">notes</span><span class="o">.</span><span class="n">press_sequentially</span><span class="p">(</span><span class="s2">"hello world"</span><span class="p">)</span>      <span class="c1"># one real key event per character</span>
+        <span class="n">notes</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"ControlOrMeta+A"</span><span class="p">)</span>                <span class="c1"># select all (Meta on macOS, Control elsewhere)</span>
+        <span class="n">notes</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Backspace"</span><span class="p">)</span>                      <span class="c1"># delete the selection</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">keyboard</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="s2">"typed by page.keyboard"</span><span class="p">)</span>  <span class="c1"># keys go to whatever has focus</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"typed by page.keyboard"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Keys the page saw:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#keys"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">()[:</span><span class="mi">44</span><span class="p">],</span> <span class="s2">"..."</span><span class="p">)</span>
+
+        <span class="c1"># This page has no double-click handler, so add one that writes into the status line.</span>
+        <span class="n">heading</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span>
+        <span class="n">heading</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"(el) =&gt; el.addEventListener('dblclick', "</span>
+                         <span class="s2">"() =&gt; { document.getElementById('status').textContent = 'double-clicked'; })"</span><span class="p">)</span>
+        <span class="n">heading</span><span class="o">.</span><span class="n">dblclick</span><span class="p">()</span>                            <span class="c1"># two real clicks, close enough to count as one</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"double-clicked"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The heading received a dblclick event"</span><span class="p">)</span>
+
+        <span class="c1"># hover() waits until nothing covers the button (the overlay), then moves the pointer there.</span>
+        <span class="n">sign_in</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span>
+        <span class="n">sign_in</span><span class="o">.</span><span class="n">hover</span><span class="p">()</span>
+        <span class="c1"># page.mouse never waits: it acts at viewport pixels, whatever is there right now.</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">sign_in</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">box</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span> <span class="o">+</span> <span class="n">box</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">box</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">+</span> <span class="n">box</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Signed in"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Clicked Sign in with page.mouse"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p><code>example_waiting.py</code> uses <code>set_default_timeout</code>, <code>wait_for</code>, <code>wait_for_function</code> and
+<code>wait_for_url</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03: wait for things that are not actions, and set timeouts in seconds.</span>
+
+<span class="sd">    python examples/course/03-actions-and-auto-waiting/example_waiting.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>               <span class="c1"># every action and wait on this page: 5 seconds</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+
+        <span class="c1"># Wait for an element to reach a state: visible, hidden, attached or detached.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">)</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">"visible"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Late button visible after </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">started</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#overlay"</span><span class="p">)</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">"detached"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Overlay removed after </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">started</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">)</span>
+
+        <span class="c1"># Wait for any condition you can write in JavaScript; the truthy value is returned.</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">wait_for_function</span><span class="p">(</span><span class="s2">"() =&gt; document.querySelectorAll('#items li').length"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"List items:"</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+
+        <span class="c1"># Wait for the URL after a click that navigates.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/index.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Second page"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">wait_for_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"second\.html$"</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Now at:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Late button visible after 0.8 s
+Overlay removed after 0.8 s
+List items: 3
+Now at: second.html
+</code></pre></div>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-read-a-failed-check">Exercise 1: read a failed check<a class="headerlink" href="#exercise-1-read-a-failed-check" title="Permanent link">&para;</a></h3>
+<p>Click the Covered button on <code>/testsite/form.html</code> with <code>timeout=0.2</code>, so the click fails while the
+overlay is still there. Catch the <code>KaprevoTimeoutError</code> and print it. Which check failed? Then make
+the Disabled button and the read-only Fixed field fail too, and compare the three messages.
+Finally, click the Covered button again with the default timeout and check that it worked.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03, exercise 1: make a click time out on purpose and read which check failed.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">covered</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Covered button"</span><span class="p">)</span>
+
+        <span class="c1"># 0.2 seconds is shorter than the 0.7 seconds the overlay stays, so this must fail.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">covered</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Failed as planned:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="s2">"covered by &lt;div#overlay&gt;"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+
+        <span class="c1"># Two other checks failing, for comparison: enabled, then editable.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Disabled"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Failed as planned:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Fixed"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Failed as planned:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+        <span class="c1"># With the default timeout the same click simply waits for the overlay to go.</span>
+        <span class="n">covered</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="c1"># The click renames the button, so check it by id: the name "Covered button" is gone now.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#covered"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Clicked through"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Clicked once the overlay was gone"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Failed as planned: click get_by_role('button', name='Covered button'): timed out after 0.2 s: element is covered by &lt;div#overlay&gt;
+Failed as planned: click get_by_role('button', name='Disabled'): timed out after 0.2 s: element is disabled
+Failed as planned: fill get_by_label('Fixed'): timed out after 0.2 s: element is not editable
+Clicked once the overlay was gone
+</code></pre></div>
+<p>Notice the last assertion uses <code>#covered</code>, not the <code>covered</code> locator: clicking renames the
+button to "Clicked through", so a locator that finds it by the name "Covered button" no longer
+matches anything.</p>
+</details>
+<h3 id="exercise-2-upload-two-files">Exercise 2: upload two files<a class="headerlink" href="#exercise-2-upload-two-files" title="Permanent link">&para;</a></h3>
+<p>Create two small files in the current folder, upload both to the file input on
+<code>/testsite/form.html</code> (<code>#file</code>) in one call, and check that the page lists both names (it shows
+them in <code>#files</code>, separated by a comma). Then replace them with a file made in memory.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03, exercise 2: upload two files and check the names the page shows.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># Two small files in the current folder to upload.</span>
+    <span class="n">first</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"report.txt"</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data.csv"</span><span class="p">)</span>
+    <span class="n">first</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"quarterly report</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">second</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"id,name</span><span class="se">\n</span><span class="s2">1,ada</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+        <span class="n">upload</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#file"</span><span class="p">)</span>
+
+        <span class="n">upload</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">([</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">])</span>           <span class="c1"># paths on this machine</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#files"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"report.txt,data.csv"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Uploaded:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#files"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># A file can also be made in memory, without touching the disk.</span>
+        <span class="n">upload</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"hello.txt"</span><span class="p">,</span> <span class="s2">"mimeType"</span><span class="p">:</span> <span class="s2">"text/plain"</span><span class="p">,</span> <span class="s2">"buffer"</span><span class="p">:</span> <span class="sa">b</span><span class="s2">"hi"</span><span class="p">})</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#files"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"hello.txt"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Replaced with:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#files"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Each call to <code>set_input_files</code> replaces the selection, as picking files in the dialog again
+would.</p>
+</details>
+<h3 id="exercise-3-drag-and-drop">Exercise 3: drag and drop<a class="headerlink" href="#exercise-3-drag-and-drop" title="Permanent link">&para;</a></h3>
+<p>On <code>/testsite/dnd.html</code>, drag the blue box onto the dashed target and check that the state line
+says "dropped". Then reload the page and do the same with <code>page.drag_and_drop</code>.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03, exercise 3: drag the box onto its target and check the page noticed.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/dnd.html"</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#state"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"idle"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#box"</span><span class="p">)</span><span class="o">.</span><span class="n">drag_to</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#target"</span><span class="p">))</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"dropped"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"State after drag_to:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># page.drag_and_drop does the same with two selectors.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">drag_and_drop</span><span class="p">(</span><span class="s2">"#box"</span><span class="p">,</span> <span class="s2">"#target"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"dropped"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"State after drag_and_drop:"</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The page reports "missed" when the box is released outside the target, so "dropped" proves the
+pointer really ended on it.</p>
+</details>
+<h3 id="exercise-4-remove-a-sleep">Exercise 4: remove a sleep<a class="headerlink" href="#exercise-4-remove-a-sleep" title="Permanent link">&para;</a></h3>
+<p>Here is a script someone wrote while the Late button was giving them trouble:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># wait for the late button</span>
+<span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>Replace the sleep with the right wait (or with none at all), and measure both versions with
+<code>time.monotonic()</code>.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 03, exercise 4: replace a fixed sleep with the right wait, and measure the difference.</span>
+
+<span class="sd">This is the one script in the course that sleeps on purpose, to show what it costs.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">with_sleep</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The given script: sleep long enough for the late button, then click it."""</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># "should be enough": too long on a fast day, too short on a slow one</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Clicked late"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">started</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">with_auto_wait</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The fix: no sleep at all; click() waits until the button is visible."""</span>
+    <span class="n">started</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/form.html"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#late"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Clicked late"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">started</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">with_sleep</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">with_auto_wait</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"With time.sleep(1): </span><span class="si">{</span><span class="n">slow</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"With auto-waiting:  </span><span class="si">{</span><span class="n">fast</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">slow</span><span class="p">,</span> <span class="s2">"auto-waiting should not be slower than a fixed sleep"</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>With time.sleep(1): 1.54 s
+With auto-waiting:  0.98 s
+</code></pre></div>
+<p>Your numbers will differ, but the gap will not: the sleep always costs its full second, while
+<code>click()</code> waits only the 0.6 seconds the button takes to appear. No separate wait is needed,
+because the click already waits for the button to be visible. This is the one script in the
+course that sleeps, and it does so only to be measured.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Sleeping before an action.</strong> The script gets slower and still fails on a slow day. Delete
+  the sleep: the action waits on its own. If it must wait for something else, use <code>wait_for</code>,
+  <code>wait_for_url</code> or an assertion.</li>
+<li><strong><code>timeout=5000</code>.</strong> Timeouts are seconds; that is 83 minutes. Write <code>timeout=5</code>.</li>
+<li><strong>Reaching for <code>force=True</code> when a click times out.</strong> The check was usually right: something
+  covers the element, or it is disabled. Read the end of the error message and fix the cause,
+  such as closing the cookie banner first.</li>
+<li><strong>Using <code>click()</code> on a checkbox.</strong> It toggles, so it unticks a box that was already ticked.
+  Use <code>check()</code> and <code>uncheck()</code>, which go to the state you name.</li>
+<li><strong>Typing with <code>press_sequentially</code> everywhere.</strong> It is slower and fires a key event per
+  character. Use <code>fill</code> unless the page reacts to each key.</li>
+<li><strong>Finding a button by a name the click changes.</strong> After <code>get_by_role("button",
+  name="Follow").click()</code> the button may say "Following", and the same locator then finds
+  nothing. Check the result with a locator that does not depend on the old text.</li>
+<li><strong>Expecting <code>page.mouse</code> to wait.</strong> It acts at a point right now. Use locator actions, or
+  wait for the element first.</li>
+<li><strong>Running concurrent users in one context.</strong> Pages of one context share cookies and
+  storage, so the second sign-in replaces the first. Give each concurrent user its own
+  context.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Actions (<code>click</code>, <code>fill</code>, <code>check</code>, <code>select_option</code>, <code>press</code>, <code>set_input_files</code>, <code>drag_to</code>) wait
+  for their element to be attached, visible, stable, enabled, editable and not covered, as each
+  one needs.</li>
+<li>A timeout error names the action, the locator, the seconds it waited and the check that failed.</li>
+<li>Timeouts are seconds: per call with <code>timeout=</code>, per page with <code>set_default_timeout</code>; actions
+  default to 10 seconds and navigations to 30.</li>
+<li>Wait for conditions (<code>wait_for</code>, <code>wait_for_url</code>, <code>wait_for_function</code>, assertions), never for a
+  fixed time.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../04-assertions/">04. Assertions</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

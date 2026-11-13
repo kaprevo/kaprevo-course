@@ -1,0 +1,1925 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/09-pytest-plugin/">
+      
+      
+        <link rel="prev" href="../08-events-dialogs-downloads/">
+      
+      
+        <link rel="next" href="../10-debugging/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>09. The pytest plugin - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#09-the-pytest-plugin" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              09. The pytest plugin
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your first test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#several-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Several browsers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-test-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When a test fails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel runs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-relative-sign-in-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a relative sign-in test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-both-browsers-and-their-test-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: both browsers, and their test ids
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-read-the-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: read the evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-start-signed-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: start signed in
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your first test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#several-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Several browsers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-test-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When a test fails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel runs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-relative-sign-in-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a relative sign-in test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-both-browsers-and-their-test-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: both browsers, and their test ids
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-read-the-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: read the evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-start-signed-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: start signed in
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer C -->
+<h1 id="09-the-pytest-plugin">09. The pytest plugin<a class="headerlink" href="#09-the-pytest-plugin" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>write tests with the <code>kaprevo_page</code>, <code>kaprevo_context</code> and <code>kaprevo_browser</code> fixtures</li>
+<li>run one suite in several browsers with <code>--browser</code> (or <code>--kaprevo-browser</code>)</li>
+<li>use the options that matter day to day: headed, timeout, base URL, screenshots, video and tracing</li>
+<li>find and read the failure artifacts (screenshot, HTML, diagnostics)</li>
+<li>customise launch options and add your own fixtures in <code>conftest.py</code></li>
+</ul>
+<p><strong>Time:</strong> about 45 minutes. <strong>Before this:</strong> <a href="../08-events-dialogs-downloads/">08. Events, dialogs, downloads and popups</a>.
+<strong>Code:</strong> <code>examples/course/09-pytest-plugin/</code></p>
+</div>
+<p>Up to now every lesson has been a script: launch, do something, close. A real test suite has
+dozens of tests that each need a clean browser state, run in more than one browser, and leave
+evidence behind when they fail. kaprevo's pytest plugin does all of that for you, so a test is
+only the part you care about.</p>
+<h2 id="your-first-test">Your first test<a class="headerlink" href="#your-first-test" title="Permanent link">&para;</a></h2>
+<p>Installing kaprevo also installs a pytest plugin; there is nothing to enable. A test asks for a
+page by naming the <code>kaprevo_page</code> fixture as an argument:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sign_in</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"http://127.0.0.1:8765/login.html"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+</code></pre></div>
+<p>Save it as <code>test_sign_in.py</code> and run <code>pytest test_sign_in.py</code>. pytest finds the function
+because its name starts with <code>test_</code>, sees that it wants <code>kaprevo_page</code>, and asks the plugin
+for one. The plugin launches Chrome (headless), opens a page, runs the test, and closes
+everything afterwards. There is no <code>launch()</code> and no <code>with</code> block in the test.</p>
+<p>Tests use the <strong>sync API</strong> (<code>from kaprevo.sync_api import ...</code>), like the scripts in earlier
+lessons. The plugin's fixtures are sync objects, so there is no <code>await</code> anywhere.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>pytest-playwright calls its fixtures <code>page</code>, <code>context</code> and <code>browser</code>. kaprevo prefixes its
+own with <code>kaprevo_</code> so that both plugins can be installed side by side without fighting over
+<code>page</code>. If you prefer the short name, add a one-line alias (shown in
+<a href="#configuring">Configuring</a>). For an existing pytest-playwright suite, lesson 15 shows the
+opt-in plugin <code>-p kaprevo.compat.playwright.pytest</code>, which provides Playwright's exact
+fixture names and millisecond timeouts.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>You do not write a <code>driver</code> fixture with <code>yield</code> and <code>driver.quit()</code>: the plugin owns the
+browser's lifetime, and it always closes it, even when a test fails or you press Ctrl+C.</p>
+</div>
+<h2 id="the-fixtures">The fixtures<a class="headerlink" href="#the-fixtures" title="Permanent link">&para;</a></h2>
+<p>The plugin provides a small family of fixtures. Each has a <strong>scope</strong>: how long one instance
+lives before pytest makes a new one.</p>
+<table>
+<thead>
+<tr>
+<th>Fixture</th>
+<th>Scope</th>
+<th>What you get</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kaprevo_browser</code></td>
+<td>session</td>
+<td>one browser, shared by every test in the run (per browser chosen)</td>
+</tr>
+<tr>
+<td><code>kaprevo_context</code></td>
+<td>test</td>
+<td>a fresh, isolated browser context: its own cookies, storage and cache</td>
+</tr>
+<tr>
+<td><code>kaprevo_page</code></td>
+<td>test</td>
+<td>a page in that context, with the default action timeout set</td>
+</tr>
+<tr>
+<td><code>kaprevo_launch_options</code></td>
+<td>session</td>
+<td>the keyword arguments passed to <code>launch()</code>; override it to customise</td>
+</tr>
+<tr>
+<td><code>kaprevo_healer</code></td>
+<td>test</td>
+<td>a self-healing helper for <code>kaprevo_page</code> (lesson 12)</td>
+</tr>
+</tbody>
+</table>
+<p>Starting a browser takes a second or two, so it happens once per session. A context is cheap
+(milliseconds), so every test gets a new one. That gives you <strong>isolation for free</strong>: a test
+that signs in cannot leave a cookie or a <code>localStorage</code> entry behind for the next test, and
+tests can run in any order.</p>
+<p>When a test needs two pages in the same context (a popup, say), ask for <code>kaprevo_context</code> and
+call <code>kaprevo_context.new_page()</code>. When it needs two separate users at once, ask for
+<code>kaprevo_browser</code> and create a second context with <code>kaprevo_browser.new_context()</code>; close that
+one yourself at the end of the test.</p>
+<h2 id="several-browsers">Several browsers<a class="headerlink" href="#several-browsers" title="Permanent link">&para;</a></h2>
+<p>Choose browsers on the command line, once per browser:</p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--browser<span class="w"> </span>chrome<span class="w"> </span>--browser<span class="w"> </span>firefox
+</code></pre></div>
+<p>The plugin <strong>parametrizes</strong> every kaprevo test over the browsers, so each test runs once per
+browser and its <strong>test id</strong> ends with the browser in square brackets:</p>
+<div class="highlight"><pre><span></span><code>tests/test_shop.py::test_products_table_loads[chrome] PASSED
+tests/test_shop.py::test_products_table_loads[firefox] PASSED
+</code></pre></div>
+<p>Use the id to run one combination, for example
+<code>pytest "tests/test_shop.py::test_products_table_loads[firefox]"</code>, or <code>-k firefox</code> for every
+Firefox run. Without any <code>--browser</code>, tests run in Chrome.</p>
+<p>To skip one browser in one test, ask for <code>kaprevo_browser_name</code>, the name the current run was
+parametrized with:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_print_to_pdf</span><span class="p">(</span><span class="n">kaprevo_browser_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">kaprevo_browser_name</span> <span class="o">!=</span> <span class="s2">"chrome"</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">"printing to PDF is a Chrome-only feature"</span><span class="p">)</span>
+    <span class="o">...</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p><code>--browser</code> accepts <code>chrome</code>, <code>firefox</code> and <code>edge</code>, plus Playwright's spellings
+<code>chromium</code> (meaning Chrome) and <code>msedge</code> (meaning Edge). <code>--browser webkit</code> is a usage error
+rather than a silent skip: Safari has no WebDriver BiDi, so kaprevo cannot drive it. Add
+<code>--kaprevo-backend chromium-bidi</code> to reach Chrome without chromedriver (lesson 13).</p>
+</div>
+<h2 id="options-worth-knowing">Options worth knowing<a class="headerlink" href="#options-worth-knowing" title="Permanent link">&para;</a></h2>
+<p>All of these are command-line options. The table shows pytest-playwright's names, which kaprevo
+accepts too, with the <code>--kaprevo-</code> spelling that always works:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--browser NAME</code> / <code>--kaprevo-browser NAME</code></td>
+<td>browser to run in; repeat for several</td>
+</tr>
+<tr>
+<td><code>--headed</code> / <code>--kaprevo-headed</code></td>
+<td>show the browser window</td>
+</tr>
+<tr>
+<td><code>--kaprevo-timeout 10</code></td>
+<td>default action timeout for <code>kaprevo_page</code>, in seconds</td>
+</tr>
+<tr>
+<td><code>--base-url URL</code> / <code>--kaprevo-base-url URL</code></td>
+<td>relative <code>goto()</code> URLs resolve against it</td>
+</tr>
+<tr>
+<td><code>--screenshot on\|off\|only-on-failure</code></td>
+<td>save a screenshot when each test ends</td>
+</tr>
+<tr>
+<td><code>--video on\|off\|retain-on-failure</code></td>
+<td>record a video of each test</td>
+</tr>
+<tr>
+<td><code>--tracing on\|off\|retain-on-failure</code></td>
+<td>record a trace of each test (lesson 10)</td>
+</tr>
+<tr>
+<td><code>--output DIR</code></td>
+<td>where those per-test files go (default <code>test-results</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>--base-url</code></strong> is the one to adopt first. With it, a test says <code>kaprevo_page.goto("login.html")</code>
+and the same suite runs against your laptop, a test server or staging by changing one option.</p>
+<p><strong><code>--kaprevo-timeout</code></strong> sets how long each action on <code>kaprevo_page</code> (a click, a fill) may wait.
+It is 10 seconds by default; assertions keep their own default of 5 seconds.</p>
+<p><strong><code>--screenshot</code>, <code>--video</code> and <code>--tracing</code></strong> each record something per test into
+<code>--output/&lt;test id&gt;/</code>: <code>test-failed-1.png</code> or <code>test-finished-1.png</code>, a <code>video/</code> folder, and
+<code>trace.zip</code>. <code>only-on-failure</code> and <code>retain-on-failure</code> record every test but keep the file
+only when the test failed, which is the setting you want on a build server.</p>
+<p>Put options you always use in your project's configuration rather than typing them each time:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># pytest.ini</span>
+<span class="k">[pytest]</span>
+<span class="na">addopts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">--browser chrome --base-url http://127.0.0.1:8765/ --screenshot only-on-failure</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">When pytest-playwright is installed too</p>
+<p>The plain names (<code>--browser</code>, <code>--headed</code>, <code>--base-url</code>, <code>--screenshot</code> and the rest) are
+registered by kaprevo only when pytest-playwright is <strong>not</strong> installed; when it is, those
+names belong to pytest-playwright and kaprevo registers only its <code>--kaprevo-</code> spellings.
+<code>--base-url</code> likewise belongs to pytest-base-url if that is installed. The course's example
+scripts use the <code>--kaprevo-</code> spellings so they work either way.</p>
+</div>
+<h2 id="when-a-test-fails">When a test fails<a class="headerlink" href="#when-a-test-fails" title="Permanent link">&para;</a></h2>
+<p>A failing test that used <code>kaprevo_page</code> gets a folder of evidence under <code>kaprevo-artifacts/</code>
+(change it with <code>--kaprevo-artifacts DIR</code>), named after its test id:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>screenshot.png</code></td>
+<td>the whole page, at the moment the test failed</td>
+</tr>
+<tr>
+<td><code>page.html</code></td>
+<td>the page's HTML at that moment</td>
+</tr>
+<tr>
+<td><code>diagnostics.json</code></td>
+<td>the page URL, console messages, uncaught page errors and failed requests</td>
+</tr>
+</tbody>
+</table>
+<p>The folder's path is printed in the failure report, in a section headed <code>kaprevo</code>, so you do not
+have to search for it. <code>diagnostics.json</code> is often the fastest clue: an uncaught JavaScript
+error or a request that failed with a 500 usually explains a test that "suddenly" cannot find
+a button.</p>
+<p>These failure artifacts are always on; <code>--screenshot</code>, <code>--video</code> and <code>--tracing</code> add the
+per-test files in <code>--output</code> on top.</p>
+<h2 id="configuring">Configuring<a class="headerlink" href="#configuring" title="Permanent link">&para;</a></h2>
+<p>pytest loads a file called <strong><code>conftest.py</code></strong> automatically for every test in its folder and
+below. Fixtures defined there are available to those tests without an import. Three things
+people usually put there:</p>
+<p><strong>A short <code>page</code> name.</strong> A fixture that returns another fixture is an alias:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Page</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">kaprevo_page</span>
+</code></pre></div>
+<p><strong>Launch options.</strong> Override <code>kaprevo_launch_options</code> and build on the plugin's own value, which
+already carries <code>--headed</code> and <code>--kaprevo-backend</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kaprevo_launch_options</span><span class="p">(</span><span class="n">kaprevo_launch_options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">kaprevo_launch_options</span><span class="p">,</span> <span class="s2">"window_size"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)}</span>
+</code></pre></div>
+<p>A fixture may ask for the fixture it replaces, by the same name: pytest gives it the plugin's
+version. The override must keep the plugin's <code>session</code> scope.</p>
+<p><strong>A fixture that does the boring part.</strong> Most tests of an app start signed in, so put the
+signing in into a fixture and let tests ask for <code>signed_in_page</code>. Exercise 4 builds exactly
+that. When signing in is slow (a real login page, two-factor), do it <strong>once</strong> per session
+instead: sign in, save the context's storage state with <code>context.storage_state(path=...)</code>,
+and start each test's context with <code>kaprevo_browser.new_context(storage_state=...)</code>.
+<a href="../06-contexts-and-emulation/">Lesson 06</a> covers storage state.</p>
+<h2 id="parallel-runs">Parallel runs<a class="headerlink" href="#parallel-runs" title="Permanent link">&para;</a></h2>
+<p><a href="https://pypi.org/project/pytest-xdist/">pytest-xdist</a> runs tests in several processes at
+once: <code>pip install pytest-xdist</code>, then <code>pytest -n 4</code>. It works with kaprevo unchanged. Each
+worker is a separate Python process with its own session, so each launches its own browser and
+its tests get their own contexts, as before. Self-healing baselines (lesson 12) are written to
+one file per worker and merged when the run ends, so workers never overwrite each other.</p>
+<p>Because every test already gets a fresh context, a suite that passes in order passes in
+parallel, as long as the tests do not share something outside the browser (a database row, a
+file).</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The lesson's folder holds a small suite, <code>tests/test_shop.py</code>: three tests against the practice
+site, where the last one is written to fail.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09: a small test suite for the practice site, run by ``example_run_tests.py``.</span>
+
+<span class="sd">Three tests use the ``kaprevo_page`` fixture. The last one is written to fail, so a run shows</span>
+<span class="sd">what the plugin saves for a failing test. URLs are relative: ``--base-url`` supplies the rest.</span>
+
+<span class="sd">    pytest examples/course/09-pytest-plugin/tests --base-url http://127.0.0.1:8765/</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_home_page_lists_the_course_pages</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"index.html"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Practice site"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Course pages"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_products_table_loads</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"products.html"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3 products"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"row"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># the header row and three products</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_deliberately_wrong_title</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"console.log('checking the title')"</span><span class="p">)</span>  <span class="c1"># shows up in diagnostics.json</span>
+    <span class="c1"># The real title is "Sign in - kaprevo practice site", so this fails after 2 seconds.</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Log in - kaprevo practice site"</span><span class="p">)</span>
+</code></pre></div>
+<p>Next to it, <code>pytest.ini</code> marks the lesson folder as a project of its own, so pytest does not
+pick up test settings from a <code>pyproject.toml</code> in a folder above it.</p>
+<p>You can run the suite yourself, with the practice site running in another terminal:</p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>examples/course/09-pytest-plugin/tests<span class="w"> </span>-v<span class="w"> </span>--base-url<span class="w"> </span>http://127.0.0.1:8765/
+</code></pre></div>
+<p>The course test runs every <code>example_*.py</code> and <code>solution_*.py</code> file as a script, so the worked
+example is a script that runs pytest for you, exactly as you would in a terminal, and then
+checks the result. It uses a small helper, <code>pytest_run.py</code>, that runs <code>python -m pytest</code> in a
+child process with a JUnit XML report and reads the pass and fail counts back from it. All
+output goes to a <code>kaprevo-course</code> folder in your temporary directory.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09: run the lesson's test suite with the kaprevo pytest plugin, and check what it did.</span>
+
+<span class="sd">Runs ``tests/test_shop.py`` in the course browser against the practice site, then checks that two</span>
+<span class="sd">tests passed, one failed, and that the plugin saved artifacts for the failure. Everything is</span>
+<span class="sd">written to a ``kaprevo-course`` folder in your temporary directory, never into the repository.</span>
+
+<span class="sd">    python examples/course/09-pytest-plugin/example_run_tests.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pytest_run</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_pytest</span>
+
+<span class="c1"># course: timeout=180</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"09-pytest-plugin"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">OUT</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="s2">"tests"</span><span class="p">),</span> <span class="s2">"-v"</span><span class="p">,</span> <span class="s2">"--tb=short"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">,</span> <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-screenshot"</span><span class="p">,</span> <span class="s2">"only-on-failure"</span><span class="p">,</span> <span class="s2">"--kaprevo-output"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"test-results"</span><span class="p">),</span>
+            <span class="s2">"--kaprevo-artifacts"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"kaprevo-artifacts"</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">run_pytest</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">OUT</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"exit code </span><span class="si">{</span><span class="n">outcome</span><span class="o">.</span><span class="n">exit_code</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="si">}</span><span class="s2"> passed, </span><span class="si">{</span><span class="n">outcome</span><span class="o">.</span><span class="n">failures</span><span class="si">}</span><span class="s2"> failed"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span> <span class="n">outcome</span><span class="o">.</span><span class="n">failures</span><span class="p">,</span> <span class="n">outcome</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">outcome</span>
+    <span class="k">assert</span> <span class="n">outcome</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"pytest exits 1 when a test failed"</span>
+
+    <span class="c1"># The plugin's failure artifacts: one folder per failed test, named after its test id.</span>
+    <span class="p">(</span><span class="n">failure</span><span class="p">,)</span> <span class="o">=</span> <span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"kaprevo-artifacts"</span><span class="p">)</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Failure artifacts:"</span><span class="p">,</span> <span class="n">failure</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">failure</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"   "</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">{</span><span class="s2">"screenshot.png"</span><span class="p">,</span> <span class="s2">"page.html"</span><span class="p">,</span> <span class="s2">"diagnostics.json"</span><span class="p">}</span> <span class="o">&lt;=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">failure</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()}</span>
+
+    <span class="c1"># --screenshot only-on-failure: one more picture, in the per-test --output folder.</span>
+    <span class="p">(</span><span class="n">screenshot</span><span class="p">,)</span> <span class="o">=</span> <span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"test-results"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*/test-failed-1.png"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Per-test screenshot:"</span><span class="p">,</span> <span class="n">screenshot</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/09-pytest-plugin/example_run_tests.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tests/test_shop.py::test_home_page_lists_the_course_pages[chrome] PASSED [ 33%]
+tests/test_shop.py::test_products_table_loads[chrome] PASSED             [ 66%]
+tests/test_shop.py::test_deliberately_wrong_title[chrome] FAILED         [100%]
+...
+E   AssertionError: expect(page).to_have_title: expected 'Log in - kaprevo practice site', got 'Sign in - kaprevo practice site' after 2 s
+...
+========================= 1 failed, 2 passed in 9.48s =========================
+exit code 1: 2 passed, 1 failed
+Failure artifacts: C:\Users\you\AppData\Local\Temp\kaprevo-course\09-pytest-plugin\kaprevo-artifacts\tests_test_shop.py_test_deliberately_wrong_title_chrome
+    diagnostics.json
+    page.html
+    screenshot.png
+Per-test screenshot: C:\Users\you\AppData\Local\Temp\kaprevo-course\09-pytest-plugin\test-results\tests_test_shop.py_test_deliberately_wrong_title_chrome\test-failed-1.png
+</code></pre></div>
+<p>Notice three things. The test ids end in <code>[chrome]</code>. pytest's exit code is 1 because a test
+failed, which is what makes a build server mark the run red. And the failing test got two sets
+of files: the always-on failure artifacts, and the <code>test-failed-1.png</code> that
+<code>--screenshot only-on-failure</code> asked for.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running. Each one runs pytest
+on a test file in the lesson folder, as the worked example does.</p>
+<h3 id="exercise-1-a-relative-sign-in-test">Exercise 1: a relative sign-in test<a class="headerlink" href="#exercise-1-a-relative-sign-in-test" title="Permanent link">&para;</a></h3>
+<p>Write a test that signs in as <code>ada</code> and asserts the welcome message. Use <code>goto("login.html")</code>,
+not a full URL, and pass the site's address with <code>--base-url</code>. Run it and check it passes.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The test, <code>exercises/test_sign_in.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 1: a sign-in test with a relative URL, run by ``solution_1_sign_in_test.py``.</span>
+
+<span class="sd">    pytest examples/course/09-pytest-plugin/exercises/test_sign_in.py --base-url http://127.0.0.1:8765/</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sign_in_shows_the_welcome_message</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>  <span class="c1"># resolved against --base-url</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+</code></pre></div>
+<p>The script that runs it:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 1: run a sign-in test whose ``goto("login.html")`` relies on ``--base-url``.</span>
+
+<span class="sd">The test is ``exercises/test_sign_in.py``; this script runs it and checks that it passed.</span>
+
+<span class="sd">    python examples/course/09-pytest-plugin/solution_1_sign_in_test.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pytest_run</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_pytest</span>
+
+<span class="c1"># course: timeout=180</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"09-pytest-plugin"</span> <span class="o">/</span> <span class="s2">"exercise-1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="s2">"exercises"</span> <span class="o">/</span> <span class="s2">"test_sign_in.py"</span><span class="p">),</span> <span class="s2">"-v"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">,</span> <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">run_pytest</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">OUT</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">outcome</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">outcome</span><span class="o">.</span><span class="n">passed</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">outcome</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"The sign-in test passed with a relative URL."</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Without <code>--base-url</code>, <code>goto("login.html")</code> has nothing to resolve against and the
+navigation fails. That is the point: the address lives in one place, the command line.</p>
+</details>
+<h3 id="exercise-2-both-browsers-and-their-test-ids">Exercise 2: both browsers, and their test ids<a class="headerlink" href="#exercise-2-both-browsers-and-their-test-ids" title="Permanent link">&para;</a></h3>
+<p>Ask pytest for the worked example's tests in Chrome and Firefox, and read the ids it gives
+them. How many tests are there, and how does each id name its browser?</p>
+<p>Hint: <code>--collect-only -q</code> lists the tests without running them.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 2: ask for two browsers and read the test ids pytest gives each test.</span>
+
+<span class="sd">``--collect-only`` lists the tests without running them, so no browser is started. Drop it</span>
+<span class="sd">(and keep both ``--kaprevo-browser`` options) to run the suite in Chrome and then Firefox.</span>
+
+<span class="sd">    python examples/course/09-pytest-plugin/solution_2_test_ids.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pytest_run</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_pytest</span>
+
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"09-pytest-plugin"</span> <span class="o">/</span> <span class="s2">"exercise-2"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">run_pytest</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="s2">"tests"</span><span class="p">),</span> <span class="s2">"--collect-only"</span><span class="p">,</span> <span class="s2">"-q"</span><span class="p">,</span>
+                         <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">,</span> <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="s2">"firefox"</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">OUT</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">outcome</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">outcome</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"::"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">outcome</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"::"</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> test ids:"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">test_id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"   "</span><span class="p">,</span> <span class="n">test_id</span><span class="p">)</span>
+    <span class="c1"># Each test appears once per browser, with the browser in square brackets.</span>
+    <span class="k">assert</span> <span class="s2">"test_products_table_loads[chrome]"</span> <span class="ow">in</span> <span class="n">ids</span> <span class="ow">and</span> <span class="s2">"test_products_table_loads[firefox]"</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">,</span> <span class="n">ids</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">,</span> <span class="n">ids</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>6 test ids:
+    test_home_page_lists_the_course_pages[chrome]
+    test_home_page_lists_the_course_pages[firefox]
+    test_products_table_loads[chrome]
+    test_products_table_loads[firefox]
+    test_deliberately_wrong_title[chrome]
+    test_deliberately_wrong_title[firefox]
+</code></pre></div>
+<p>Three tests times two browsers. Remove <code>--collect-only</code> to run them all; all the Chrome
+runs share one Chrome, and all the Firefox runs share one Firefox.</p>
+</details>
+<h3 id="exercise-3-read-the-evidence">Exercise 3: read the evidence<a class="headerlink" href="#exercise-3-read-the-evidence" title="Permanent link">&para;</a></h3>
+<p>Run only the failing test (<code>-k wrong_title</code>), then open its <code>screenshot.png</code> and
+<code>diagnostics.json</code>. What URL was the page on, and what did the console say?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 3: make a test fail, then read the artifacts the plugin saved for it.</span>
+
+<span class="sd">Runs only the deliberately failing test (``-k wrong_title``), then prints where its screenshot is</span>
+<span class="sd">and what ``diagnostics.json`` recorded: the page URL and the console message the test logged.</span>
+
+<span class="sd">    python examples/course/09-pytest-plugin/solution_3_failure_artifacts.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pytest_run</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_pytest</span>
+
+<span class="c1"># course: timeout=180</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"09-pytest-plugin"</span> <span class="o">/</span> <span class="s2">"exercise-3"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">OUT</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="s2">"tests"</span><span class="p">),</span> <span class="s2">"-k"</span><span class="p">,</span> <span class="s2">"wrong_title"</span><span class="p">,</span> <span class="s2">"--tb=line"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">,</span> <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">,</span> <span class="s2">"--kaprevo-artifacts"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"artifacts"</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">run_pytest</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">OUT</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">outcome</span><span class="o">.</span><span class="n">failures</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">outcome</span>
+
+    <span class="p">(</span><span class="n">folder</span><span class="p">,)</span> <span class="o">=</span> <span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"artifacts"</span><span class="p">)</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span>
+    <span class="n">screenshot</span> <span class="o">=</span> <span class="n">folder</span> <span class="o">/</span> <span class="s2">"screenshot.png"</span>
+    <span class="k">assert</span> <span class="n">screenshot</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\x89</span><span class="s2">PNG"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Open this screenshot:"</span><span class="p">,</span> <span class="n">screenshot</span><span class="p">)</span>
+
+    <span class="n">diagnostics</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">((</span><span class="n">folder</span> <span class="o">/</span> <span class="s2">"diagnostics.json"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Page URL when it failed:"</span><span class="p">,</span> <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"url"</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Console:"</span><span class="p">,</span> <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"console"</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"url"</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s2">"[log] checking the title"</span> <span class="ow">in</span> <span class="n">diagnostics</span><span class="p">[</span><span class="s2">"console"</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Open this screenshot: ...\exercise-3\artifacts\tests_test_shop.py_test_deliberately_wrong_title_chrome\screenshot.png
+Page URL when it failed: http://127.0.0.1:8765/login.html
+Console: ['[log] checking the title']
+</code></pre></div>
+<p>The test logged that console line itself, to show where console output ends up. In a real
+suite this is where you find the app's own errors.</p>
+</details>
+<h3 id="exercise-4-start-signed-in">Exercise 4: start signed in<a class="headerlink" href="#exercise-4-start-signed-in" title="Permanent link">&para;</a></h3>
+<p>Add a <code>conftest.py</code> with a <code>signed_in_page</code> fixture that signs in on <code>kaprevo_page</code> and returns
+it. Write two tests that use it: one checks the title changed to
+"Welcome - kaprevo practice site", the other that <code>localStorage</code> remembers the user name. While
+you are there, override <code>kaprevo_launch_options</code> to use a 1024 by 768 window.</p>
+<details class="success">
+<summary>Solution</summary>
+<p><code>exercises/conftest.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 4: fixtures shared by the tests in this folder.</span>
+
+<span class="sd">pytest loads a ``conftest.py`` automatically for every test beside it or below it, so the</span>
+<span class="sd">fixtures here need no import.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kaprevo_launch_options</span><span class="p">(</span><span class="n">kaprevo_launch_options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The plugin's launch options (headless or headed, backend), plus a smaller window."""</span>
+    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">kaprevo_launch_options</span><span class="p">,</span> <span class="s2">"window_size"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)}</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">signed_in_page</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Page</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A page that has already signed in as ada; each test still gets its own fresh context."""</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">kaprevo_page</span>
+</code></pre></div>
+<p><code>exercises/test_signed_in.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 4: tests that start signed in, using ``signed_in_page`` from ``conftest.py``.</span>
+
+<span class="sd">    pytest examples/course/09-pytest-plugin/exercises/test_signed_in.py --base-url http://127.0.0.1:8765/</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_title_changes_after_sign_in</span><span class="p">(</span><span class="n">signed_in_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in_page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Welcome - kaprevo practice site"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_user_name_is_remembered</span><span class="p">(</span><span class="n">signed_in_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">signed_in_page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"localStorage.getItem('user')"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"ada"</span>
+</code></pre></div>
+<p>And the script that runs them:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 09, exercise 4: tests that start signed in, through a fixture in ``conftest.py``.</span>
+
+<span class="sd">Runs ``exercises/test_signed_in.py``; its ``signed_in_page`` fixture comes from</span>
+<span class="sd">``exercises/conftest.py``, which also overrides ``kaprevo_launch_options``.</span>
+
+<span class="sd">    python examples/course/09-pytest-plugin/solution_4_signed_in_fixture.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pytest_run</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_pytest</span>
+
+<span class="c1"># course: timeout=180</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"09-pytest-plugin"</span> <span class="o">/</span> <span class="s2">"exercise-4"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="s2">"exercises"</span> <span class="o">/</span> <span class="s2">"test_signed_in.py"</span><span class="p">),</span> <span class="s2">"-v"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">,</span> <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">run_pytest</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">OUT</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">outcome</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">outcome</span><span class="o">.</span><span class="n">passed</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="n">outcome</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Both tests started on a signed-in page."</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The fixture ends with an <code>expect</code>, so a test never starts on a page that is still signing
+in. Each test still gets its own context: the second test is signed in because the fixture
+ran again, not because the first test's state leaked into it.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong><code>fixture 'page' not found</code>.</strong> kaprevo's fixture is <code>kaprevo_page</code>. Use that name, or add
+  the <code>page</code> alias to <code>conftest.py</code>.</li>
+<li><strong><code>unrecognized arguments: --browser</code> (or <code>--base-url</code>), or the option seems ignored.</strong>
+  pytest-playwright or pytest-base-url is installed and owns the plain name. Use the
+  <code>--kaprevo-</code> spelling: <code>--kaprevo-browser</code>, <code>--kaprevo-base-url</code>.</li>
+<li><strong><code>ProtocolError: browsingContext.navigate: invalid argument: Invalid URL: login.html</code>.</strong>
+  A relative <code>goto()</code> with no base URL to resolve against. Pass
+  <code>--base-url</code>, or put it in <code>addopts</code> in <code>pytest.ini</code>.</li>
+<li><strong><code>ScopeMismatch</code> when overriding <code>kaprevo_launch_options</code>.</strong> The override must be
+  <code>scope="session"</code>, like the original, because the session-wide browser depends on it.</li>
+<li><strong>A test passes alone and fails in the full run.</strong> Something is shared outside the
+  browser, or a test created its own context with <code>kaprevo_browser.new_context()</code> and never
+  closed it. Contexts from <code>kaprevo_context</code> are closed for you; your own are not.</li>
+<li><strong>Looking for artifacts in the wrong folder.</strong> Failure artifacts go to <code>kaprevo-artifacts/</code>;
+  <code>--screenshot</code>, <code>--video</code> and <code>--tracing</code> files go to <code>--output</code> (<code>test-results/</code>). Both
+  are relative to the folder you ran pytest from.</li>
+<li><strong><code>timeout=5000</code> in a test.</strong> Timeouts are seconds here too, also in <code>--kaprevo-timeout</code>.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ask for <code>kaprevo_page</code> in a test and the plugin launches, isolates and cleans up for you: one
+  browser per session, a fresh context per test.</li>
+<li><code>--browser chrome --browser firefox</code> runs every test in each browser; the browser is part of
+  the test id.</li>
+<li><code>--base-url</code> keeps addresses out of tests; <code>--screenshot</code>, <code>--video</code> and <code>--tracing</code> keep
+  evidence per test in <code>--output</code>.</li>
+<li>A failing test always leaves <code>screenshot.png</code>, <code>page.html</code> and <code>diagnostics.json</code> in
+  <code>kaprevo-artifacts/&lt;test id&gt;/</code>.</li>
+<li>Put shared fixtures and option overrides in <code>conftest.py</code>.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../10-debugging/">10. Debugging</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

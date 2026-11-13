@@ -1,0 +1,1901 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/12-self-healing/">
+      
+      
+        <link rel="prev" href="../11-codegen/">
+      
+      
+        <link rel="next" href="../13-browsers-and-backends/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>12. Self-healing locators - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#12-self-healing-locators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              12. Self-healing locators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-tests-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why tests break
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-healing-decides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How healing decides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-healer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using a healer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refusals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refusals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixing-the-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing the test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixing the test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In pytest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measured-on-controllab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measured on ControlLab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-two-lookalikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: two lookalikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-a-destructive-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: a destructive action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-strict-mode-in-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: strict mode in pytest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-tests-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why tests break
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-healing-decides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How healing decides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-healer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using a healer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refusals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refusals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixing-the-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing the test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixing the test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In pytest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measured-on-controllab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Measured on ControlLab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-two-lookalikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: two lookalikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-a-destructive-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: a destructive action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-strict-mode-in-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: strict mode in pytest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer C -->
+<h1 id="12-self-healing-locators">12. Self-healing locators<a class="headerlink" href="#12-self-healing-locators" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (FingerprintStore saves with a with block or save()) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>explain what self-healing does and, just as important, when it refuses</li>
+<li>wrap locators in a healer with stable keys and a <code>FingerprintStore</code></li>
+<li>use the <code>kaprevo_healer</code> fixture and <code>--kaprevo-strict-heal</code> in pytest</li>
+<li>read a heal event and its suggested replacement, and fix the test</li>
+<li>tune <code>HealConfig</code>, and use <code>risk="destructive"</code> for dangerous actions</li>
+</ul>
+<p><strong>Time:</strong> about 35 minutes. <strong>Before this:</strong> <a href="../11-codegen/">11. Recording with codegen</a>.
+<strong>Code:</strong> <code>examples/course/12-self-healing/</code></p>
+</div>
+<p>A redesign lands, and half the suite fails. Not because anything is broken for users, but
+because an id was renamed and a class changed. Self-healing keeps such a test running <strong>when
+the answer is clear</strong>, tells you exactly which locator to fix, and <strong>refuses when the answer is
+not clear</strong>. The second half matters more than the first: a healer that guesses clicks the
+wrong button, and a wrong click is worse than a red test.</p>
+<h2 id="why-tests-break">Why tests break<a class="headerlink" href="#why-tests-break" title="Permanent link">&para;</a></h2>
+<p>Lesson 02 recommended user-facing locators because markup changes more often than what users
+see. Real suites still contain brittle ones: <code>#submit-btn</code>, <code>.btn.btn-primary</code>,
+<code>div &gt; form &gt; button:nth-child(3)</code>, written before anyone knew better or copied from a
+browser's "copy selector". When the page is redesigned:</p>
+<ul>
+<li>an id is renamed (<code>#submit-btn</code> becomes <code>#login-submit</code>);</li>
+<li>classes are restyled (<code>btn btn-primary</code> becomes <code>button button--primary</code>);</li>
+<li>a wrapper <code>&lt;div&gt;</code> appears, so a positional path no longer leads anywhere.</li>
+</ul>
+<p>For the user, nothing changed: the button still says "Sign in" in the same place. For the test,
+the locator matches nothing and every test that signs in fails.</p>
+<h2 id="how-healing-decides">How healing decides<a class="headerlink" href="#how-healing-decides" title="Permanent link">&para;</a></h2>
+<p>Healing works in two phases.</p>
+<p><strong>While the locator still works</strong>, kaprevo records a <strong>fingerprint</strong> of the element it finds,
+under a <strong>key</strong> you choose, such as <code>login.submit</code>. A fingerprint is everything that describes
+the element apart from the locator: tag, id, test id, role, accessible name, label, classes,
+the headings and landmarks around it, and its position on the page.</p>
+<p><strong>When the locator matches nothing</strong>, for at least 1 second (<code>heal_after</code>), kaprevo scores every
+visible element on the page against the fingerprint. Each feature gives a similarity from 0
+to 1, and the score is their weighted average. Then a fixed rule decides:</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Default</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>best score at least <code>warn_threshold</code></td>
+<td>0.65</td>
+<td>below that, nothing on the page is really like the original</td>
+</tr>
+<tr>
+<td>best leads the runner-up by at least <code>margin</code></td>
+<td>0.10</td>
+<td>two close candidates means the healer would be guessing</td>
+</tr>
+<tr>
+<td>best score at least <code>auto_threshold</code></td>
+<td>0.80</td>
+<td>heal silently (<code>auto</code>); between 0.65 and 0.80, heal with a <code>SelfHealWarning</code> (<code>warn</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>If the rule accepts, the action goes ahead on the healed element and a <strong>heal event</strong> records
+what happened. If not, nothing is guessed: the action times out as it would have without
+healing, and its error says why healing refused.</p>
+<p>The rule is deterministic: the same page and the same fingerprint give the same decision
+every time. There is no model and no network call involved.</p>
+<h2 id="using-a-healer">Using a healer<a class="headerlink" href="#using-a-healer" title="Permanent link">&para;</a></h2>
+<p>Wrap each locator you want healed, with a key that stays the same when the markup changes:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">healer</span>
+
+<span class="k">with</span> <span class="n">FingerprintStore</span><span class="p">(</span><span class="s2">".kaprevo/baselines"</span><span class="p">)</span> <span class="k">as</span> <span class="n">store</span><span class="p">:</span>    <span class="c1"># saved when the block ends</span>
+    <span class="n">heal</span> <span class="o">=</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#submit-btn"</span><span class="p">))</span>
+    <span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p><code>heal.locator(...)</code> returns an ordinary locator: you call <code>click()</code>, <code>fill()</code> and <code>expect(...)</code>
+on it as before. It only behaves differently when the original stops matching.</p>
+<p>The <strong><code>FingerprintStore</code></strong> keeps fingerprints by key. Given a folder, it reads
+<code>fingerprints.json</code> from it when created. New fingerprints are kept in memory until they are
+saved: the <code>with</code> block saves them into <code>fingerprints.json</code> when it ends (even if the code
+inside failed), or call <code>store.save()</code> yourself. The pytest plugin saves for you at the end of
+a session, with one shard per pytest-xdist worker. <code>FingerprintStore()</code> with no folder keeps
+everything in memory.</p>
+<p>A fingerprint is recorded the first time a key's locator matches exactly one element, and is
+<strong>not</strong> overwritten afterwards, so the baseline stays what the page looked like when the test
+was known good. Pass <code>update_baselines=True</code> to <code>healer()</code> (or <code>--kaprevo-update-baselines</code> in
+pytest) to re-record after a redesign you have accepted.</p>
+<details class="example">
+<summary>Async version</summary>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span><span class="p">,</span> <span class="n">Healer</span>
+
+<span class="k">with</span> <span class="n">FingerprintStore</span><span class="p">(</span><span class="s2">".kaprevo/baselines"</span><span class="p">)</span> <span class="k">as</span> <span class="n">store</span><span class="p">:</span>
+    <span class="n">heal</span> <span class="o">=</span> <span class="n">Healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#submit-btn"</span><span class="p">))</span>
+    <span class="k">await</span> <span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>Playwright has no built-in self-healing. Healing in kaprevo is opt-in per locator: a plain
+<code>page.locator(...)</code> never heals, so nothing changes in a suite until you wrap a locator.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>Selenium healing tools usually heal any <code>find_element</code> and pick the best match
+automatically. kaprevo heals only the locators you name, and refuses rather than picks when
+two candidates are close. Expect fewer heals and no silent wrong clicks.</p>
+</div>
+<h2 id="refusals">Refusals<a class="headerlink" href="#refusals" title="Permanent link">&para;</a></h2>
+<p>There are three kinds of refusal, and each one is the healer doing its job.</p>
+<p><strong>Ambiguous.</strong> Two candidates are about equally good, for example two identical "Save" buttons.
+The error ends with:</p>
+<div class="highlight"><pre><span></span><code>self-healing refused: ambiguous: best 0.91 vs runner-up 0.90 (margin 0.10)
+</code></pre></div>
+<p><strong>Low score.</strong> Nothing on the page is similar enough, for example the button was removed:</p>
+<div class="highlight"><pre><span></span><code>self-healing refused: best score 0.41 below warn threshold 0.65
+</code></pre></div>
+<p><strong>Destructive.</strong> A locator wrapped with <code>risk="destructive"</code> heals only to an element with the
+<strong>same id or the same <code>data-testid</code></strong> as the original. Use it for Delete, Pay, Send and
+anything else you could not undo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">delete</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"account.delete"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#delete-btn"</span><span class="p">),</span> <span class="n">risk</span><span class="o">=</span><span class="s2">"destructive"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>self-healing refused: destructive action: no exact id/data-testid match
+</code></pre></div>
+<p>A lookalike Delete button is never clicked, however high it scores.</p>
+<p>One more message is not a refusal: <code>self-healing never ran: it waits 1 s for the original
+locator before trying, so give this action a longer timeout</code>. An action with a timeout shorter
+than <code>heal_after</code> gives up before healing starts.</p>
+<h2 id="fixing-the-test">Fixing the test<a class="headerlink" href="#fixing-the-test" title="Permanent link">&para;</a></h2>
+<p>A heal is a warning, not a fix. Every decision is a <strong>heal event</strong>; <code>heal.report()</code> returns them
+as dictionaries:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>the stable name, <code>login.submit</code></td>
+</tr>
+<tr>
+<td><code>locator</code></td>
+<td>the original locator, <code>locator('#submit-btn')</code></td>
+</tr>
+<tr>
+<td><code>outcome</code></td>
+<td><code>healed</code> or <code>refused</code></td>
+</tr>
+<tr>
+<td><code>band</code></td>
+<td><code>auto</code>, <code>warn</code> or <code>refused</code></td>
+</tr>
+<tr>
+<td><code>score</code>, <code>runner_up</code></td>
+<td>the best and second-best scores</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>why the decision was made</td>
+</tr>
+<tr>
+<td><code>suggestion</code></td>
+<td>a robust replacement, such as <code>page.get_by_role('button', name='Sign in')</code></td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>the page the decision was made on</td>
+</tr>
+</tbody>
+</table>
+<p>The suggestion is the code to paste into the test, in place of the brittle locator. It
+follows the same preference as codegen: test id, then role and name, then label.</p>
+<h3 id="in-pytest">In pytest<a class="headerlink" href="#in-pytest" title="Permanent link">&para;</a></h3>
+<p>The plugin provides a <strong><code>kaprevo_healer</code></strong> fixture for <code>kaprevo_page</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_sign_in</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">kaprevo_healer</span><span class="p">:</span> <span class="n">Healer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"login.html"</span><span class="p">)</span>
+    <span class="n">kaprevo_healer</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#submit-btn"</span><span class="p">))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>Baselines live in <code>--kaprevo-baselines</code> (default <code>.kaprevo/baselines</code>) and are saved when the
+session ends. After a run with heals, pytest prints a summary and writes
+<code>kaprevo-artifacts/heal-report.json</code>:</p>
+<div class="highlight"><pre><span></span><code>========================= kaprevo self-healing =========================
+HEALED  login.submit [warn 0.74] locator('#submit-btn') -&gt; page.get_by_role('button', name='Sign in')
+report: kaprevo-artifacts/heal-report.json
+</code></pre></div>
+<p><strong><code>--kaprevo-strict-heal</code></strong> fails any test that needed healing, after it ran. Use it in your
+release gate: day to day the suite stays green through a redesign, and the gate makes sure
+someone replaces each healed locator before release. Commit <code>fingerprints.json</code> with the tests,
+so every machine heals from the same baselines.</p>
+<h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
+<p><code>HealConfig</code> holds the numbers from the table above:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">HealConfig</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">HealConfig</span><span class="p">(</span><span class="n">auto_threshold</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">warn_threshold</span><span class="o">=</span><span class="mf">0.70</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">heal_after</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">heal</span> <span class="o">=</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">store</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+</code></pre></div>
+<p>Raising the thresholds trades heals for safety; lowering them does the opposite, and some
+of the extra heals will be wrong clicks. Change them only when you have measured on your own
+app, as below.</p>
+<h2 id="measured-on-controllab">Measured on ControlLab<a class="headerlink" href="#measured-on-controllab" title="Permanent link">&para;</a></h2>
+<p>kaprevo's own suite includes <strong>ControlLab</strong>, a larger single-page app with 279 tests written
+against version 1 with deliberately brittle locators. Versions 2 and 3 apply 18 catalogued
+changes: renamed ids, moved markup, reordered columns, a removed button, a relabelled delete.
+(The practice site serves all three at <code>/controllab/v1/</code>, <code>/controllab/v2/</code> and
+<code>/controllab/v3/</code>.) With fingerprints from a v1 run and the default thresholds, on Chrome:</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Healing off</th>
+<th>Healing on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v2</td>
+<td>1 test passes (every test signs in, and the sign-in button's id changed)</td>
+<td>235 of 279 pass</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>252 pass</td>
+<td>270 pass</td>
+</tr>
+</tbody>
+</table>
+<p>What still fails is the useful part of the result:</p>
+<ul>
+<li><strong>Changes that are not about locators.</strong> A menu that moved under a submenu (the old element
+  exists but is hidden, so healing never runs), a <code>&lt;select&gt;</code> that became a custom listbox
+  (<code>select_option</code> cannot work on a button). The test needs updating, not healing.</li>
+<li><strong>Correct refusals.</strong> The relabelled Delete button is refused as destructive, the removed
+  Export button has nothing to heal to, two row checkboxes that became indistinguishable are
+  refused as ambiguous (1.00 against 0.97).</li>
+<li><strong>Real misses.</strong> A few elements scored just under the 0.65 floor. Lowering the floor would
+  rescue some and misclick others, which is why it is a setting.</li>
+<li><strong>Positional locators that still match.</strong> After the grid columns were reordered,
+  <code>td:nth-child(7)</code> still finds a cell, just the wrong one. No healer can notice, because
+  nothing failed to match: only a user-facing locator would have avoided it.</li>
+</ul>
+<p>The self-healing guide has the details and the commands to
+reproduce the numbers.</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The script signs in on <code>/testsite/heal/v1.html</code> with brittle <code>#id</code> locators wrapped in a
+healer, which records three fingerprints and saves them to a baseline folder in your temporary
+directory. Then it runs the same sign-in on <code>v2.html</code>, the redesign, where every id and class
+changed, with a fresh store read from that folder. All three locators match nothing; the healer
+finds each element again and the sign-in succeeds.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 12: a sign-in script survives a redesign that renamed every id and class.</span>
+
+<span class="sd">Run 1 signs in on ``/testsite/heal/v1.html`` with brittle id locators wrapped in a healer, which</span>
+<span class="sd">records a fingerprint of each element and saves them to a baseline folder. Run 2 uses the same</span>
+<span class="sd">script on ``v2.html``, where the ids changed: the locators match nothing, the healer finds each</span>
+<span class="sd">element again by its fingerprint, and the script prints every heal and its suggested locator.</span>
+
+<span class="sd">    python examples/course/12-self-healing/example_heal_redesign.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (the store saves itself in a with block)</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">healer</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">BASELINES</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"12-self-healing"</span> <span class="o">/</span> <span class="s2">"baselines"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">:</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""Sign in on heal/&lt;version&gt;.html with id locators; return the healer's events."""</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+    <span class="c1"># Reads fingerprints.json from earlier runs; saves what this run recorded when the block ends.</span>
+    <span class="k">with</span> <span class="n">FingerprintStore</span><span class="p">(</span><span class="n">BASELINES</span><span class="p">)</span> <span class="k">as</span> <span class="n">store</span><span class="p">:</span>
+        <span class="n">heal</span> <span class="o">=</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.user"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">))</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.password"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#password"</span><span class="p">))</span>
+        <span class="n">submit</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#submit-btn"</span><span class="p">))</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"testsite/heal/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.html"</span><span class="p">)</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"signed in"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">heal</span><span class="o">.</span><span class="n">report</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">BASELINES</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># start with no baselines</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="s2">"v1"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"v1: signed in, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="si">}</span><span class="s2"> heal events; baselines in </span><span class="si">{</span><span class="n">BASELINES</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">events</span> <span class="o">==</span> <span class="p">[]</span>
+
+        <span class="n">events</span> <span class="o">=</span> <span class="n">sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="s2">"v2"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"v2: signed in after </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="si">}</span><span class="s2"> heals:"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'key'</span><span class="p">]</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'band'</span><span class="p">]</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'score'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  "</span>
+                  <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'locator'</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'suggestion'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s2">"key"</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">events</span> <span class="k">if</span> <span class="n">e</span><span class="p">[</span><span class="s2">"outcome"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"healed"</span><span class="p">}</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"login.user"</span><span class="p">,</span> <span class="s2">"login.password"</span><span class="p">,</span>
+                                                                           <span class="s2">"login.submit"</span><span class="p">}</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>v1: signed in, 0 heal events; baselines in C:\Users\you\AppData\Local\Temp\kaprevo-course\12-self-healing\baselines
+SelfHealWarning: healed login.password (score 0.77 (warn)); use page.get_by_role('textbox', name='Password')
+SelfHealWarning: healed login.submit (score 0.74 (warn)); use page.get_by_role('button', name='Sign in')
+v2: signed in after 3 heals:
+  login.user      auto  0.82  locator('#username') -&gt; page.get_by_role('textbox', name='User name')
+  login.password  warn  0.77  locator('#password') -&gt; page.get_by_role('textbox', name='Password')
+  login.submit    warn  0.74  locator('#submit-btn') -&gt; page.get_by_role('button', name='Sign in')
+</code></pre></div>
+<p>The user name field heals in the <code>auto</code> band. The password field and the button heal in the
+<code>warn</code> band, so Python prints a <code>SelfHealWarning</code> for each: they changed more (new id, new
+classes and a new wrapper) and the healer wants a person to look. The suggestions are what the
+test should have said in the first place.</p>
+<p>A second example shows tuning. The same Sign in button heals at the default thresholds, and is
+refused with <code>warn_threshold=0.80</code>, because its score of 0.74 is now under the floor:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 12: the same redesign under two ``HealConfig`` settings, the default and a stricter one.</span>
+
+<span class="sd">Records fingerprints on ``/testsite/heal/v1.html``, then clicks the renamed Sign in button on</span>
+<span class="sd">``v2.html`` twice: with the default thresholds it heals (score 0.74, in the warn band), and with</span>
+<span class="sd">``warn_threshold=0.80`` the same candidate is below the floor, so the click is refused.</span>
+
+<span class="sd">    python examples/course/12-self-healing/example_heal_config.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span><span class="p">,</span> <span class="n">HealConfig</span><span class="p">,</span> <span class="n">SelfHealWarning</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">healer</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">click_sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">:</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">HealConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Record on v1, click on v2 under ``config``; return the outcome and reason."""</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+    <span class="n">heal</span> <span class="o">=</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">FingerprintStore</span><span class="p">(),</span> <span class="n">config</span><span class="p">)</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#submit-btn"</span><span class="p">))</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/heal/v1.html"</span><span class="p">)</span>
+    <span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/heal/v2.html"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># healing starts after 1 s; leave it time to run</span>
+    <span class="k">except</span> <span class="n">KaprevoTimeoutError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">heal</span><span class="o">.</span><span class="n">report</span><span class="p">():</span>
+            <span class="k">raise</span>  <span class="c1"># healing never got to decide: that is a real failure</span>
+        <span class="c1"># otherwise it refused, and the event below says why</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">event</span><span class="p">,)</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">report</span><span class="p">()</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'outcome'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'reason'</span><span class="p">]</span><span class="si">}</span><span class="s2">)"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">SelfHealWarning</span><span class="p">)</span>  <span class="c1"># the events say the same thing</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">click_sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">HealConfig</span><span class="p">())</span>
+        <span class="n">strict</span> <span class="o">=</span> <span class="n">click_sign_in</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">HealConfig</span><span class="p">(</span><span class="n">auto_threshold</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">warn_threshold</span><span class="o">=</span><span class="mf">0.80</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"default thresholds:"</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"warn_threshold 0.80:"</span><span class="p">,</span> <span class="n">strict</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">default</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"healed"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">strict</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"refused"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>default thresholds: healed (score 0.74 (warn))
+warn_threshold 0.80: refused (best score 0.74 below warn threshold 0.80)
+</code></pre></div>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-two-lookalikes">Exercise 1: two lookalikes<a class="headerlink" href="#exercise-1-two-lookalikes" title="Permanent link">&para;</a></h3>
+<p>The practice page <code>heal-lookalikes.html</code> has one Save button, <code>#save</code>. Its version 2,
+<code>heal-lookalikes.html?v=2</code>, renamed the id and added a second, identical Save button. Wrap
+<code>#save</code> in a healer, click it on version 1, then try again on version 2. What happens, and
+which button was clicked?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 12, exercise 1: two lookalike buttons, and a healer that refuses to pick one.</span>
+
+<span class="sd">Version 1 of ``heal-lookalikes.html`` has one Save button, ``#save``; the healer records it.</span>
+<span class="sd">Version 2 renamed the id and added a second, identical Save button. Both candidates score the</span>
+<span class="sd">same, so the click is refused and times out with the reason, and nothing is saved.</span>
+
+<span class="sd">    python examples/course/12-self-healing/solution_1_ambiguous_refusal.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">healer</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">store</span> <span class="o">=</span> <span class="n">FingerprintStore</span><span class="p">()</span>  <span class="c1"># in memory: this script records and heals in one run</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">heal</span> <span class="o">=</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span>
+        <span class="n">save</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"notes.save"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#save"</span><span class="p">))</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"heal-lookalikes.html"</span><span class="p">)</span>
+        <span class="n">save</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>  <span class="c1"># works, and records the fingerprint</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Saved by #save"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"heal-lookalikes.html?v=2"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">save</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># healing waits 1 s before it tries, so allow well more than that</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Refused, as it should be:"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"   "</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"the healer guessed between two identical buttons"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>  <span class="c1"># neither button was clicked</span>
+
+        <span class="p">(</span><span class="n">event</span><span class="p">,)</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">report</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'outcome'</span><span class="p">]</span><span class="si">}</span><span class="s2">: best </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'score'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, runner-up </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'runner_up'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">event</span><span class="p">[</span><span class="s2">"outcome"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"refused"</span> <span class="ow">and</span> <span class="s2">"ambiguous"</span> <span class="ow">in</span> <span class="n">event</span><span class="p">[</span><span class="s2">"reason"</span><span class="p">],</span> <span class="n">event</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Refused, as it should be:
+    click locator('#save'): timed out after 10 s: no element matches; self-healing refused: ambiguous: best 0.91 vs runner-up 0.90 (margin 0.10)
+refused: best 0.91, runner-up 0.90
+</code></pre></div>
+<p>Neither button was clicked. Both score high (0.91 is well inside <code>auto</code>), but they are only
+0.01 apart, so choosing one would be a coin toss. The click is given 10 seconds, well over
+the 1 second healing waits before it tries.</p>
+</details>
+<h3 id="exercise-2-a-destructive-action">Exercise 2: a destructive action<a class="headerlink" href="#exercise-2-a-destructive-action" title="Permanent link">&para;</a></h3>
+<p>On <code>/testsite/heal/v1.html</code>, wrap the Delete account button (<code>#delete-btn</code>) twice: once
+normally, once with <code>risk="destructive"</code>. On <code>v2.html</code> the button has a new id and a new
+<code>data-testid</code>. Show that the normal locator heals (without clicking it) and that the
+destructive one refuses to click.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 12, exercise 2: a Delete button marked ``risk="destructive"`` is never healed to a lookalike.</span>
+
+<span class="sd">On ``/testsite/heal/v2.html`` the Delete account button has a new id and a new data-testid. A</span>
+<span class="sd">normal healing locator finds it again (here only asked whether it is enabled, so nothing is</span>
+<span class="sd">deleted). The same locator marked destructive refuses, because neither the id nor the test id</span>
+<span class="sd">matches exactly, and the click times out with the reason.</span>
+
+<span class="sd">    python examples/course/12-self-healing/solution_2_destructive.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">healer</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">heal</span> <span class="o">=</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">FingerprintStore</span><span class="p">())</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"danger.delete.normal"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#delete-btn"</span><span class="p">))</span>
+        <span class="n">destructive</span> <span class="o">=</span> <span class="n">heal</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"danger.delete"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#delete-btn"</span><span class="p">),</span> <span class="n">risk</span><span class="o">=</span><span class="s2">"destructive"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/heal/v1.html"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">normal</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">()</span> <span class="ow">and</span> <span class="n">destructive</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">()</span>  <span class="c1"># both record a fingerprint</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"testsite/heal/v2.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Normal locator healed, enabled:"</span><span class="p">,</span> <span class="n">normal</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">destructive</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Destructive locator refused:"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"   "</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"a destructive action was healed to a different element"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>  <span class="c1"># the account was not deleted</span>
+
+        <span class="n">outcomes</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="p">[</span><span class="s2">"key"</span><span class="p">]:</span> <span class="n">e</span><span class="p">[</span><span class="s2">"outcome"</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">heal</span><span class="o">.</span><span class="n">report</span><span class="p">()}</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">outcomes</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"danger.delete.normal"</span><span class="p">:</span> <span class="s2">"healed"</span><span class="p">,</span> <span class="s2">"danger.delete"</span><span class="p">:</span> <span class="s2">"refused"</span><span class="p">},</span> <span class="n">outcomes</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Normal locator healed, enabled: True
+Destructive locator refused:
+    click locator('#delete-btn'): timed out after 10 s: no element matches; self-healing refused: destructive action: no exact id/data-testid match
+{'danger.delete.normal': 'healed', 'danger.delete': 'refused'}
+</code></pre></div>
+<p>The normal heal is probably right here, it is the same button renamed. But "probably" is
+not good enough for deleting an account, and <code>risk="destructive"</code> makes that a rule.</p>
+</details>
+<h3 id="exercise-3-strict-mode-in-pytest">Exercise 3: strict mode in pytest<a class="headerlink" href="#exercise-3-strict-mode-in-pytest" title="Permanent link">&para;</a></h3>
+<p>Write a pytest test that signs in through <code>kaprevo_healer</code>, with the page version taken from
+an environment variable. Run it on v1 to record baselines, on v2 to see it heal, and on v2
+again with <code>--kaprevo-strict-heal</code>. Explain the third result.</p>
+<details class="success">
+<summary>Solution</summary>
+<p>The test, <code>heal_tests/test_heal_sign_in.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 12, exercise 3: a pytest test that signs in through the ``kaprevo_healer`` fixture.</span>
+
+<span class="sd">The page version comes from ``HEAL_VERSION`` (``v1`` or ``v2``), so the same test can record</span>
+<span class="sd">baselines on v1 and then heal on v2. Run by ``solution_3_strict_heal.py``.</span>
+
+<span class="sd">    HEAL_VERSION=v1 pytest examples/course/12-self-healing/heal_tests --base-url http://127.0.0.1:8765/</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Healer</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sign_in</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">kaprevo_healer</span><span class="p">:</span> <span class="n">Healer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa">f</span><span class="s2">"testsite/heal/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEAL_VERSION'</span><span class="p">,</span><span class="w"> </span><span class="s1">'v1'</span><span class="p">)</span><span class="si">}</span><span class="s2">.html"</span><span class="p">)</span>
+    <span class="n">kaprevo_healer</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.user"</span><span class="p">,</span> <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">))</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">kaprevo_healer</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.password"</span><span class="p">,</span> <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#password"</span><span class="p">))</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">kaprevo_healer</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#submit-btn"</span><span class="p">))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"signed in"</span><span class="p">)</span>
+</code></pre></div>
+<p>The script that runs it three times:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 12, exercise 3: ``kaprevo_healer`` in pytest, and why ``--kaprevo-strict-heal`` fails a healed test.</span>
+
+<span class="sd">Runs ``heal_tests/test_heal_sign_in.py`` three times, all writing to your temporary directory:</span>
+
+<span class="sd">1. on v1: the test passes and the plugin records baselines in ``--kaprevo-baselines``;</span>
+<span class="sd">2. on v2: the test passes by healing, and the plugin writes ``heal-report.json``;</span>
+<span class="sd">3. on v2 with ``--kaprevo-strict-heal``: the test body passes, but the healer fixture then fails</span>
+<span class="sd">   it, so a heal can never slip through a gate unnoticed.</span>
+
+<span class="sd">    python examples/course/12-self-healing/solution_3_strict_heal.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># course: timeout=240</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"12-self-healing"</span> <span class="o">/</span> <span class="s2">"pytest"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">extra</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CompletedProcess</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Run the healing test on one page version and print pytest's summary line."""</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">HERE</span> <span class="o">/</span> <span class="s2">"heal_tests"</span><span class="p">),</span> <span class="s2">"-q"</span><span class="p">,</span> <span class="s2">"-p"</span><span class="p">,</span> <span class="s2">"no:cacheprovider"</span><span class="p">,</span>
+               <span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">BROWSER</span><span class="p">,</span> <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="n">BASE_URL</span><span class="p">,</span>
+               <span class="s2">"--kaprevo-baselines"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"baselines"</span><span class="p">),</span> <span class="s2">"--kaprevo-artifacts"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"artifacts"</span><span class="p">),</span> <span class="o">*</span><span class="n">extra</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">:</span>
+        <span class="n">command</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">,</span> <span class="n">HEAL_VERSION</span><span class="o">=</span><span class="n">version</span><span class="p">,</span> <span class="n">PYTHONDONTWRITEBYTECODE</span><span class="o">=</span><span class="s2">"1"</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"replace"</span><span class="p">,</span>
+                            <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">version</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">extra</span><span class="p">])</span><span class="si">}</span><span class="s2">: exit </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">OUT</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">run</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">)</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"    baselines:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">((</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"baselines"</span> <span class="o">/</span> <span class="s2">"fingerprints.json"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())))</span>
+
+    <span class="n">healed</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">healed</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">"HEALED"</span> <span class="ow">in</span> <span class="n">healed</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">healed</span><span class="o">.</span><span class="n">stdout</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">((</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"artifacts"</span> <span class="o">/</span> <span class="s2">"heal-report.json"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'key'</span><span class="p">]</span><span class="si">}</span><span class="s2">: use </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'suggestion'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">strict</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">,</span> <span class="s2">"--kaprevo-strict-heal"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">strict</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="s2">"--kaprevo-strict-heal: locators needed healing"</span> <span class="ow">in</span> <span class="n">strict</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">strict</span><span class="o">.</span><span class="n">stdout</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"    strict mode turned the heals into an error, as a release gate should"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>v1: exit 0: 1 passed in 5.00s
+    baselines: ['login.password', 'login.submit', 'login.user']
+v2: exit 0: 1 passed, 2 warnings in 7.22s
+    login.user: use page.get_by_role('textbox', name='User name')
+    login.password: use page.get_by_role('textbox', name='Password')
+    login.submit: use page.get_by_role('button', name='Sign in')
+v2 --kaprevo-strict-heal: exit 1: 1 passed, 2 warnings, 1 error in 11.17s
+    strict mode turned the heals into an error, as a release gate should
+</code></pre></div>
+<p>In strict mode the test itself passes (the heals worked), and then the <code>kaprevo_healer</code>
+fixture fails it while tearing down, which pytest reports as an error. The run exits 1, so
+a gate stops, and the report lists the three replacements to make.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Nothing heals on the second run.</strong> The baselines were never saved. In a script, use
+  <code>with FingerprintStore(folder) as store:</code> or call <code>store.save()</code> before it ends; in pytest,
+  check that <code>--kaprevo-baselines</code> points at the same folder both times.</li>
+<li><strong><code>self-healing never ran: it waits 1 s ...</code>.</strong> The action's timeout is shorter than
+  <code>heal_after</code>. Give it a few seconds, or lower <code>heal_after</code> in <code>HealConfig</code>.</li>
+<li><strong><code>no baseline fingerprint recorded for 'login.submit'</code>.</strong> The locator never worked while
+  wrapped under that key, so there is nothing to compare with. Run once against the version
+  where it works.</li>
+<li><strong>Two locators share a key.</strong> The second one heals towards the first one's element. Give
+  every wrapped locator its own key.</li>
+<li><strong>A heal clicks the right button but the test fails later.</strong> The interaction changed (a
+  <code>&lt;select&gt;</code> became a custom list, a menu moved). Healing finds elements; it does not
+  rewrite steps. Update the test.</li>
+<li><strong>Keeping a heal forever.</strong> Healed tests are slower (each one waits <code>heal_after</code> first) and
+  depend on old baselines. Paste the suggestion in and let <code>--kaprevo-strict-heal</code> enforce it.</li>
+<li><strong>Expecting healing to catch a wrong match.</strong> <code>td:nth-child(7)</code> that still matches the
+  wrong cell never triggers healing. Use user-facing locators.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A healer records a fingerprint per key while a locator works, and when it stops matching,
+  scores the page against it.</li>
+<li>It heals only with a clear winner: at least 0.65, and 0.10 ahead of the runner-up; 0.80 and
+  above is silent, below that it warns.</li>
+<li>Ambiguous, low-score and destructive cases are refused, and the action fails with the reason.</li>
+<li>Every heal comes with a suggested locator; <code>heal-report.json</code> collects them in pytest and
+  <code>--kaprevo-strict-heal</code> fails a gate until they are applied.</li>
+<li><code>HealConfig</code> tunes the thresholds; <code>risk="destructive"</code> heals only to the same id or test id.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../13-browsers-and-backends/">13. Browsers and backends</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

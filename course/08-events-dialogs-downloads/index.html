@@ -1,0 +1,1788 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/08-events-dialogs-downloads/">
+      
+      
+        <link rel="prev" href="../07-network/">
+      
+      
+        <link rel="next" href="../09-pytest-plugin/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>08. Events, dialogs, downloads and popups - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#08-events-dialogs-downloads-and-popups" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              08. Events, dialogs, downloads and popups
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialogs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#popups-and-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Popups and tabs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async handlers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-no-errors-allowed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: no errors allowed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-your-name-please" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: your name, please
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: the report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-the-help-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: the help window
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waiters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waiters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialogs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#popups-and-tabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Popups and tabs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async handlers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-no-errors-allowed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: no errors allowed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-your-name-please" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: your name, please
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: the report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-the-help-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: the help window
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer B -->
+<h1 id="08-events-dialogs-downloads-and-popups">08. Events, dialogs, downloads and popups<a class="headerlink" href="#08-events-dialogs-downloads-and-popups" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (popups handed over once their URL commits; library fixes from the course bug list) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>listen to page events with <code>on</code>, <code>once</code> and <code>remove_listener</code></li>
+<li>wait for what an action triggers with the <code>expect_*</code> waiters, subscribing before the action</li>
+<li>accept, dismiss and answer dialogs, and know what kaprevo does without a listener</li>
+<li>save a download with <code>expect_download</code> and <code>save_as</code></li>
+<li>work with popups and several tabs (<code>expect_popup</code>, <code>context.expect_page</code>, <code>browser.pages</code>)</li>
+</ul>
+<p><strong>Time:</strong> about 40 minutes. <strong>Before this:</strong> <a href="../07-network/">07. Network</a>.
+<strong>Code:</strong> <code>examples/course/08-events-dialogs-downloads/</code></p>
+</div>
+<p>Not everything a page does is a change you can see in the DOM. It writes to the console, throws
+errors nobody catches, stops to ask the user a question, starts a download, opens another
+window. A script has to notice these things, and sometimes answer them, or it will miss bugs or
+get stuck. This lesson uses the <strong>Events</strong> page (<code>events.html</code>), where each control does one of
+these things.</p>
+<h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h2>
+<p>A page (and a context, and the browser) <strong>emits events</strong>: named notifications with a payload.
+You subscribe with <code>on(name, handler)</code>; the handler is called with the payload every time the
+event fires.</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"console"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">message</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+<span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"pageerror"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">error</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"uncaught:"</span><span class="p">,</span> <span class="n">error</span><span class="p">))</span>
+</code></pre></div>
+<p>The page events you will use most:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Payload</th>
+<th>Fires when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>console</code></td>
+<td><code>ConsoleMessage</code> (<code>type</code>, <code>text</code>, <code>args</code>)</td>
+<td>the page calls <code>console.log</code>, <code>error</code>, <code>warn</code> and so on</td>
+</tr>
+<tr>
+<td><code>pageerror</code></td>
+<td><code>JavaScriptError</code></td>
+<td>an exception nobody catches</td>
+</tr>
+<tr>
+<td><code>dialog</code></td>
+<td><code>Dialog</code></td>
+<td><code>alert</code>, <code>confirm</code>, <code>prompt</code> or a "leave page?" question opens</td>
+</tr>
+<tr>
+<td><code>download</code></td>
+<td><code>Download</code></td>
+<td>the page starts a download</td>
+</tr>
+<tr>
+<td><code>popup</code></td>
+<td><code>Page</code></td>
+<td>the page opens a new tab or window</td>
+</tr>
+<tr>
+<td><code>request</code>, <code>response</code>, <code>requestfailed</code></td>
+<td><code>Request</code> or <code>Response</code></td>
+<td>network traffic (lesson 07)</td>
+</tr>
+<tr>
+<td><code>load</code></td>
+<td><code>Page</code></td>
+<td>the page's <code>load</code> event fires</td>
+</tr>
+<tr>
+<td><code>close</code></td>
+<td><code>Page</code></td>
+<td>the page is closed</td>
+</tr>
+</tbody>
+</table>
+<p><code>once(name, handler)</code> calls the handler for the next event only. <code>remove_listener(name, handler)</code>
+stops a handler; pass the same function you registered, so give it a name rather than a lambda
+when you plan to remove it.</p>
+<p>In the sync API, handlers run on a <strong>worker thread</strong>, with sync objects, so a handler may call
+the sync API itself (<code>dialog.accept()</code>, for example). Keep handlers short: record what happened
+in a list or print it, and make your checks in the main script.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>Selenium makes you poll for these things: <code>switch_to.alert</code>, the browser log, the window
+handle list. In kaprevo they arrive as events, the moment they happen, in Chrome and Firefox
+alike.</p>
+</div>
+<h2 id="waiters">Waiters<a class="headerlink" href="#waiters" title="Permanent link">&para;</a></h2>
+<p>A listener collects everything. Often you want just the one event an action causes: the error a
+click logs, the download a link starts. Each <code>expect_*</code> method is a <strong>waiter</strong>, used as a <code>with</code>
+block around the action:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_console_message</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log a message"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>        <span class="c1"># Hello from the page</span>
+</code></pre></div>
+<p>The waiter starts listening when the block starts and, when the block ends, waits (30 seconds by
+default) for the event; <code>waiter.value</code> is its payload. The order matters. If you clicked first and
+started listening afterwards, a fast event could already be over, and the waiter would wait for a
+second one that never comes. <strong>Subscribe before the action</strong> is the rule for every waiter.</p>
+<p>The waiters are <code>expect_console_message</code>, <code>expect_dialog</code>, <code>expect_download</code>, <code>expect_popup</code>,
+<code>expect_request</code> and <code>expect_response</code>, plus the general <code>expect_event(name, predicate)</code>, which
+waits for any event and can filter it:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_event</span><span class="p">(</span><span class="s2">"console"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">message</span><span class="p">:</span> <span class="n">message</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"error"</span><span class="p">)</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log a message"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>   <span class="c1"># ignored: not an error</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log an error"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>        <span class="c1"># Something went wrong</span>
+</code></pre></div>
+<p>All of them take <code>timeout=</code> in seconds.</p>
+<h2 id="dialogs">Dialogs<a class="headerlink" href="#dialogs" title="Permanent link">&para;</a></h2>
+<p><code>alert()</code>, <code>confirm()</code> and <code>prompt()</code> open <strong>dialogs</strong>, which block the page until someone
+answers. A script answers with a <code>dialog</code> listener. The listener receives a <strong>Dialog</strong> with
+<code>type</code> (<code>"alert"</code>, <code>"confirm"</code>, <code>"prompt"</code> or <code>"beforeunload"</code>), <code>message</code> and <code>default_value</code>,
+and must call one of:</p>
+<ul>
+<li><code>dialog.accept()</code>: OK. For a prompt, <code>dialog.accept("Ada")</code> types the answer first.</li>
+<li><code>dialog.dismiss()</code>: Cancel (or close an alert).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">once</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">dialog</span><span class="p">:</span> <span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">(</span><span class="s2">"Ada"</span><span class="p">))</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Rename"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Hello, Ada"</span><span class="p">)</span>
+</code></pre></div>
+<p>Register the listener <strong>before</strong> the action that opens the dialog. The click itself does not
+finish until the dialog is answered, so code after the click is too late.</p>
+<p><strong>Without a listener, kaprevo dismisses every dialog.</strong> A stray <code>alert()</code> never hangs a run: an
+alert is closed, a confirm answers Cancel (<code>false</code>), a prompt answers Cancel (<code>null</code>). That is
+the safe default, and it means a test that forgot its listener fails on a wrong result ("Item
+kept") instead of waiting forever.</p>
+<p><code>expect_dialog()</code> tells you a dialog appeared and what it said, but it cannot answer it: the
+block ends only after the click, and the click waits for the answer. Use it together with a
+listener:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">once</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">dialog</span><span class="p">:</span> <span class="n">dialog</span><span class="o">.</span><span class="n">dismiss</span><span class="p">())</span>
+<span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_dialog</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Delete item"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>     <span class="c1"># Delete the item?</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>The same defaults as Playwright: no listener means dismissed, and a listener must accept or
+dismiss. In kaprevo's sync API the handler runs on a worker thread, so
+<code>lambda dialog: dialog.accept()</code> just works.</p>
+</div>
+<h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link">&para;</a></h2>
+<p>When a page starts a download (a link to a file the server sends as an attachment, or a link
+with a <code>download</code> attribute), the browser saves it into the browser profile and fires
+<code>download</code>. Wait for it with <code>expect_download</code>, then copy the file somewhere with <code>save_as</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Download the report"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">download</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span><span class="p">)</span>                  <span class="c1"># report.csv</span>
+<span class="n">saved</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"report.csv"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>save_as</code> waits for the download to finish (60 seconds by default), creates missing folders, and
+returns the path. Copy the file before the browser closes: the profile, and the original file in
+it, are deleted then. <code>download.url</code> is where it came from, and <code>download.failure()</code> returns why
+a download did not complete, or <code>None</code>.</p>
+<p>Save downloads to a temporary folder (the examples use <code>tempfile.TemporaryDirectory()</code>), so a
+run never leaves files in your repository.</p>
+<h2 id="popups-and-tabs">Popups and tabs<a class="headerlink" href="#popups-and-tabs" title="Permanent link">&para;</a></h2>
+<p>A link with <code>target="_blank"</code> opens a new tab; <code>window.open()</code> opens a new window. To kaprevo both
+are a new <strong>Page</strong> and a <code>popup</code> event on the page that opened it. Catch it with <code>expect_popup</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_popup</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Help in a new tab"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">help_tab</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">help_tab</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Help - kaprevo practice site"</span><span class="p">)</span>
+<span class="n">help_tab</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><code>expect_popup</code> hands the popup over once it has committed its URL, so <code>help_tab.url</code> is already
+the real address. The document may still be loading, though: check it with web-first assertions
+and locators (which wait), or call <code>help_tab.wait_for_load_state()</code> before a single read such as
+<code>help_tab.title()</code>.</p>
+<p>Two other ways to find pages:</p>
+<ul>
+<li><code>context.expect_page()</code> waits for any new page in a context, whichever page or script opened
+  it.</li>
+<li><code>browser.pages</code> lists every open page, <code>context.pages</code> those of one context.</li>
+</ul>
+<p>Each page is a separate object, so "switching tabs" is just using the other variable; there is
+no current tab to switch. <code>page.bring_to_front()</code> makes a tab the active one when that matters
+for a headed run. Closing a popup (<code>popup.close()</code>, or the page calling <code>window.close()</code>) fires
+its <code>close</code> event and leaves the other pages untouched.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>No <code>window_handles</code> and no <code>switch_to.window</code>: the popup is a <code>Page</code> of its own, and the
+opener keeps working the whole time.</p>
+</div>
+<h2 id="async-handlers">Async handlers<a class="headerlink" href="#async-handlers" title="Permanent link">&para;</a></h2>
+<p>In the async API, a handler may be a plain function or a coroutine. An <code>async def</code> handler can
+await the API directly, which is the natural way to answer a dialog:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">answer</span><span class="p">(</span><span class="n">dialog</span><span class="p">:</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">Dialog</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">(</span><span class="s2">"Ada"</span><span class="p">)</span>
+
+<span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+</code></pre></div>
+<p>A plain function that needs to call the async API can schedule it instead:
+<code>page.once("dialog", lambda dialog: asyncio.ensure_future(dialog.accept()))</code>. The waiters are
+<code>async with</code> blocks, and <code>waiter.value</code> is awaited:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Download the report"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="n">download</span> <span class="o">=</span> <span class="k">await</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+</code></pre></div>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>This script goes through the events page from top to bottom. It prints every console message
+and uncaught error, answers a confirm and a prompt with one named listener (and removes it
+afterwards), saves the CSV report to a temporary folder, and opens and closes the help page in a
+new tab.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 08: handle everything the events page can throw at a script (sync API).</span>
+
+<span class="sd">Console messages and an uncaught error, a confirm and a prompt, a download and a new tab.</span>
+
+<span class="sd">    python examples/course/serve.py                                      # terminal 1</span>
+<span class="sd">    python examples/course/08-events-dialogs-downloads/example_events.py # terminal 2</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dialog</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">answer</span><span class="p">(</span><span class="n">dialog</span><span class="p">:</span> <span class="n">Dialog</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Accept every dialog; give a prompt a name."""</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dialog (</span><span class="si">{</span><span class="n">dialog</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">dialog</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">(</span><span class="s2">"Ada"</span> <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"prompt"</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"console"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">message</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Console </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"pageerror"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">error</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"Page error:"</span><span class="p">,</span> <span class="n">error</span><span class="p">))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"events.html"</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+
+        <span class="c1"># Console messages and an uncaught error arrive as events.</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_console_message</span><span class="p">():</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log a message"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_event</span><span class="p">(</span><span class="s2">"pageerror"</span><span class="p">):</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Throw an error"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="c1"># Dialogs: the listener answers each one while the click waits for it.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Delete item"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Item deleted"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Rename"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Hello, Ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">remove_listener</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+
+        <span class="c1"># A download: wait for it, then copy it out of the browser's profile.</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Download the report"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">download</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">folder</span><span class="p">:</span>
+            <span class="n">saved</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Downloaded </span><span class="si">{</span><span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">saved</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span><span class="si">}</span><span class="s2"> lines"</span><span class="p">)</span>
+
+        <span class="c1"># A link with target=_blank opens a new tab: a popup of this page.</span>
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_popup</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Help in a new tab"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">help_tab</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">help_tab</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Help"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"New tab:"</span><span class="p">,</span> <span class="n">help_tab</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="s2">"| open tabs:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>
+        <span class="n">help_tab</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Closed it | open tabs:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/08-events-dialogs-downloads/example_events.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Console log: Hello from the page
+Page error: Error: Boom
+Dialog (confirm): Delete the item?
+Dialog (prompt): What is your name?
+Downloaded report.csv: 4 lines
+New tab: Help - kaprevo practice site | open tabs: 2
+Closed it | open tabs: 1
+</code></pre></div>
+<p>The waiters around "Log a message" and "Throw an error" make the script wait for those events
+before it moves on; their payloads are printed by the listeners.</p>
+<details class="example">
+<summary>Async version</summary>
+<p>The same page with the async API: a plain-function console listener next to a coroutine
+dialog handler, and the waiters as <code>async with</code> blocks.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 08: the events example with the async API.</span>
+
+<span class="sd">Handlers may be plain functions or coroutines; an ``async def`` handler can await</span>
+<span class="sd">``dialog.accept()`` directly.</span>
+
+<span class="sd">    python examples/course/08-events-dialogs-downloads/example_events_async.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">answer</span><span class="p">(</span><span class="n">dialog</span><span class="p">:</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">Dialog</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Accept every dialog; give a prompt a name."""</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dialog (</span><span class="si">{</span><span class="n">dialog</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">dialog</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">(</span><span class="s2">"Ada"</span> <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"prompt"</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"console"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">message</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Console </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>  <span class="c1"># plain function</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>                                                              <span class="c1"># coroutine</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"events.html"</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_console_message</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log an error"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Waited for:"</span><span class="p">,</span> <span class="p">(</span><span class="k">await</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Rename"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Hello, Ada"</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Download the report"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">download</span> <span class="o">=</span> <span class="k">await</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">folder</span><span class="p">:</span>
+            <span class="n">saved</span> <span class="o">=</span> <span class="k">await</span> <span class="n">download</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Downloaded"</span><span class="p">,</span> <span class="n">saved</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_popup</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Help in a new tab"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">help_tab</span> <span class="o">=</span> <span class="k">await</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">help_tab</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Help - kaprevo practice site"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">help_tab</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Opened and closed the help tab"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+</details>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-no-errors-allowed">Exercise 1: no errors allowed<a class="headerlink" href="#exercise-1-no-errors-allowed" title="Permanent link">&para;</a></h3>
+<p>Collect every console error and every uncaught page error into a list. Click <strong>Log a message</strong>
+and assert the list is empty. Then click <strong>Log an error</strong> and <strong>Throw an error</strong>, and check
+that both were caught.</p>
+<p>Hint: <code>message.type</code> is <code>"error"</code> for <code>console.error</code>. The events arrive a moment after the
+click, so use <code>expect.poll(lambda: len(problems)).to_be(2)</code> rather than checking at once.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 08, exercise 1: fail when the page logs a console error or throws an uncaught one.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">problems</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Register before goto, so errors logged while the page loads are caught too.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"console"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">message</span><span class="p">:</span> <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"error"</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"pageerror"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">error</span><span class="p">:</span> <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)))</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"events.html"</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log a message"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Logged a message"</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">problems</span> <span class="o">==</span> <span class="p">[],</span> <span class="sa">f</span><span class="s2">"the page reported errors: </span><span class="si">{</span><span class="n">problems</span><span class="si">}</span><span class="s2">"</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"A plain log message is not a problem"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log an error"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Throw an error"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="c1"># Events arrive a moment after the click; poll the list instead of sleeping.</span>
+        <span class="n">expect</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">))</span><span class="o">.</span><span class="n">to_be</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Caught:"</span><span class="p">,</span> <span class="n">problems</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p><code>pageerror</code> and <code>console</code> are separate events: an uncaught exception is not a console
+message, so a check that only watches the console misses it. In a test suite, register both
+in a fixture and assert the list is empty at the end of every test.</p>
+</details>
+<h3 id="exercise-2-your-name-please">Exercise 2: your name, please<a class="headerlink" href="#exercise-2-your-name-please" title="Permanent link">&para;</a></h3>
+<p>Answer the <strong>Rename</strong> prompt with your name using <code>once</code>, and assert the page greets you. Click
+<strong>Rename</strong> again without a listener and check what the page says.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 08, exercise 2: answer a prompt with a name, then see what happens with no listener.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"events.html"</span><span class="p">)</span>
+        <span class="n">rename</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Rename"</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">)</span>
+
+        <span class="c1"># once(): answer the next dialog only, then the listener is gone.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">once</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">dialog</span><span class="p">:</span> <span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">(</span><span class="s2">"Grace"</span><span class="p">))</span>
+        <span class="n">rename</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Hello, Grace"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"With a listener:"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+        <span class="c1"># No listener: kaprevo dismisses the prompt, as if Cancel was pressed.</span>
+        <span class="n">rename</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"No name given"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Without one:"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>After <code>once</code> has fired, no listener is left, so kaprevo dismisses the second prompt and the
+page reads <code>null</code>: "No name given".</p>
+</details>
+<h3 id="exercise-3-the-report">Exercise 3: the report<a class="headerlink" href="#exercise-3-the-report" title="Permanent link">&para;</a></h3>
+<p>Download the CSV report, save it to a temporary folder, and assert it is called <code>report.csv</code> and
+has four lines: a header and three products.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 08, exercise 3: download the CSV report and check it has a header and three rows.</span>
+
+<span class="sd">The file is saved to a temporary folder, never into the repository.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">,</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">folder</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"events.html"</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Download the report"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">download</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">assert</span> <span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span> <span class="o">==</span> <span class="s2">"report.csv"</span><span class="p">,</span> <span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span>
+
+        <span class="n">saved</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"report.csv"</span><span class="p">)</span>  <span class="c1"># waits for the download to finish</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">saved</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="n">lines</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Blue mug"</span><span class="p">,</span> <span class="s2">"Green teapot"</span><span class="p">,</span> <span class="s2">"Red kettle"</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span><span class="si">}</span><span class="s2"> lines, header </span><span class="si">{</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+</details>
+<h3 id="exercise-4-the-help-window">Exercise 4: the help window<a class="headerlink" href="#exercise-4-the-help-window" title="Permanent link">&para;</a></h3>
+<p>Click <strong>Open help window</strong> (it calls <code>window.open</code>), check the popup's title and that it knows a
+script opened it, then click its <strong>Close this window</strong> button. Wait for the popup to close, and
+show that the events page still works.</p>
+<p>Hint: <code>popup.expect_event("close")</code> waits for the page to close.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 08, exercise 4: open the help popup window, read it, close it, and carry on.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (popups are handed over once their URL commits)</span>
+<span class="sd">"""</span>
+
+<span class="c1"># (the default Chrome backend handles popups since the chromedriver popup repair)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"events.html"</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_popup</span><span class="p">()</span> <span class="k">as</span> <span class="n">waiter</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Open help window"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">popup</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">value</span>
+        <span class="c1"># The popup has its URL already; assertions wait for the page to finish loading.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Help - kaprevo practice site"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">popup</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"opener"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"a script (window.open)"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Popup heading:"</span><span class="p">,</span> <span class="n">popup</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Open pages:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>
+
+        <span class="c1"># The page closes itself; the "close" event tells us it is gone.</span>
+        <span class="k">with</span> <span class="n">popup</span><span class="o">.</span><span class="n">expect_event</span><span class="p">(</span><span class="s2">"close"</span><span class="p">):</span>
+            <span class="n">popup</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Close this window"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Popup closed:"</span><span class="p">,</span> <span class="n">popup</span><span class="o">.</span><span class="n">is_closed</span><span class="p">(),</span> <span class="s2">"| open pages:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>
+
+        <span class="c1"># Back on the first page, which never stopped working.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Opened help"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log a message"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Logged a message"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The events page still works"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>The help page closes itself with <code>window.close()</code>, which only a window opened by a script
+may do. Afterwards the popup object still answers <code>is_closed()</code> (now <code>True</code>); do
+not act on it any more.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Clicking first and waiting afterwards.</strong> <code>page.click(...)</code> and then
+  <code>with page.expect_download():</code> waits for a second download and fails with
+  <code>no 'download' event within 30 s</code>. Put the action inside the <code>with</code> block.</li>
+<li><strong>Reading <code>waiter.value</code> inside the <code>with</code> block.</strong> The event may not have arrived yet;
+  kaprevo raises <code>the event has not arrived yet; read .value after the 'with' block</code>.</li>
+<li><strong>Registering the dialog listener after the click.</strong> The click waits for the dialog to be
+  answered, and with no listener kaprevo dismisses it, so the page sees Cancel. Register
+  <code>on("dialog")</code> or <code>once("dialog")</code> first.</li>
+<li><strong>Removing a lambda listener.</strong> <code>page.remove_listener("dialog", lambda d: d.accept())</code> is a
+  new function, so nothing is removed. Keep a reference to the handler, or use <code>once</code>.</li>
+<li><strong>Checking a list filled by a listener straight after the action.</strong> Events arrive a
+  moment later, on another thread. Use a waiter, or <code>expect.poll(...)</code>.</li>
+<li><strong>Reading a popup's title at once.</strong> The URL is set, but the page may still be loading.
+  Use <code>expect(popup).to_have_title(...)</code> or a locator, which wait, or
+  <code>popup.wait_for_url("**/help.html")</code> (a glob, as in <code>page.route</code>) or <code>popup.wait_for_load_state()</code>.</li>
+<li><strong>Saving downloads into the working directory.</strong> Use a temporary folder. And call
+  <code>save_as</code> before the browser closes: the browser's own copy is deleted with its profile.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>on</code>, <code>once</code> and <code>remove_listener</code> subscribe to events such as <code>console</code>, <code>pageerror</code>,
+  <code>dialog</code>, <code>download</code>, <code>popup</code> and <code>close</code>; sync handlers run on a worker thread.</li>
+<li>Waiters (<code>expect_console_message</code>, <code>expect_dialog</code>, <code>expect_download</code>, <code>expect_popup</code>,
+  <code>expect_event</code>) go around the action, so a fast event is never missed.</li>
+<li>A <code>dialog</code> listener must <code>accept()</code> or <code>dismiss()</code>; without one, kaprevo dismisses every
+  dialog so nothing hangs.</li>
+<li><code>expect_download</code> then <code>download.save_as(path)</code> copies a finished download out of the profile.</li>
+<li>A popup or new tab is a <code>Page</code>; get it with <code>expect_popup</code> or <code>context.expect_page</code>, and close
+  it when you are done.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../09-pytest-plugin/">09. The pytest plugin</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

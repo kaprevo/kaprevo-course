@@ -1,0 +1,1913 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/10-debugging/">
+      
+      
+        <link rel="prev" href="../09-pytest-plugin/">
+      
+      
+        <link rel="next" href="../11-codegen/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>10. Debugging - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#10-debugging" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10. Debugging
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#watch-it-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watch it run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slow-motion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slow motion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-trace-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The trace viewer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Video
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-one-trace-per-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: one trace per step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-a-video-of-signing-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: a video of signing in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-read-a-trace-from-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: read a trace from code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-find-the-cause-from-the-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: find the cause from the message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#watch-it-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watch it run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slow-motion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slow motion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pause
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-trace-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The trace viewer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Video
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-one-trace-per-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: one trace per step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-a-video-of-signing-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: a video of signing in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-read-a-trace-from-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: read a trace from code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-find-the-cause-from-the-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: find the cause from the message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer C -->
+<h1 id="10-debugging">10. Debugging<a class="headerlink" href="#10-debugging" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (launch slow_mo); Nov-07-2026 (Chrome video from the CDP screencast) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>run headed to watch a script work, and outline elements with <code>locator.highlight()</code></li>
+<li>stop a run with <code>page.pause()</code> and look around</li>
+<li>record a trace with <code>context.tracing</code> and open it with <code>kaprevo show-trace</code></li>
+<li>export a trace as one HTML file to attach to a bug report</li>
+<li>record a video of a page and save it</li>
+<li>read kaprevo's errors (timeouts, strictness, failed assertions) and find the cause quickly</li>
+</ul>
+<p><strong>Time:</strong> about 40 minutes. <strong>Before this:</strong> <a href="../09-pytest-plugin/">09. The pytest plugin</a>.
+<strong>Code:</strong> <code>examples/course/10-debugging/</code></p>
+</div>
+<p>Sooner or later a script fails and the reason is not obvious: it worked yesterday, or it works
+on your machine and not on the build server. This lesson gives you four tools, from the
+quickest to the most thorough: watch the run, stop it and look, record a trace you can replay
+step by step, and record a video. It ends with how to read the error message, which is where
+you should always start.</p>
+<h2 id="watch-it-run">Watch it run<a class="headerlink" href="#watch-it-run" title="Permanent link">&para;</a></h2>
+<p>The first thing to try is to see what the browser sees. Launch <strong>headed</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p>For the course examples, set <code>KAPREVO_COURSE_HEADED=1</code> (lesson 01); for a pytest suite, pass
+<code>--headed</code> or <code>--kaprevo-headed</code> (lesson 09).</p>
+<p>A headed script runs at full speed, which is often too fast to follow. Two helpers make it
+easier to see where it is:</p>
+<div class="highlight"><pre><span></span><code><span class="n">fields</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"textbox"</span><span class="p">)</span>
+<span class="n">fields</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># outline every element the locator matches, for 3 seconds</span>
+</code></pre></div>
+<p><strong><code>highlight()</code></strong> draws an outline around every element the locator matches right now, and
+returns at once. The outline never intercepts clicks, so the script carries on underneath it.
+It is the fastest way to answer "what does this locator actually find?": if the outline is on
+the wrong element, or on two elements, you know where the problem is.</p>
+<h2 id="slow-motion">Slow motion<a class="headerlink" href="#slow-motion" title="Permanent link">&para;</a></h2>
+<p>To follow a headed run by eye, launch with <strong><code>slow_mo</code></strong>: kaprevo waits that many <strong>seconds</strong>
+before every action (<code>goto</code>, <code>click</code>, <code>fill</code>, <code>press</code> ...).</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">slow_mo</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>  <span class="c1"># half a second per action</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p>With the pytest plugin, <code>--slowmo 500</code> does the same (it takes milliseconds, as in
+pytest-playwright). Slow motion only helps you watch; to look closely at one moment, stop
+there with <code>page.pause()</code>, or record a trace and step through it afterwards.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p><code>slow_mo</code> is in seconds here, like every kaprevo time: Playwright's <code>slow_mo=50</code> is
+<code>slow_mo=0.05</code>.</p>
+</div>
+<h2 id="pause">Pause<a class="headerlink" href="#pause" title="Permanent link">&para;</a></h2>
+<p><strong><code>page.pause()</code></strong> stops the script until you press Enter in the terminal. While it waits, the
+browser is yours: click around, open its developer tools (F12), inspect the element your
+locator should have found.</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>  <span class="c1"># look at the form, then press Enter to carry on</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<p>In a headless run there is no window to look at, so <code>pause()</code> logs a warning and returns at
+once instead of waiting for input that nobody can usefully give. That means a forgotten
+<code>pause()</code> can never hang a test run on a build server. You see the warning only if logging is
+switched on, for example with <code>logging.basicConfig(level=logging.WARNING)</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>The usual Selenium trick is a breakpoint or an <code>input()</code> in the test. <code>page.pause()</code> is the
+same idea, with the headless case handled for you.</p>
+</div>
+<h2 id="tracing">Tracing<a class="headerlink" href="#tracing" title="Permanent link">&para;</a></h2>
+<p>A <strong>trace</strong> is a recording of everything a browser context did, saved as one zip file: every
+action with its locator, timing and error; a screenshot before and after each action; a
+snapshot of the page's HTML after each action; console messages, page errors, navigations
+and network requests. You can open it after the run, on another machine, days later.</p>
+<p>Tracing belongs to a context. Start it before the actions you want, stop it with a path:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+<span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">screenshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">snapshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<span class="o">...</span>                                   <span class="c1"># everything here is recorded</span>
+<span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"trace.zip"</span><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Adds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>screenshots</code></td>
+<td><code>True</code></td>
+<td>a picture after each action, and before it when the page changed</td>
+</tr>
+<tr>
+<td><code>snapshots</code></td>
+<td><code>True</code></td>
+<td>the page's HTML after each action, rendered without scripts</td>
+</tr>
+<tr>
+<td><code>sources</code></td>
+<td><code>False</code></td>
+<td>the line of your script that ran each action, and the script itself</td>
+</tr>
+<tr>
+<td><code>title</code>, <code>name</code></td>
+<td>none</td>
+<td>a title for the viewer, a short name stored in the trace</td>
+</tr>
+</tbody>
+</table>
+<p><code>stop()</code> without a path throws the recording away. While tracing is off it costs nothing; while
+it is on, each action takes a few milliseconds longer.</p>
+<p><strong>Chunks</strong> split one tracing session into several files, for example one per test:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>                       <span class="c1"># opens the first chunk</span>
+<span class="o">...</span>
+<span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop_chunk</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"step-1.zip"</span><span class="p">)</span>  <span class="c1"># saves it; tracing stays on</span>
+<span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start_chunk</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop_chunk</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"step-2.zip"</span><span class="p">)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre></div>
+<p>You rarely need to write this yourself in a test suite: <code>--tracing retain-on-failure</code> makes
+the pytest plugin trace every test and keep <code>trace.zip</code> only for those that failed.</p>
+<h2 id="the-trace-viewer">The trace viewer<a class="headerlink" href="#the-trace-viewer" title="Permanent link">&para;</a></h2>
+<p>Open a trace with the <code>kaprevo</code> command:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>show-trace<span class="w"> </span>trace.zip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>serving trace.zip at http://127.0.0.1:54123/ (Ctrl+C to stop)
+</code></pre></div>
+<p>It starts a small local server (on 127.0.0.1 only), opens the viewer in your web browser, and
+runs until you press Ctrl+C. Add <code>--no-open</code> to print the address without opening a browser,
+and <code>--port 9323</code> to choose the port.</p>
+<p>The viewer is one page:</p>
+<ul>
+<li>the <strong>action list</strong> down the side: each action with its locator and duration, and failed
+  actions marked with their error;</li>
+<li>a <strong>timeline</strong> filmstrip of screenshots across the top;</li>
+<li>for the selected action, the <strong>before and after screenshots</strong> and the <strong>DOM snapshot</strong>,
+  which is the page's real HTML at that moment: you can inspect it to see why a locator did or
+  did not match;</li>
+<li>tabs for the <strong>console</strong>, the <strong>network</strong> requests, page <strong>errors</strong> and the <strong>source</strong> line
+  that ran the action.</li>
+</ul>
+<p>To attach a trace to a bug report, export it as a single HTML file that opens in any browser
+with no server and no kaprevo install:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>show-trace<span class="w"> </span>--html<span class="w"> </span>bug-1234.html<span class="w"> </span>trace.zip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>wrote bug-1234.html
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">A trace holds what the page held</p>
+<p>A trace contains screenshots, page HTML, console output and request headers. kaprevo
+redacts text typed into password fields (and fields whose locator mentions a password,
+token or PIN), never writes password values into snapshots, and replaces
+<code>Authorization</code>, <code>Cookie</code> and <code>Set-Cookie</code> header values with <code>&lt;redacted&gt;</code>. Everything else
+is recorded as it was. Share a trace only where its contents may go.</p>
+</div>
+<p>See the tracing guide for the file format and the full option list.</p>
+<h2 id="video">Video<a class="headerlink" href="#video" title="Permanent link">&para;</a></h2>
+<p>A video is less detailed than a trace but easier to show someone. Ask for it when you create
+the context, then save it after the page is closed:</p>
+<div class="highlight"><pre><span></span><code><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">record_video_dir</span><span class="o">=</span><span class="s2">"videos"</span><span class="p">,</span> <span class="n">record_video_size</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">video</span>          <span class="c1"># None when the context was not recording</span>
+<span class="n">page</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>                <span class="c1"># closing the page finishes the recording</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">video</span><span class="o">.</span><span class="n">path</span><span class="p">())</span>
+<span class="n">video</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="s2">"sign-in.webm"</span><span class="p">)</span>
+</code></pre></div>
+<p>Every page of the context is recorded into <code>record_video_dir</code>. <code>video.path()</code> and <code>save_as()</code>
+wait until the recording is finished, so call them after <code>page.close()</code> (or after
+<code>context.close()</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>The two browsers record video differently, and the file you get can differ:</p>
+<ul>
+<li><strong>Firefox</strong> records the page itself (a BiDi screencast) and writes a <code>.webm</code>.</li>
+<li><strong>Chrome</strong> has no screencast over BiDi yet, so kaprevo collects a frame each time the page
+  repaints (CDP <code>Page.startScreencast</code>; every page, the ones behind another tab too) and
+  encodes them with <strong>ffmpeg</strong> when ffmpeg is on your <code>PATH</code>, giving a <code>.webm</code>.
+  Without ffmpeg the video is saved as <code>&lt;id&gt;.frames.zip</code>, a set of frames that
+  <code>kaprevo show-trace</code> plays, and kaprevo logs one warning.</li>
+</ul>
+<p>So a script that copies the video should keep the suffix it was given
+(<code>video.path().suffixes</code>) rather than assume <code>.webm</code>.</p>
+</div>
+<h2 id="reading-errors">Reading errors<a class="headerlink" href="#reading-errors" title="Permanent link">&para;</a></h2>
+<p>Before any of the tools above, read the error. kaprevo's messages are written to tell you
+the cause, and they have a fixed shape: the <strong>action</strong>, the <strong>locator</strong>, how long it
+<strong>waited</strong>, and the <strong>last reason</strong> it could not go on.</p>
+<div class="highlight"><pre><span></span><code>click get_by_role('button', name='Sign out'): timed out after 2 s: no element matches
+</code></pre></div>
+<p>The reason at the end is the part to read:</p>
+<table>
+<thead>
+<tr>
+<th>Error ends with</th>
+<th>It means</th>
+<th>Look at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>no element matches</code></td>
+<td>the locator found nothing</td>
+<td>the text, role or label in the locator against the page (<code>highlight()</code>, or the trace's DOM snapshot)</td>
+</tr>
+<tr>
+<td><code>element is not visible</code></td>
+<td>found, but hidden</td>
+<td>whether the page shows it yet; a menu or tab that must be opened first</td>
+</tr>
+<tr>
+<td><code>element is disabled</code></td>
+<td>found, but disabled</td>
+<td>what enables it: a field still empty, a request still running</td>
+</tr>
+<tr>
+<td><code>element is not stable (still moving)</code></td>
+<td>found, but animating</td>
+<td>an animation or a layout that keeps shifting</td>
+</tr>
+<tr>
+<td><code>element is covered by &lt;div#overlay&gt;</code></td>
+<td>something is on top</td>
+<td>a dialog, a cookie banner or a loading overlay</td>
+</tr>
+<tr>
+<td><code>matched 3 elements; use .first, .nth() or a more specific locator</code> (a <code>StrictModeViolation</code>)</td>
+<td>the locator is ambiguous</td>
+<td>make it more specific (lesson 02)</td>
+</tr>
+<tr>
+<td><code>expected 'X', got 'Y' after 5 s</code> (an <code>AssertionError</code> from <code>expect</code>)</td>
+<td>the page never reached the state</td>
+<td><code>Y</code> is what it really showed: often the answer</td>
+</tr>
+<tr>
+<td><code>self-healing refused: ...</code></td>
+<td>a healing locator would not guess</td>
+<td>lesson 12</td>
+</tr>
+</tbody>
+</table>
+<p>Two habits help. Read the <strong>last value seen</strong> in a failed assertion: "got ''" means the thing
+never happened at all, "got 'Signing in...'" means it was still on its way. And notice <strong>which
+action</strong> failed: if a click times out with "no element matches" straight after a navigation,
+the page may simply be a different page than you think, which the trace will show you.</p>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>This script signs in with tracing on, then tries to click a "Sign out" button that does not
+exist, so the trace holds a failed action after four that worked. It saves <code>trace.zip</code> and
+exports it with <code>kaprevo show-trace --html</code>, running the command through <code>python -m kaprevo</code> so
+it uses the same Python as the script. Both files go to a <code>kaprevo-course</code> folder in your
+temporary directory.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 10: record a trace of a sign-in where one step fails, and export it as one HTML file.</span>
+
+<span class="sd">Signs in with tracing on, then clicks a button that does not exist, so the trace holds a failed</span>
+<span class="sd">action next to the ones that worked. The trace is saved as ``trace.zip`` and exported with</span>
+<span class="sd">``kaprevo show-trace --html`` to ``trace.html``, which opens in any browser with no server.</span>
+
+<span class="sd">    python examples/course/10-debugging/example_trace_failure.py</span>
+<span class="sd">    kaprevo show-trace &lt;the trace.zip path it prints&gt;</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"10-debugging"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">OUT</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">OUT</span> <span class="o">/</span> <span class="s2">"trace.zip"</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"sign in, then a missing button"</span><span class="p">,</span> <span class="n">screenshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">snapshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">sources</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign out"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># there is no such button</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Failed as planned:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">trace</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Trace:"</span><span class="p">,</span> <span class="n">trace</span><span class="p">)</span>
+
+    <span class="c1"># The same as typing: kaprevo show-trace --html trace.html trace.zip</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">OUT</span> <span class="o">/</span> <span class="s2">"trace.html"</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"kaprevo"</span><span class="p">,</span> <span class="s2">"show-trace"</span><span class="p">,</span> <span class="s2">"--html"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">html</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="p">)],</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Open this file in any browser:"</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/10-debugging/example_trace_failure.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Failed as planned: click get_by_role('button', name='Sign out'): timed out after 2 s: no element matches
+Trace: C:\Users\you\AppData\Local\Temp\kaprevo-course\10-debugging\trace.zip
+wrote C:\Users\you\AppData\Local\Temp\kaprevo-course\10-debugging\trace.html
+Open this file in any browser: C:\Users\you\AppData\Local\Temp\kaprevo-course\10-debugging\trace.html
+</code></pre></div>
+<p>Open <code>trace.html</code>. The last action, the click, is marked as failed with the same message.
+Select it and look at its DOM snapshot: the form, the welcome message, and no "Sign out" button
+anywhere. Then open the trace live with <code>kaprevo show-trace</code> and the path it printed.</p>
+<p>A second example shows <code>highlight()</code> and <code>pause()</code>. Run it headed to see the outline and to
+have the script stop until you press Enter; headless, it prints the warning and finishes:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 10: outline an element with ``highlight()`` and stop the script with ``page.pause()``.</span>
+
+<span class="sd">Headless (the default), ``pause()`` logs a warning and carries on, so the script finishes. Run it</span>
+<span class="sd">headed to see the outline and to have the script wait for Enter in the terminal:</span>
+
+<span class="sd">    python examples/course/10-debugging/example_highlight_and_pause.py</span>
+<span class="sd">    KAPREVO_COURSE_HEADED=1 python examples/course/10-debugging/example_highlight_and_pause.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>  <span class="c1"># so pause()'s headless warning is printed</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"textbox"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Text boxes on the page:"</span><span class="p">,</span> <span class="n">fields</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># outlines every match for 3 seconds; it never blocks a click</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>  <span class="c1"># headed: waits for Enter. Headless: a warning, then on we go.</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Signed in"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Text boxes on the page: 2
+WARNING:kaprevo.page:page.pause() ignored: the browser is headless (launch with headless=False)
+Signed in
+</code></pre></div>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running.</p>
+<h3 id="exercise-1-one-trace-per-step">Exercise 1: one trace per step<a class="headerlink" href="#exercise-1-one-trace-per-step" title="Permanent link">&para;</a></h3>
+<p>Sign in with tracing on, but save the filling in and the submitting as two separate trace files,
+using chunks. Print how many actions each file holds and how big it is.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 10, exercise 1: one tracing session, one trace file per step, using chunks.</span>
+
+<span class="sd">``start()`` opens the first chunk; ``stop_chunk(path)`` saves it and keeps tracing on, and</span>
+<span class="sd">``start_chunk()`` opens the next. The script prints how many actions and bytes each file holds.</span>
+
+<span class="sd">    python examples/course/10-debugging/solution_1_trace_chunks.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo.tracing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"10-debugging"</span> <span class="o">/</span> <span class="s2">"chunks"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">OUT</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"fill-in"</span><span class="p">)</span>  <span class="c1"># opens the first chunk</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop_chunk</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"1-fill-in.zip"</span><span class="p">)</span>
+
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start_chunk</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"submit"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop_chunk</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">OUT</span> <span class="o">/</span> <span class="s2">"2-submit.zip"</span><span class="p">)</span>
+
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># no chunk is open any more, so there is nothing to save</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">document</span><span class="p">[</span><span class="s2">"actions"</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="si">}</span><span class="s2"> actions, </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes:"</span><span class="p">,</span>
+              <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1-fill-in.zip: 3 actions, 67,478 bytes: goto, fill, fill
+2-submit.zip: 1 actions, 40,101 bytes: click
+</code></pre></div>
+<p><code>expect(...)</code> is not an action, so it is not in the list; it is the check that the submit
+worked. The final <code>stop()</code> has nothing left to save because the last chunk was already
+closed.</p>
+</details>
+<h3 id="exercise-2-a-video-of-signing-in">Exercise 2: a video of signing in<a class="headerlink" href="#exercise-2-a-video-of-signing-in" title="Permanent link">&para;</a></h3>
+<p>Record a video of the sign-in flow at 800 by 500, save a copy named after the browser, and
+print both paths. Run it in Chrome and in Firefox and compare.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 10, exercise 2: record a video of the sign-in flow and print where it was saved.</span>
+
+<span class="sd">Firefox writes a ``.webm`` itself. Chrome's frames are encoded to ``.webm`` with ffmpeg when it</span>
+<span class="sd">is on PATH; without ffmpeg the video is a ``.frames.zip`` that ``kaprevo show-trace`` plays.</span>
+
+<span class="sd">    python examples/course/10-debugging/solution_2_video.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"10-debugging"</span> <span class="o">/</span> <span class="s2">"video"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">record_video_dir</span><span class="o">=</span><span class="n">OUT</span><span class="p">,</span> <span class="n">record_video_size</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+
+        <span class="n">video</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">video</span>
+        <span class="k">assert</span> <span class="n">video</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"the context was created with record_video_dir"</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># closing the page finishes the recording</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">path</span><span class="p">()</span>
+        <span class="n">copy</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="n">OUT</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"sign-in-</span><span class="si">{</span><span class="n">BROWSER</span><span class="si">}{</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">suffixes</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Recorded:"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Saved a copy as:"</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">copy</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes)"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Recorded: ...\video\64405624a0d14625895fe87003365243.webm
+Saved a copy as: ...\video\sign-in-chrome.webm (23,078 bytes)
+</code></pre></div>
+<p>The copy keeps the suffixes of the original, so on Chrome without ffmpeg it is correctly
+named <code>.frames.zip</code> rather than a <code>.webm</code> that is not one.</p>
+</details>
+<h3 id="exercise-3-read-a-trace-from-code">Exercise 3: read a trace from code<a class="headerlink" href="#exercise-3-read-a-trace-from-code" title="Permanent link">&para;</a></h3>
+<p>A trace is a zip with a JSON document inside, and <code>kaprevo.tracing.load(path)</code> reads it. Record a
+short trace with one failing action, load it, and print each action's name, target, duration
+in seconds and error type.</p>
+<p>Hint: the actions are in <code>trace.document["actions"]</code>; each one has <code>name</code>, <code>target</code>,
+<code>duration</code> and <code>error</code> (None, or a dict with <code>type</code> and <code>message</code>).</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 10, exercise 3: read a trace from code and print each action with its duration.</span>
+
+<span class="sd">Records a short trace (one action fails on purpose), then opens it with ``kaprevo.tracing.load``</span>
+<span class="sd">and prints a table: action, target, seconds, and the error if there was one.</span>
+
+<span class="sd">    python examples/course/10-debugging/solution_3_read_trace.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo.tracing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+<span class="n">OUT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">"kaprevo-course"</span> <span class="o">/</span> <span class="s2">"10-debugging"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Sign in with tracing on; the last click fails after 1 second."""</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">screenshots</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">snapshots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># actions only: a small file</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign out"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># the point is to see it in the trace</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">OUT</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">OUT</span> <span class="o">/</span> <span class="s2">"read-me.zip"</span>
+    <span class="n">record</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">trace</span><span class="o">.</span><span class="n">document</span><span class="p">[</span><span class="s1">'meta'</span><span class="p">][</span><span class="s1">'browser'</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">document</span><span class="p">[</span><span class="s1">'actions'</span><span class="p">])</span><span class="si">}</span><span class="s2"> actions"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">trace</span><span class="o">.</span><span class="n">document</span><span class="p">[</span><span class="s2">"actions"</span><span class="p">]:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">action</span><span class="p">[</span><span class="s2">"error"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="k">if</span> <span class="n">action</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="k">else</span> <span class="s2">""</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">action</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">:</span><span class="s2">6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">action</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">''</span><span class="si">:</span><span class="s2">45</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">action</span><span class="p">[</span><span class="s1">'duration'</span><span class="p">]</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> s  </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">failed</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">trace</span><span class="o">.</span><span class="n">document</span><span class="p">[</span><span class="s2">"actions"</span><span class="p">]</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]]</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">failed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">failed</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"error"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"KaprevoTimeoutError"</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chrome: 5 actions
+  goto                                                  0.132 s
+  fill   get_by_label('User name')                      0.088 s
+  fill   get_by_label('Password')                       0.045 s
+  click  get_by_role('button', name='Sign in')          0.133 s
+  click  get_by_role('button', name='Sign out')         1.036 s  KaprevoTimeoutError
+</code></pre></div>
+<p>Reading traces from code is handy on a build server: a few lines can list the slowest
+actions of every failed test without opening a viewer.</p>
+</details>
+<h3 id="exercise-4-find-the-cause-from-the-message">Exercise 4: find the cause from the message<a class="headerlink" href="#exercise-4-find-the-cause-from-the-message" title="Permanent link">&para;</a></h3>
+<p>Each of these three fragments runs on the sign-in page and fails. Before running them, read
+each one and predict the error. Then run them and check your diagnosis against the message.</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"input"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>                          <span class="c1"># 1</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Username"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>                   <span class="c1"># 2</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>                             <span class="c1"># 3</span>
+<span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+</code></pre></div>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 10, exercise 4: three broken scripts, and what each error message says is wrong.</span>
+
+<span class="sd">Each function is one of the lesson's broken scripts. The script runs all three, catches the</span>
+<span class="sd">error each one raises and prints it, so you can compare it with your diagnosis.</span>
+
+<span class="sd">    python examples/course/10-debugging/solution_4_read_errors.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span><span class="p">,</span> <span class="n">StrictModeViolation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">broken_1</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"input"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">broken_2</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Username"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">broken_3</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+
+
+<span class="n">CASES</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Page</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">broken_1</span><span class="p">,</span> <span class="n">StrictModeViolation</span><span class="p">,</span> <span class="s2">"the locator matches three inputs: say which one"</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">broken_2</span><span class="p">,</span> <span class="n">KaprevoTimeoutError</span><span class="p">,</span> <span class="s2">"no element matches: the label is 'User name', with a space"</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">broken_3</span><span class="p">,</span> <span class="ne">AssertionError</span><span class="p">,</span> <span class="s2">"the status stayed empty: nobody clicked Sign in"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">script</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">diagnosis</span> <span class="ow">in</span> <span class="n">CASES</span><span class="p">:</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>  <span class="c1"># a clean start for each broken script</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">script</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">expected</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">script</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    cause: </span><span class="si">{</span><span class="n">diagnosis</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">script</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> was expected to fail"</span><span class="p">)</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>broken_1: StrictModeViolation
+    locator('input') matched 3 elements; use .first, .nth() or a more specific locator
+broken_2: KaprevoTimeoutError
+    fill get_by_label('Username'): timed out after 2 s: no element matches
+broken_3: AssertionError
+    expect(get_by_role('status')).to_have_text: expected 'Welcome, ada', got '' after 2 s
+</code></pre></div>
+<p>The first fails at once: being ambiguous is not something waiting can fix. The second
+waits the full 2 seconds, because the element might still appear. The third says
+"got ''": the welcome never started, so look for the step that should have caused it,
+here the missing click.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong><code>page.pause()</code> does nothing.</strong> The browser is headless; <code>pause()</code> only waits in a
+  headed run. Launch with <code>headless=False</code> (or <code>KAPREVO_COURSE_HEADED=1</code>, <code>--headed</code>).</li>
+<li><strong><code>KaprevoError: tracing is already started on this context</code>.</strong> <code>start()</code> was called twice.
+  Call <code>stop()</code> first, or use <code>stop_chunk()</code> and <code>start_chunk()</code> to split a recording.</li>
+<li><strong>The trace file is missing.</strong> <code>stop()</code> was called without a path, which discards the
+  recording, or the script failed before <code>stop()</code>. Put <code>stop(path=...)</code> in a <code>finally</code>, or
+  let the pytest plugin do it with <code>--tracing retain-on-failure</code>.</li>
+<li><strong><code>kaprevo show-trace</code> says the file is not a kaprevo trace.</strong> It reads kaprevo traces and
+  kaprevo frame sets; it cannot open a Playwright trace, and Playwright's viewer cannot
+  open a kaprevo trace.</li>
+<li><strong>Chrome's video is a <code>.frames.zip</code>.</strong> ffmpeg is not on <code>PATH</code>. Install it, or play the
+  frame set with <code>kaprevo show-trace</code>.</li>
+<li><strong><code>video.path()</code> blocks or the file is empty.</strong> The page is still open. Close the page (or
+  the context) first: that is what finishes the recording.</li>
+<li><strong>Sharing a trace with secrets in it.</strong> Passwords and auth headers are redacted, but page
+  text, other headers and console output are not. Check before attaching one to a public
+  issue.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Run headed and use <code>highlight()</code> to see what a locator finds; <code>page.pause()</code> stops a headed
+  run until Enter and is ignored headless.</li>
+<li><code>context.tracing.start()</code> and <code>stop(path="trace.zip")</code> record actions, screenshots, DOM
+  snapshots, console and network; chunks split one session into several files.</li>
+<li><code>kaprevo show-trace trace.zip</code> opens the viewer; <code>--html out.html</code> writes one file to attach
+  to a bug.</li>
+<li><code>new_context(record_video_dir=...)</code> records video; Firefox writes <code>.webm</code> itself, Chrome
+  needs ffmpeg for <code>.webm</code> and otherwise saves a <code>.frames.zip</code>.</li>
+<li>Read the error first: action, locator, time waited and the last reason.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../11-codegen/">11. Recording with codegen</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1867 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/01-getting-started/">
+      
+      
+        <link rel="prev" href="../conventions/">
+      
+      
+        <link rel="next" href="../02-locators/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>01. Getting started - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#01-getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01. Getting started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-kaprevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install kaprevo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check your browsers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check your browsers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare-drivers-ahead-of-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare drivers ahead of time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-the-practice-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start the practice site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your first script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-same-script-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The same script, async
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headless-and-headed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headless and headed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screenshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where things go wrong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-an-empty-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: an empty password
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-just-the-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: just the form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-async-and-the-page-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: async, and the page title
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-both-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: both browsers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-kaprevo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install kaprevo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check your browsers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check your browsers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare-drivers-ahead-of-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare drivers ahead of time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-the-practice-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start the practice site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your first script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-same-script-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The same script, async
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headless-and-headed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headless and headed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screenshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where things go wrong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-an-empty-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: an empty password
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-just-the-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: just the form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-async-and-the-page-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: async, and the page title
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-both-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: both browsers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: course outline -->
+<h1 id="01-getting-started">01. Getting started<a class="headerlink" href="#01-getting-started" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (slow_mo); Nov-13-2026 (kaprevo course replaces the clone) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>install kaprevo and check which browsers it can find with <code>kaprevo doctor</code></li>
+<li>prepare drivers ahead of time with <code>kaprevo install</code></li>
+<li>write and run a first script with the sync API, and the same script with the async API</li>
+<li>switch between headless and headed runs</li>
+<li>save screenshots of the viewport, the full page and a single element</li>
+<li>recognise the errors a first script usually hits, and fix them</li>
+</ul>
+<p><strong>Time:</strong> about 30 minutes. <strong>Before this:</strong> nothing; this is the first lesson.
+<strong>Code:</strong> <code>examples/course/01-getting-started/</code></p>
+</div>
+<p>By the end of this lesson you will have driven a real Chrome or Firefox from Python: opened a
+page, filled in a form, checked the result and saved a picture of it. Every later lesson builds
+on the script you write here.</p>
+<h2 id="install-kaprevo">Install kaprevo<a class="headerlink" href="#install-kaprevo" title="Permanent link">&para;</a></h2>
+<p>kaprevo is a Python package with one dependency (<code>websockets</code>). It drives the Chrome and
+Firefox already installed on your machine, so there is no browser to download.</p>
+<p>Work in a virtual environment, then let kaprevo copy the course into a folder of its own:</p>
+<div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
+<span class="p">.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">kaprevo</span> <span class="n">pytest</span>
+<span class="n">kaprevo</span> <span class="n">course</span>
+<span class="nb">cd </span><span class="n">kaprevo-course</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+pip<span class="w"> </span>install<span class="w"> </span>kaprevo<span class="w"> </span>pytest
+kaprevo<span class="w"> </span>course
+<span class="nb">cd</span><span class="w"> </span>kaprevo-course
+</code></pre></div>
+<p><code>kaprevo course</code> copies the lessons, the solutions and the practice site into <code>kaprevo-course</code>
+(<code>--dir</code> picks another folder). The files come from the kaprevo you installed, so the course
+and the library always match; after upgrading kaprevo, run <code>kaprevo course --force</code> to refresh
+them. Every command in the course runs from that folder. (In your own projects,
+<code>pip install kaprevo</code> is all you need.) Installing kaprevo also installs the <code>kaprevo</code> command:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>--version
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kaprevo 1.0.0rc3
+</code></pre></div>
+<h2 id="check-your-browsers">Check your browsers<a class="headerlink" href="#check-your-browsers" title="Permanent link">&para;</a></h2>
+<p><code>kaprevo doctor</code> reports what kaprevo can find on this machine:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>doctor
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kaprevo 1.0.0rc3 (Python 3.13.5, win32)
+cache: C:\Users\you\AppData\Local\kaprevo
+  chrome   157.0.8103.38    C:\Program Files\Google\Chrome\Application\chrome.exe
+  firefox  found            C:\Program Files\Mozilla Firefox\firefox.exe
+  edge     157.0.4341.42    C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+  chromedriver cached: none (downloaded on first Chrome launch)
+</code></pre></div>
+<p>You need at least one of Chrome and Firefox. If one says <code>missing</code>, install it the normal way,
+or point kaprevo at a browser in an unusual place with <code>KAPREVO_CHROME_PATH</code> or
+<code>KAPREVO_FIREFOX_PATH</code>. The <strong>cache</strong> is where kaprevo keeps the drivers it downloads and the
+pinned browser versions you install in <a href="../13-browsers-and-backends/">lesson 13</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Both browsers are driven over <strong>WebDriver BiDi</strong>, the W3C standard protocol, so the same
+script works in each. They are reached differently:</p>
+<ul>
+<li><strong>Firefox</strong> speaks BiDi itself. Nothing extra is needed.</li>
+<li><strong>Chrome</strong> is reached through <strong>chromedriver</strong>, which must match the Chrome version.
+  kaprevo downloads the right one from Chrome for Testing the first time you launch Chrome,
+  and caches it. Lesson 13 shows a second way, <code>backend="chromium-bidi"</code>, with no driver.</li>
+<li><strong>Edge</strong> works like Chrome, with msedgedriver.</li>
+</ul>
+</div>
+<h3 id="prepare-drivers-ahead-of-time">Prepare drivers ahead of time<a class="headerlink" href="#prepare-drivers-ahead-of-time" title="Permanent link">&para;</a></h3>
+<p>The first Chrome launch pauses for a few seconds while chromedriver downloads. To do that step
+now (for example before going offline, or when setting up a build machine), run:</p>
+<div class="highlight"><pre><span></span><code>kaprevo<span class="w"> </span>install<span class="w"> </span>chromedriver
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chromedriver for Chrome 157.0.8103.38: C:\Users\you\AppData\Local\kaprevo\drivers\chromedriver-157.0.8103.38\chromedriver.exe
+</code></pre></div>
+<p><code>kaprevo install</code> also fetches the chromium-bidi mapper (<code>kaprevo install chromium-bidi</code>) and
+pinned browsers such as <code>kaprevo install chrome@154</code>; lesson 13 covers both.</p>
+<h2 id="start-the-practice-site">Start the practice site<a class="headerlink" href="#start-the-practice-site" title="Permanent link">&para;</a></h2>
+<p>Every lesson runs against a small site served from your own machine. Open a second terminal,
+activate the same virtual environment, and start it:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/serve.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Practice site: http://127.0.0.1:8765/
+Press Ctrl+C to stop.
+</code></pre></div>
+<p>Leave it running for the rest of the course. Open <code>http://127.0.0.1:8765/login.html</code> in your
+own browser and sign in once by hand: any user name works, the password must not be empty,
+and the welcome message appears about half a second after you click. Your first script will
+do exactly this.</p>
+<h2 id="your-first-script">Your first script<a class="headerlink" href="#your-first-script" title="Permanent link">&para;</a></h2>
+<p>Here is the whole script. Read it once, then we will go through it.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01: a first kaprevo script (sync API).</span>
+
+<span class="sd">Opens the practice site, signs in, checks the welcome message and saves a screenshot.</span>
+
+<span class="sd">    python examples/course/serve.py                                   # terminal 1</span>
+<span class="sd">    python examples/course/01-getting-started/example_first_script.py # terminal 2</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Title:"</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="c1"># expect() keeps checking until the text appears (up to 5 seconds), so no sleep is needed.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"signed-in.png"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Saved signed-in.png"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Run it from the course folder, in the terminal that is not running the server:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/01-getting-started/example_first_script.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Running chrome 157.0.8103.38
+Title: Sign in - kaprevo practice site
+Saved signed-in.png
+</code></pre></div>
+<p>Open <code>signed-in.png</code>: it shows the form with "Welcome, ada" under the button. Nothing else
+happened on screen, because the browser ran <strong>headless</strong> (without a window). Here is what
+each part does.</p>
+<p><strong>The three settings.</strong> <code>BASE_URL</code>, <code>BROWSER</code> and <code>HEADLESS</code> come from environment variables,
+with defaults that suit the practice site. Every example in the course starts this way, so you
+can switch browser without editing code:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:KAPREVO_COURSE_BROWSER</span> <span class="p">=</span> <span class="s2">"firefox"</span>
+<span class="n">python</span> <span class="n">examples</span><span class="p">/</span><span class="n">course</span><span class="p">/</span><span class="n">01-getting-started</span><span class="p">/</span><span class="n">example_first_script</span><span class="p">.</span><span class="n">py</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">KAPREVO_COURSE_BROWSER</span><span class="o">=</span>firefox<span class="w"> </span>python<span class="w"> </span>examples/course/01-getting-started/example_first_script.py
+</code></pre></div>
+<p><strong><code>launch(BROWSER, headless=HEADLESS)</code></strong> starts the browser with a fresh, empty profile and
+returns a <code>Browser</code>. Used in a <code>with</code> block, it is closed when the block ends, even if
+something inside fails: the browser process exits and its temporary profile is deleted. Always
+launch this way (or call <code>browser.close()</code> in a <code>finally</code>), and a script never leaves a
+browser running behind it.</p>
+<p><strong><code>browser.new_page()</code></strong> opens a tab. <strong><code>page.goto(url)</code></strong> loads a URL and returns once the
+page's <code>load</code> event has fired.</p>
+<p><strong><code>page.get_by_label("User name")</code></strong> is a <strong>locator</strong>: a description of how to find an
+element, here "the control whose label is User name". Building it does not touch the page.
+Only an action, such as <code>.fill("ada")</code>, finds the element, and it looks again every time.
+Lesson 02 is all about locators. For now, notice that the script finds things the way a person
+would describe them (the field labelled "User name", the button called "Sign in") rather than
+by an id or a CSS class, which change more often than the words on the screen.</p>
+<p><strong><code>.click()</code></strong> waits until the button can be clicked (it exists, is visible, is enabled, is not
+moving and is not covered by something else) and then clicks it with real mouse events. This
+is <strong>auto-waiting</strong>, and it is why the script has no <code>sleep()</code> calls. Lesson 03 explains each
+check.</p>
+<p><strong><code>expect(page.get_by_role("status")).to_have_text("Welcome, ada")</code></strong> is a <strong>web-first
+assertion</strong>: it keeps checking until the text matches or 5 seconds pass. The message appears
+half a second after the click, and the assertion simply waits for it. If it never appears, the
+assertion fails with an error saying what it saw instead. Lesson 04 covers assertions.</p>
+<p><strong><code>page.screenshot("signed-in.png")</code></strong> saves a PNG of what is visible in the page.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p>This will look familiar: the locator, action and <code>expect</code> APIs follow Playwright's names.
+Three things differ. There is no <code>sync_playwright()</code> object to start first: <code>launch("chrome")</code>
+or <code>launch("firefox")</code> is the whole setup. The browsers are the stock Chrome and Firefox you
+have installed, not patched builds. And <strong>every timeout is in seconds</strong>, so <code>timeout=5</code> is
+five seconds, not five milliseconds. Lesson 15 shows how to run existing Playwright code
+unchanged.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>There is no driver to download or start yourself, and no <code>WebDriverWait</code>: actions and
+assertions wait on their own. A locator is not an element you found earlier, so there is no
+"stale element" error; it finds the element again on every use.</p>
+</div>
+<h2 id="the-same-script-async">The same script, async<a class="headerlink" href="#the-same-script-async" title="Permanent link">&para;</a></h2>
+<p>kaprevo is built on <code>asyncio</code>, and the sync API you just used is a thin layer over it. If your
+program is already async (a web service, a bot, a tool that drives many pages at once), use the
+async API directly:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01: the same first script, written with the async API.</span>
+
+<span class="sd">    python examples/course/01-getting-started/example_first_script_async.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Title:"</span><span class="p">,</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, ada"</span><span class="p">)</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"signed-in-async.png"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Saved signed-in-async.png"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>The differences are mechanical:</p>
+<table>
+<thead>
+<tr>
+<th>Sync</th>
+<th>Async</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>from kaprevo.sync_api import expect, launch</code></td>
+<td><code>import kaprevo</code> and <code>from kaprevo import expect</code></td>
+</tr>
+<tr>
+<td><code>with launch(...) as browser:</code></td>
+<td><code>async with kaprevo.launch(...) as browser:</code></td>
+</tr>
+<tr>
+<td><code>page.goto(...)</code></td>
+<td><code>await page.goto(...)</code></td>
+</tr>
+<tr>
+<td><code>expect(...).to_have_text(...)</code></td>
+<td><code>await expect(...).to_have_text(...)</code></td>
+</tr>
+<tr>
+<td>run with <code>main()</code></td>
+<td>run with <code>asyncio.run(main())</code></td>
+</tr>
+</tbody>
+</table>
+<p>Building a locator never needs <code>await</code> (it does not touch the page); actions, reads and
+assertions do. The course uses the sync API first, because most tests and scripts are easier
+to read without <code>await</code> on every line, and shows async wherever the difference matters.</p>
+<p>How the sync API works: each sync <code>Browser</code> runs its own event loop on a background thread,
+and each call waits for its result. Pick one API per program and stay with it; do not pass
+objects from one to the other.</p>
+<h2 id="headless-and-headed">Headless and headed<a class="headerlink" href="#headless-and-headed" title="Permanent link">&para;</a></h2>
+<p>Browsers launch <strong>headless</strong> by default: no window, which is faster and works on machines with
+no screen, such as a build server. While you are writing a script, it often helps to watch it.
+Launch <strong>headed</strong> with <code>headless=False</code>, or, for the course examples, set <code>KAPREVO_COURSE_HEADED</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:KAPREVO_COURSE_HEADED</span> <span class="p">=</span> <span class="s2">"1"</span>
+<span class="n">python</span> <span class="n">examples</span><span class="p">/</span><span class="n">course</span><span class="p">/</span><span class="n">01-getting-started</span><span class="p">/</span><span class="n">example_first_script</span><span class="p">.</span><span class="n">py</span>
+<span class="nb">Remove-Item</span> <span class="n">Env</span><span class="p">:</span><span class="n">KAPREVO_COURSE_HEADED</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">KAPREVO_COURSE_HEADED</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>examples/course/01-getting-started/example_first_script.py
+</code></pre></div>
+<p>A window opens, the form fills in, and the window closes when the script ends. It runs as fast
+as it can, so it is over quickly; <code>launch("chrome", headless=False, slow_mo=0.5)</code> waits half a
+second before each action so you can follow it. Lesson 10 shows how to stop at a point with
+<code>page.pause()</code> and look around.</p>
+<p><code>launch()</code> takes a few other options you will meet later. The ones worth knowing now:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>headless</code></td>
+<td><code>True</code></td>
+<td><code>False</code> shows the window</td>
+</tr>
+<tr>
+<td><code>window_size</code></td>
+<td><code>(1280, 800)</code></td>
+<td>the initial window size</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><code>30</code></td>
+<td>seconds allowed for the browser to start</td>
+</tr>
+<tr>
+<td><code>ignore_https_errors</code></td>
+<td><code>False</code></td>
+<td>accept self-signed certificates</td>
+</tr>
+<tr>
+<td><code>executable_path</code></td>
+<td>discovered</td>
+<td>use a specific browser binary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="screenshots">Screenshots<a class="headerlink" href="#screenshots" title="Permanent link">&para;</a></h2>
+<p><code>page.screenshot()</code> takes a picture of the viewport (what fits in the window). Two variations
+cover most needs: <code>full_page=True</code> for the whole scrollable page, and <code>locator.screenshot()</code>
+for a single element.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01: three kinds of screenshot (viewport, full page, one element).</span>
+
+<span class="sd">    python examples/course/01-getting-started/example_screenshots.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># window_size sets the browser window; the screenshot is of the page area inside it.</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">700</span><span class="p">))</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"home-viewport.png"</span><span class="p">)</span>                  <span class="c1"># what fits in the window</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"home-full.png"</span><span class="p">,</span> <span class="n">full_page</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>      <span class="c1"># the whole scrollable page</span>
+        <span class="n">png</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"table"</span><span class="p">)</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"endpoints.png"</span><span class="p">)</span>  <span class="c1"># just one element</span>
+
+        <span class="c1"># Every screenshot call also returns the PNG bytes, handy for attaching to a report.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Saved 3 screenshots; the table alone is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">png</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Each call writes the file when you give it a path, and also returns the PNG as <code>bytes</code>, which
+is handy when you want to attach the picture to a report instead of saving it. Comparing
+screenshots against a saved baseline is a different job, covered in lesson 05.</p>
+<h2 id="where-things-go-wrong">Where things go wrong<a class="headerlink" href="#where-things-go-wrong" title="Permanent link">&para;</a></h2>
+<p>Most first scripts fail for one of a handful of reasons, and kaprevo's errors say which. It is
+worth seeing one on purpose. This script asks for a button that does not exist, with a timeout
+of 2 seconds:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01: what a failure looks like, so the first real one is not a surprise.</span>
+
+<span class="sd">The script looks for a button that does not exist, with a short timeout, and prints the error.</span>
+
+<span class="sd">    python examples/course/01-getting-started/example_when_it_fails.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaprevoTimeoutError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Timeouts are in seconds: this waits up to 2 seconds for a button called "Log in".</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Log in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">KaprevoTimeoutError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"The click timed out, as expected:"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"   "</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>The click timed out, as expected:
+    click get_by_role('button', name='Log in'): timed out after 2 s: no element matches
+</code></pre></div>
+<p>The message names the action, the locator, the time it waited, and the last thing that was
+wrong. "No element matches" means the locator found nothing: here the button is called "Sign
+in", not "Log in". Other endings point elsewhere, for example "element is not visible" or
+"element is covered by <code>&lt;div#overlay&gt;</code>". Lesson 03 lists them all.</p>
+<p>The table below is the list to come back to when a script will not run:</p>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What it means</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LaunchError: ... not found</code> or <code>KAPREVO_CHROME_PATH points at ..., which does not exist</code></td>
+<td>kaprevo cannot find the browser</td>
+<td>Run <code>kaprevo doctor</code>; install the browser or fix the path variable</td>
+</tr>
+<tr>
+<td><code>LaunchError: download failed: ...</code> on the first Chrome launch</td>
+<td>the chromedriver download failed (offline, proxy, firewall)</td>
+<td>Run <code>kaprevo install chromedriver</code> where you have access, or use Firefox</td>
+</tr>
+<tr>
+<td><code>ProtocolError: browsingContext.navigate: unknown error: net::ERR_CONNECTION_REFUSED</code></td>
+<td>nothing is listening at that URL</td>
+<td>Start the practice site; check <code>KAPREVO_COURSE_URL</code> matches its port</td>
+</tr>
+<tr>
+<td><code>KaprevoTimeoutError: ... timed out after 10 s: no element matches</code></td>
+<td>the locator finds nothing</td>
+<td>Check the text, role or label against the page (open it headed)</td>
+</tr>
+<tr>
+<td><code>StrictModeViolation: get_by_role('button') matched 2 elements</code></td>
+<td>the locator is ambiguous, so kaprevo refuses to guess</td>
+<td>Make the locator more specific; lesson 02 shows how</td>
+</tr>
+<tr>
+<td><code>RuntimeWarning: coroutine ... was never awaited</code></td>
+<td>an async call is missing <code>await</code></td>
+<td>Add <code>await</code>; in sync code, import from <code>kaprevo.sync_api</code></td>
+</tr>
+<tr>
+<td><code>AttributeError: 'coroutine' object has no attribute ...</code></td>
+<td>the same: a missing <code>await</code> on a call whose result you used</td>
+<td>Add <code>await</code> before the call</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>Run each solution from the course folder with the practice site running, the same way as the
+examples.</p>
+<h3 id="exercise-1-an-empty-password">Exercise 1: an empty password<a class="headerlink" href="#exercise-1-an-empty-password" title="Permanent link">&para;</a></h3>
+<p>Write a script that enters a user name, leaves the password empty and clicks <strong>Sign in</strong>. Check
+that the page shows "Password is required" and that the welcome message did not appear.</p>
+<p>Hint: <code>page.get_by_text("Password is required")</code> finds the error, and <code>to_be_visible()</code> checks
+that it is shown.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01, exercise 1: sign in without a password and check the error message.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Password is required"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The form refused an empty password"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p><code>to_have_text("")</code> on the status line confirms that no welcome message appeared. It passes
+at once here, because the form never starts signing in.</p>
+</details>
+<h3 id="exercise-2-just-the-form">Exercise 2: just the form<a class="headerlink" href="#exercise-2-just-the-form" title="Permanent link">&para;</a></h3>
+<p>Sign in as <code>grace</code> (any password), but before clicking <strong>Sign in</strong>, save a screenshot of only
+the form, as <code>form.png</code>. After the welcome message appears, save a full-page screenshot as
+<code>welcome-full.png</code>. Open both files and check they show what you expect.</p>
+<p>Hint: the form has the id <code>login</code>, so <code>page.locator("#login")</code> finds it. Lesson 02 shows
+better ways.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01, exercise 2: screenshot only the filled-in form, then the whole page after signing in.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"grace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hopper"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">)</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"form.png"</span><span class="p">)</span>
+
+        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Welcome, grace"</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s2">"welcome-full.png"</span><span class="p">,</span> <span class="n">full_page</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Saved form.png and welcome-full.png"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+</details>
+<h3 id="exercise-3-async-and-the-page-title">Exercise 3: async, and the page title<a class="headerlink" href="#exercise-3-async-and-the-page-title" title="Permanent link">&para;</a></h3>
+<p>Write an async script that prints the page title, signs in, and then checks that the title
+changed to "Welcome - kaprevo practice site". Print the title again at the end.</p>
+<p>Hint: <code>expect(page).to_have_title(...)</code> is an assertion about the page rather than a locator,
+and it waits like the others.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 01, exercise 3: in async code, sign in and check that the page title changed.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">kaprevo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">kaprevo</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="k">await</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Before:"</span><span class="p">,</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"User name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"lovelace"</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+        <span class="c1"># The title changes half a second after the click; to_have_title waits for it.</span>
+        <span class="k">await</span> <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_title</span><span class="p">(</span><span class="s2">"Welcome - kaprevo practice site"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"After: "</span><span class="p">,</span> <span class="k">await</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>If you printed <code>await page.title()</code> straight after the click instead of asserting first, you
+probably saw the old title: the page changes it half a second later. The assertion waits;
+a plain read does not.</p>
+</details>
+<h3 id="exercise-4-both-browsers">Exercise 4: both browsers<a class="headerlink" href="#exercise-4-both-browsers" title="Permanent link">&para;</a></h3>
+<p>If you have both Chrome and Firefox, run <code>example_first_script.py</code> in each by setting
+<code>KAPREVO_COURSE_BROWSER</code>. Compare the two screenshots: the layout is the same, the fonts are
+drawn slightly differently. This is why lesson 05 keeps a separate visual baseline per browser.</p>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Running an example before starting the practice site.</strong> The script fails with
+  <code>net::ERR_CONNECTION_REFUSED</code>. Start <code>python examples/course/serve.py</code> in another terminal.</li>
+<li><strong>Starting the server on another port and forgetting to say so.</strong> If you used <code>--port</code>,
+  set <code>KAPREVO_COURSE_URL</code> to the address it printed.</li>
+<li><strong>Adding <code>time.sleep()</code> to wait for the page.</strong> The script gets slower and still fails
+  on a slow day. Use an <code>expect(...)</code> assertion for the thing you are waiting for.</li>
+<li><strong>Reading a value straight after an action and getting the old one.</strong> <code>page.title()</code> or
+  <code>text_content()</code> reads once, right now. Assert with <code>expect</code> when the page may still be
+  changing.</li>
+<li><strong>Writing <code>timeout=5000</code> out of habit.</strong> kaprevo's timeouts are seconds; that waits 83
+  minutes.</li>
+<li><strong>Launching without <code>with</code>.</strong> If the script fails before <code>browser.close()</code>, the browser
+  keeps running. Use <code>with launch(...) as browser:</code> (or <code>async with kaprevo.launch(...)</code>).</li>
+<li><strong>Mixing the two APIs.</strong> <code>from kaprevo import expect</code> is the async one; in a sync script,
+  import both <code>launch</code> and <code>expect</code> from <code>kaprevo.sync_api</code>.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>kaprevo doctor</code> shows which browsers kaprevo can use; <code>kaprevo install chromedriver</code> prepares
+  Chrome ahead of time.</li>
+<li>A script is <code>launch()</code> a browser, <code>new_page()</code>, <code>goto()</code>, then locators, actions and
+  <code>expect</code> assertions.</li>
+<li>The sync API (<code>kaprevo.sync_api</code>) and the async API (<code>kaprevo</code>) have the same names; async adds
+  <code>await</code>.</li>
+<li>Runs are headless by default; <code>headless=False</code> (or <code>KAPREVO_COURSE_HEADED=1</code>) shows the window.</li>
+<li>Errors name the action, the locator, the time waited and the reason, so read them first.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../02-locators/">02. Locators</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

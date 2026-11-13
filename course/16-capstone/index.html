@@ -1,0 +1,2265 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/16-capstone/">
+      
+      
+        <link rel="prev" href="../15-migrating-from-playwright/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>16. Capstone: a ControlLab suite - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#16-capstone-a-controllab-suite" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              16. Capstone: a ControlLab suite
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-the-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning the suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-objects-lightly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page objects, lightly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures-for-the-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixtures for the suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing the tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-it-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running it well
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-new-display-name-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a new display name everywhere
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-a-request-that-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: a request that fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-controllab-v2-healed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: ControlLab v2, healed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-a-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: a gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to go next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-the-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning the suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-objects-lightly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page objects, lightly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures-for-the-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixtures for the suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing the tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-it-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running it well
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-new-display-name-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a new display name everywhere
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-a-request-that-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: a request that fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-controllab-v2-healed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: ControlLab v2, healed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-4-a-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 4: a gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to go next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer D -->
+<h1 id="16-capstone-a-controllab-suite">16. Capstone: a ControlLab suite<a class="headerlink" href="#16-capstone-a-controllab-suite" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 | Modified: Nov-07-2026 (library fixes from the course bug list) -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>plan a test suite for a real application: journeys, page objects and test data</li>
+<li>write tests with the pytest plugin against ControlLab, using everything from the course</li>
+<li>sign in once per session, use storage state, mock one request, and add a visual check</li>
+<li>run the suite in Chrome and Firefox with traces kept on failure</li>
+<li>build a small local gate script that runs it all and fails clearly</li>
+</ul>
+<p><strong>Time:</strong> about 90 minutes. <strong>Before this:</strong> <a href="../15-migrating-from-playwright/">15. Migrating from Playwright</a>.
+<strong>Code:</strong> <code>examples/course/16-capstone/</code></p>
+</div>
+<p>Every lesson so far drove a small page built for that lesson. Real applications are bigger,
+change under you, and need a suite someone else can read and run. This lesson builds one: about
+ten tests against ControlLab, a single-page app with menus, a data grid, forms and dialogs, with
+the structure, fixtures and gate a team would keep.</p>
+<h2 id="the-application">The application<a class="headerlink" href="#the-application" title="Permanent link">&para;</a></h2>
+<p><strong>ControlLab</strong> is a demo app that ships with kaprevo's own test suite. The practice server serves
+it at <code>/controllab/v1/</code>, so with <code>python examples/course/serve.py</code> running, open
+<code>http://127.0.0.1:8765/controllab/v1/index.html</code> and sign in as <code>admin</code> / <code>Admin@123</code> (or
+<code>viewer</code> / <code>Viewer@123</code>, a read-only user).</p>
+<p>Take ten minutes to click around before writing anything:</p>
+<ul>
+<li><strong>Sign in</strong> (<code>#/login</code>): validation, a lockout after three wrong passwords, "Remember me", a
+  "Forgot password?" dialog.</li>
+<li><strong>The shell</strong>: a menubar (Controls and Widgets open on hover, Data and Planner on click), side
+  navigation, breadcrumbs, an account menu (Profile, Logout), toasts in the corner.</li>
+<li><strong>Data &gt; Data Grid</strong> (<code>#/grid</code>): 200 employees, paging, sorting, a quick filter.</li>
+<li><strong>Widgets &gt; Rich content</strong>: media, a chart, and images that load only when scrolled near.</li>
+<li><strong>Account</strong>: a profile form with a display name and an avatar showing its initials.</li>
+</ul>
+<p>It is a hash-routed single-page app: every page is <code>index.html#/&lt;route&gt;</code>, and moving between
+pages changes the hash without reloading. Two details matter for testing. Its data is generated
+from a fixed seed, so every run sees the same 200 employees. And it keeps the signed-in session
+in <code>sessionStorage</code>, which you will meet again below.</p>
+<p><code>/controllab/v2/</code> and <code>/controllab/v3/</code> are the same app with catalogued markup changes (renamed
+ids, relabelled buttons, moved columns), made to test self-healing (lesson 12).</p>
+<h2 id="planning-the-suite">Planning the suite<a class="headerlink" href="#planning-the-suite" title="Permanent link">&para;</a></h2>
+<p>Start from <strong>journeys</strong>, what a user does, not from pages or functions. For ControlLab:</p>
+<table>
+<thead>
+<tr>
+<th>Journey</th>
+<th>Tests</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign in</td>
+<td>success, wrong password, empty fields, password reset</td>
+<td>nothing else works without it</td>
+</tr>
+<tr>
+<td>Get around</td>
+<td>the menus reach a page; logout closes the app</td>
+<td>navigation breaks quietly</td>
+</tr>
+<tr>
+<td>Find data</td>
+<td>the grid shows its first page; the quick filter narrows it</td>
+<td>the app's main job</td>
+</tr>
+<tr>
+<td>Come back later</td>
+<td>"Remember me" survives in saved storage</td>
+<td>state across sessions</td>
+</tr>
+<tr>
+<td>Survive the network</td>
+<td>a mocked image response is used</td>
+<td>the app copes with what the server sends</td>
+</tr>
+<tr>
+<td>Look right</td>
+<td>the sign-in card matches its baseline</td>
+<td>layout regressions no assertion catches</td>
+</tr>
+</tbody>
+</table>
+<p>Three rules keep such a suite readable:</p>
+<ul>
+<li><strong>One behaviour per test</strong>, named as a sentence: <code>test_wrong_password_shows_attempts_left</code>.
+  The name is what you read in a failure report.</li>
+<li><strong>Assert what the user sees</strong>: the heading, the message, the URL, the row count. Not the
+  internal state.</li>
+<li><strong>Each test starts from scratch</strong>: its own context, its own sign-in. A test that depends on the
+  one before it fails for the wrong reason.</li>
+</ul>
+<p>The folder looks like this:</p>
+<div class="highlight"><pre><span></span><code>examples/course/16-capstone/
+    runner.py            builds the pytest command line, runs it in-process
+    example_run_suite.py the worked example: record the baseline, run the suite
+    suite/
+        pytest.ini       markers and options; makes this folder pytest's rootdir
+        conftest.py      fixtures
+        pages.py         two page objects
+        test_login.py  test_navigation.py  test_grid.py
+        test_storage.py  test_network.py  test_visual.py
+        exercises/       tests for the exercises (not collected by default)
+</code></pre></div>
+<h2 id="page-objects-lightly">Page objects, lightly<a class="headerlink" href="#page-objects-lightly" title="Permanent link">&para;</a></h2>
+<p>A <strong>page object</strong> is a class that names the locators of one screen and the few actions a user
+takes there. It saves repeating <code>page.get_by_label("Password", exact=True)</code> in ten tests, and
+when the form changes, one file changes.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: two light page objects for ControlLab, the sign-in page and the app shell.</span>
+
+<span class="sd">A page object here only names locators and a few actions a user takes. Assertions stay in the</span>
+<span class="sd">tests, so a failing test still reads as a list of what the user saw.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Healer</span><span class="p">,</span> <span class="n">Locator</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The sign-in form at ``#/login``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        page: The page to drive.</span>
+<span class="sd">        healer: When given, the submit button heals under the key ``login.submit`` if its</span>
+<span class="sd">            markup changes (lesson 12).</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">healer</span><span class="p">:</span> <span class="n">Healer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Username"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># not the "Show password" button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remember</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span>
+        <span class="n">submit</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Login"</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span> <span class="o">=</span> <span class="n">healer</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"login.submit"</span><span class="p">,</span> <span class="n">submit</span><span class="p">)</span> <span class="k">if</span> <span class="n">healer</span> <span class="k">else</span> <span class="n">submit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"login-error"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Load the app at the sign-in route."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"index.html#/login"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">sign_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">remember</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Fill in the form and submit it."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">remember</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remember</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Shell</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Everything around a signed-in page: heading, menus, account menu, toasts."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heading</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">account_menu</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Account menu"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">navigate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Open a top-level menu and choose an item, as a user would."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menubar"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menuitem"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">menu</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menu"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">menu</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menuitem"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Log out through the account menu."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">account_menu</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menuitem"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Logout"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">toast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Locator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""The notification that contains ``text``."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"toast"</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>Keep them light. These hold locators and actions, but <strong>no assertions</strong>: a test that reads
+<code>login.sign_in("admin", "nope")</code> then <code>expect(login.error).to_have_text(...)</code> still tells you
+what was checked. A page object that grows methods like <code>verify_login_failed()</code> hides the check,
+and a suite of them reads like a list of function names. Make one only for screens that several
+tests use; a one-off page is clearer inline.</p>
+<p>Two details in <code>LoginPage</code>. <code>get_by_label("Password", exact=True)</code> matters because the "Show
+password" button's label also contains "password". And the submit button goes through a healer
+when the test has one, under the stable key <code>login.submit</code> (lesson 12), which pays off in
+exercise 3.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>Selenium page objects often wrap every element in a method and wait explicitly in each one.
+Here a locator is the element description, and every action and <code>expect</code> waits by itself, so
+a page object is mostly a list of attributes.</p>
+</div>
+<h2 id="fixtures-for-the-suite">Fixtures for the suite<a class="headerlink" href="#fixtures-for-the-suite" title="Permanent link">&para;</a></h2>
+<p>The suite uses kaprevo's pytest plugin (lesson 09): <code>kaprevo_page</code> gives each test a fresh page in
+its own context, <code>kaprevo_browser</code> is one browser for the session, and the plugin reads
+<code>--kaprevo-base-url</code>, so <code>page.goto("index.html#/login")</code> resolves against the ControlLab folder.
+<code>conftest.py</code> builds the suite's own fixtures on top:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: fixtures for the ControlLab suite, built on kaprevo's pytest plugin.</span>
+
+<span class="sd">* ``page``: kaprevo's ``kaprevo_page`` with a desktop viewport. Relative URLs resolve against</span>
+<span class="sd">  ``--kaprevo-base-url`` (the ControlLab folder, ending in ``/``).</span>
+<span class="sd">* ``login``: the sign-in page object, its submit button guarded by ``kaprevo_healer``.</span>
+<span class="sd">* ``admin_session``: signs in once per session and keeps the session ControlLab stored.</span>
+<span class="sd">* ``signed_in``: a page that starts signed in, by giving the new context that session.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPage</span><span class="p">,</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.heal</span><span class="w"> </span><span class="kn">import</span> <span class="n">FingerprintStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">BrowserContext</span><span class="p">,</span> <span class="n">Healer</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span><span class="p">,</span> <span class="n">healer</span>
+
+<span class="n">ADMIN</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="s2">"Admin@123"</span><span class="p">)</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">app_url</span><span class="p">(</span><span class="n">pytestconfig</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The ControlLab folder the suite runs against, from ``--kaprevo-base-url``."""</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">pytestconfig</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">"kaprevo_base_url"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">pytest</span><span class="o">.</span><span class="n">UsageError</span><span class="p">(</span><span class="s2">"pass --kaprevo-base-url http://127.0.0.1:8765/controllab/v1/"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">kaprevo_page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Page</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A fresh page in its own context, sized like a laptop screen."""</span>
+    <span class="n">kaprevo_page</span><span class="o">.</span><span class="n">set_viewport_size</span><span class="p">({</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">1366</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">900</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">kaprevo_page</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">kaprevo_healer</span><span class="p">:</span> <span class="n">Healer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoginPage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The sign-in page, already open."""</span>
+    <span class="n">login_page</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">kaprevo_healer</span><span class="p">)</span>
+    <span class="n">login_page</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">login_page</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">admin_session</span><span class="p">(</span><span class="n">kaprevo_browser</span><span class="p">:</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">kaprevo_store</span><span class="p">:</span> <span class="n">FingerprintStore</span><span class="p">,</span> <span class="n">app_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Sign in through the form once, and return the session ControlLab saved.</span>
+
+<span class="sd">    ControlLab keeps its session in ``sessionStorage``, which ``storage_state`` does not</span>
+<span class="sd">    capture, so the value is read directly and handed to each test's context below.</span>
+<span class="sd">    """</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">kaprevo_browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">app_url</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">healer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">kaprevo_store</span><span class="p">))</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="o">*</span><span class="n">ADMIN</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/home$"</span><span class="p">))</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"sessionStorage.getItem('cl.session')"</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">session</span><span class="p">,</span> <span class="s2">"signing in stored no session"</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">signed_in</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">kaprevo_context</span><span class="p">:</span> <span class="n">BrowserContext</span><span class="p">,</span> <span class="n">admin_session</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Shell</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A page on Home, signed in as admin without going through the form again."""</span>
+    <span class="n">kaprevo_context</span><span class="o">.</span><span class="n">add_init_script</span><span class="p">(</span>
+        <span class="s2">"try { if (!sessionStorage.getItem('cl.session'))"</span>
+        <span class="sa">f</span><span class="s2">" sessionStorage.setItem('cl.session', </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">admin_session</span><span class="p">)</span><span class="si">}</span><span class="s2">); </span><span class="se">}}</span><span class="s2"> catch (e) </span><span class="se">{{}}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"index.html#/home"</span><span class="p">)</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">Shell</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">shell</span><span class="o">.</span><span class="n">heading</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Home"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">shell</span>
+</code></pre></div>
+<ul>
+<li><strong><code>page</code></strong> is <code>kaprevo_page</code> with a laptop-sized viewport, so the menubar is shown (narrow
+  windows get a drawer instead).</li>
+<li><strong><code>login</code></strong> opens the sign-in page and hands back the page object.</li>
+<li><strong><code>admin_session</code></strong> is <strong>session-scoped</strong>: it signs in through the form once for the whole run
+  and keeps what ControlLab stored.</li>
+<li><strong><code>signed_in</code></strong> gives a test's context that session before the page loads, and lands on Home.
+  Ten tests that need a signed-in user do not each type a password.</li>
+</ul>
+<p>Why not <code>storage_state</code> here? <code>context.storage_state()</code> saves <strong>cookies and localStorage</strong>, the
+way Playwright does. ControlLab keeps its session in <code>sessionStorage</code>, which belongs to one tab
+and is not part of storage state. So the fixture reads the value once and writes it back with
+<code>context.add_init_script()</code>, which runs before the app's own scripts on every page of the
+context. Check where your own application keeps its session before choosing: for a cookie or
+localStorage session, <code>new_context(storage_state="state.json")</code> is all you need, and
+<code>test_storage.py</code> shows it with ControlLab's "Remember me", which does live in localStorage.</p>
+<h2 id="writing-the-tests">Writing the tests<a class="headerlink" href="#writing-the-tests" title="Permanent link">&para;</a></h2>
+<p>The sign-in tests use the page object and assert what appears:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: the sign-in journey, through the form a user sees.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPage</span><span class="p">,</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_admin_signs_in_and_lands_on_home</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="n">LoginPage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">login</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="s2">"Admin@123"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/home$"</span><span class="p">))</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">Shell</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">heading</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Home"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Welcome back"</span><span class="p">))</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Alex Admin"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_wrong_password_shows_attempts_left</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="n">LoginPage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">login</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">,</span> <span class="s2">"nope"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">login</span><span class="o">.</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Invalid username or password (2 attempts left)"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/login$"</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_empty_fields_show_inline_errors</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="n">LoginPage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">login</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Username is required"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Password is required"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_forgot_password_sends_a_reset_link</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="n">LoginPage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Forgot password?"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">dialog</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"dialog"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Reset your password"</span><span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email address"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"not-an-email"</span><span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Send link"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Enter a valid email address"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+
+    <span class="n">dialog</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email address"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"ada@example.com"</span><span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Send link"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_hidden</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">Shell</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">toast</span><span class="p">(</span><span class="s2">"Reset link sent to ada@example.com"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<p>The password reset test is the suite's <strong>form</strong>: it fills the dialog wrong, checks the inline
+error, fills it right, and checks that the dialog closed and a toast confirmed it. Scoping the
+locators to <code>page.get_by_role("dialog", name="Reset your password")</code> keeps them from matching
+anything behind the dialog.</p>
+<p>Navigation goes through the menus, the way a user gets there, and checks the route guard:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: moving around the signed-in app, and leaving it.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_menus_reach_the_data_grid</span><span class="p">(</span><span class="n">signed_in</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">signed_in</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">"Data"</span><span class="p">,</span> <span class="s2">"Data Grid"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in</span><span class="o">.</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/grid"</span><span class="p">))</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in</span><span class="o">.</span><span class="n">heading</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Data Grid"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_logout_returns_to_sign_in_and_guards_pages</span><span class="p">(</span><span class="n">signed_in</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">signed_in</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in</span><span class="o">.</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/login$"</span><span class="p">))</span>
+    <span class="n">signed_in</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"index.html#/grid"</span><span class="p">)</span>  <span class="c1"># a signed-out user is sent back to sign in</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in</span><span class="o">.</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/login\?returnTo=</span><span class="si">%2F</span><span class="s2">grid$"</span><span class="p">))</span>
+</code></pre></div>
+<p>The grid tests read a column by its header, not by a fixed position. ControlLab v2 moves the
+Department column, and a test that counted columns would then read the wrong one:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: the data grid, its paging status and the quick filter.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Locator</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">department_cells</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Locator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The Department cell of every row on the current grid page, found by its column header."""</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Employees"</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"columnheader"</span><span class="p">)</span><span class="o">.</span><span class="n">all_inner_texts</span><span class="p">()]</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">"Department"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># read the position each time: columns can move</span>
+    <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tbody tr td:nth-child(</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grid</span><span class="p">(</span><span class="n">signed_in</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Page</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The Data Grid page, reached through the menus."""</span>
+    <span class="n">signed_in</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">"Data"</span><span class="p">,</span> <span class="s2">"Data Grid"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"grid-status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Showing"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">signed_in</span><span class="o">.</span><span class="n">page</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_grid_shows_the_first_page_of_200_employees</span><span class="p">(</span><span class="n">grid</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"grid-status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Showing 1 to 25 of 200"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">department_cells</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_quick_filter_narrows_to_one_department</span><span class="p">(</span><span class="n">grid</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Quick filter"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"Engineering"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"grid-status"</span><span class="p">))</span><span class="o">.</span><span class="n">not_to_have_text</span><span class="p">(</span><span class="s2">"Showing 1 to 25 of 200"</span><span class="p">)</span>
+    <span class="n">departments</span> <span class="o">=</span> <span class="p">{</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">department_cells</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">.</span><span class="n">all_inner_texts</span><span class="p">()}</span>
+    <span class="k">assert</span> <span class="n">departments</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"Engineering"</span><span class="p">},</span> <span class="n">departments</span>
+</code></pre></div>
+<p>Storage state, with a second context made from the saved file:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: "Remember me" survives in a saved storage state.</span>
+
+<span class="sd">ControlLab stores the remembered user name in ``localStorage``, which ``storage_state``</span>
+<span class="sd">captures. A new context started from that state opens the form with the name filled in.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPage</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">BrowserContext</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_remember_me_survives_in_storage_state</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="n">LoginPage</span><span class="p">,</span> <span class="n">kaprevo_context</span><span class="p">:</span> <span class="n">BrowserContext</span><span class="p">,</span>
+                                               <span class="n">kaprevo_browser</span><span class="p">:</span> <span class="n">Browser</span><span class="p">,</span> <span class="n">app_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">login</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="s2">"viewer"</span><span class="p">,</span> <span class="s2">"Viewer@123"</span><span class="p">,</span> <span class="n">remember</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_url</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"#/home$"</span><span class="p">))</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">"state.json"</span>
+    <span class="n">kaprevo_context</span><span class="o">.</span><span class="n">storage_state</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">state</span><span class="p">)</span>
+
+    <span class="n">later</span> <span class="o">=</span> <span class="n">kaprevo_browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">storage_state</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="p">),</span> <span class="n">base_url</span><span class="o">=</span><span class="n">app_url</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">again</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="n">later</span><span class="o">.</span><span class="n">new_page</span><span class="p">())</span>
+        <span class="n">again</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">again</span><span class="o">.</span><span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"viewer"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">again</span><span class="o">.</span><span class="n">remember</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_checked</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">later</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>One mocked request.</strong> ControlLab has no server API: everything it loads is a file. Its
+lazy-loaded images are the requests whose result a user can see, so the test answers the first
+one itself, with a small SVG, and checks that the page used it (the real picture is 320 pixels
+wide, the mock 64):</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: one mocked request. The first lazy-loaded image is answered by the test itself.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">Modified: Nov-07-2026 (sync route handlers get a sync Route now)</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+<span class="n">PICTURE</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'&lt;svg xmlns="http://www.w3.org/2000/svg" width="64" height="36"&gt;'</span>
+           <span class="s1">'&lt;rect width="64" height="36" fill="teal"/&gt;&lt;/svg&gt;'</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_a_mocked_image_counts_as_loaded</span><span class="p">(</span><span class="n">signed_in</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">signed_in</span><span class="o">.</span><span class="n">page</span>
+    <span class="c1"># One call, so a lambda; a handler with several steps would be an ordinary def.</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/assets/lazy-1.svg"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">PICTURE</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">"image/svg+xml"</span><span class="p">))</span>
+    <span class="n">signed_in</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">"Widgets"</span><span class="p">,</span> <span class="s2">"Rich content"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"img"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^Lazy image"</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">scroll_into_view_if_needed</span><span class="p">()</span>  <span class="c1"># they load only near the viewport, 400 px apart</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"lazy-status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Loaded 3 of 3"</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"img"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Lazy image A"</span><span class="p">)</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"img =&gt; img.naturalWidth"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">width</span> <span class="o">==</span> <span class="mi">64</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"the page shows the real picture, not the mock (width </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">)"</span>
+</code></pre></div>
+<p><strong>One visual check</strong>, of the sign-in card only (the Home page shows the time of day, which would
+never match). It is marked <code>visual</code>, so it can be run, or left out, on its own:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: one visual check, the sign-in card against its recorded baseline.</span>
+
+<span class="sd">Baselines are per browser and platform (``login-card-chrome-win32.png``); where they live is</span>
+<span class="sd">set by ``KAPREVO_SNAPSHOT_DIR``. Record them with ``KAPREVO_UPDATE_SNAPSHOTS=1``.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPage</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">visual</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_login_card_looks_unchanged</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="n">LoginPage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">card</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">".login-card"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">card</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"login-card.png"</span><span class="p">,</span> <span class="n">max_diff_pixel_ratio</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div>
+<p>Baselines are per browser and platform (<code>login-card-chrome-win32.png</code>), as lesson 05 explained.
+In a project you commit them; the course scripts record them in a temporary folder first, through
+<code>KAPREVO_SNAPSHOT_DIR</code> and <code>KAPREVO_UPDATE_SNAPSHOTS=1</code>, so they never write into the repository.</p>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Every test runs in Chrome (both backends), Edge and Firefox without a browser check. The one
+browser difference that showed up while writing them was lazy loading: Firefox loads a lazy
+image only when it is close to the viewport, so the network test scrolls each image into view
+rather than just the section heading.</p>
+</div>
+<h2 id="running-it-well">Running it well<a class="headerlink" href="#running-it-well" title="Permanent link">&para;</a></h2>
+<p><code>runner.py</code> builds the command line in one place, so every script runs the suite the same way:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: build the pytest command line for the capstone suite, and run it in this process.</span>
+
+<span class="sd">Imported by the lesson's scripts; not an example on its own. Every output (per-test traces,</span>
+<span class="sd">failure artifacts, heal baselines and reports, screenshot baselines) goes under one folder</span>
+<span class="sd">the caller chooses, never into the repository.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="n">SUITE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"suite"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">browsers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"v1"</span><span class="p">,</span>
+               <span class="n">targets</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span> <span class="n">extra</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span> <span class="n">headed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The pytest arguments for one run of the suite.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output: Folder for everything the run writes.</span>
+<span class="sd">        browsers: Browsers to run every test in (``chrome``, ``firefox``, ``edge``).</span>
+<span class="sd">        base_url: The practice site's address, ending in ``/``.</span>
+<span class="sd">        version: ControlLab version to test: ``v1``, ``v2`` or ``v3``.</span>
+<span class="sd">        targets: Test files or node ids; the whole suite when empty.</span>
+<span class="sd">        extra: More pytest arguments, such as ``-m visual`` or ``--kaprevo-strict-heal``.</span>
+<span class="sd">        headed: Show the browser windows.</span>
+<span class="sd">    """</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="p">(</span><span class="n">targets</span> <span class="ow">or</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">SUITE</span><span class="p">)]),</span> <span class="s2">"-q"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-base-url"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">controllab/</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">/"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-output"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"test-results"</span><span class="p">),</span>
+            <span class="s2">"--kaprevo-tracing"</span><span class="p">,</span> <span class="s2">"retain-on-failure"</span><span class="p">,</span>
+            <span class="s2">"--kaprevo-artifacts"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"kaprevo-artifacts"</span><span class="p">),</span>
+            <span class="s2">"--kaprevo-baselines"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"heal-baselines"</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">browser</span> <span class="ow">in</span> <span class="n">browsers</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"--kaprevo-browser"</span><span class="p">,</span> <span class="n">browser</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">headed</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--kaprevo-headed"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="n">extra</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">snapshots</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">update_snapshots</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Run pytest in this process with screenshot baselines in ``snapshots``; return its exit code."""</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">dont_write_bytecode</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># keep __pycache__ out of the examples folder</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"KAPREVO_SNAPSHOT_DIR"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">snapshots</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">update_snapshots</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"KAPREVO_UPDATE_SNAPSHOTS"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"1"</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">pytest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"KAPREVO_UPDATE_SNAPSHOTS"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">traces</span><span class="p">(</span><span class="n">output</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The traces kept for failed tests (``--kaprevo-tracing retain-on-failure``)."""</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">((</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"test-results"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*/trace.zip"</span><span class="p">))</span>
+</code></pre></div>
+<p>The options worth knowing:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--kaprevo-browser chrome --kaprevo-browser firefox</code></td>
+<td>every test runs once per browser (the test id ends in <code>[chrome]</code> or <code>[firefox]</code>)</td>
+</tr>
+<tr>
+<td><code>--kaprevo-base-url URL</code></td>
+<td>relative <code>goto()</code> URLs resolve against it</td>
+</tr>
+<tr>
+<td><code>--kaprevo-tracing retain-on-failure</code></td>
+<td>record a trace of every test, keep it only for failures (<code>kaprevo show-trace</code>, lesson 10)</td>
+</tr>
+<tr>
+<td><code>--kaprevo-output DIR</code></td>
+<td>per-test folders for traces, screenshots and video</td>
+</tr>
+<tr>
+<td><code>--kaprevo-artifacts DIR</code></td>
+<td>failure screenshot, HTML and console output; the heal report</td>
+</tr>
+<tr>
+<td><code>--kaprevo-baselines DIR</code></td>
+<td>the self-healing fingerprints</td>
+</tr>
+<tr>
+<td><code>--kaprevo-strict-heal</code></td>
+<td>a test that needed healing fails, so a heal is fixed rather than forgotten</td>
+</tr>
+<tr>
+<td><code>-m visual</code>, <code>-m "not visual"</code></td>
+<td>only, or all but, the visual check</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>--kaprevo-</code> spellings always work; the plain <code>--browser</code>, <code>--tracing</code> and so on also work
+when pytest-playwright is not installed (lesson 15). From a terminal, the same run is:</p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>examples/course/16-capstone/suite<span class="w"> </span>--kaprevo-browser<span class="w"> </span>firefox<span class="w"> </span>--kaprevo-base-url<span class="w"> </span>http://127.0.0.1:8765/controllab/v1/<span class="w"> </span>--kaprevo-tracing<span class="w"> </span>retain-on-failure
+</code></pre></div>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p><code>example_run_suite.py</code> runs the suite in the course browser, in two pytest runs: first it records
+the visual baseline, then it runs everything and exits non-zero if any test failed.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16: run the capstone suite against ControlLab v1 in the course browser.</span>
+
+<span class="sd">Two pytest runs, as a real project does them. First the visual baseline is recorded (a</span>
+<span class="sd">project commits it; here it goes to a temporary folder), then the whole suite runs with</span>
+<span class="sd">traces kept for any test that fails. The script exits non-zero if any test failed.</span>
+
+<span class="sd">    python examples/course/16-capstone/example_run_suite.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: timeout=240</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">runner</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">suite_args</span><span class="p">,</span> <span class="n">traces</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"capstone-"</span><span class="p">))</span>
+    <span class="n">snapshots</span> <span class="o">=</span> <span class="n">output</span> <span class="o">/</span> <span class="s2">"snapshots"</span>
+    <span class="n">common</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"browsers"</span><span class="p">:</span> <span class="p">[</span><span class="n">BROWSER</span><span class="p">],</span> <span class="s2">"base_url"</span><span class="p">:</span> <span class="n">BASE_URL</span><span class="p">,</span> <span class="s2">"headed"</span><span class="p">:</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">}</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"1. Recording the visual baseline"</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">common</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"visual"</span><span class="p">]),</span> <span class="n">snapshots</span><span class="o">=</span><span class="n">snapshots</span><span class="p">,</span> <span class="n">update_snapshots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"recording the baseline failed (exit </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">)"</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"2. Running the suite"</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">common</span><span class="p">),</span> <span class="n">snapshots</span><span class="o">=</span><span class="n">snapshots</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">traces</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"trace kept:"</span><span class="p">,</span> <span class="n">trace</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Suite exited </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">; outputs in </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/16-capstone/example_run_suite.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Recording the visual baseline
+.                                                                        [100%]
+1 passed, 10 deselected in 14.21s
+2. Running the suite
+...........                                                              [100%]
+11 passed in 38.40s
+Suite exited 0; outputs in C:\Users\you\AppData\Local\Temp\capstone-x2obgz5p
+</code></pre></div>
+<p>To see what a failure looks like, break a test on purpose (change "Alex Admin" to "Alex Admim" in
+<code>test_login.py</code>) and run again. The report shows the <code>expect</code> message, and the script prints
+<code>trace kept: ...\test_login.py_test_admin_signs_in_and_lands_on_home_chrome\trace.zip</code>. Open it
+with <code>kaprevo show-trace</code> and step through the actions to the one that failed.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>The exercise tests live in <code>suite/exercises/</code>, which <code>pytest.ini</code> leaves out of a normal run
+(<code>norecursedirs</code>). Each solution script runs its own test file through <code>runner.py</code>.</p>
+<h3 id="exercise-1-a-new-display-name-everywhere">Exercise 1: a new display name everywhere<a class="headerlink" href="#exercise-1-a-new-display-name-everywhere" title="Permanent link">&para;</a></h3>
+<p>Write a test that opens Account (account menu &gt; Profile), changes the display name from "Alex
+Admin" to "Ada Lovelace", saves, and checks it everywhere it shows: the field, the avatar's
+initials, the "Profile saved" toast, the Home page's recent activity, and the field again after
+coming back.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16, exercise 1: change the display name and check it everywhere it appears.</span>
+
+<span class="sd">The name shows in the Display name field, as initials in the avatar preview, in a toast when</span>
+<span class="sd">saved, in the Home page's recent activity, and it must still be there after leaving the page.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">open_profile</span><span class="p">(</span><span class="n">shell</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Account menu &gt; Profile."""</span>
+    <span class="n">shell</span><span class="o">.</span><span class="n">account_menu</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">shell</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menuitem"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Profile"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">shell</span><span class="o">.</span><span class="n">heading</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Account"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_display_name_change_shows_everywhere</span><span class="p">(</span><span class="n">signed_in</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">signed_in</span><span class="o">.</span><span class="n">page</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Display name"</span><span class="p">)</span>
+    <span class="n">avatar</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"avatar-preview"</span><span class="p">)</span>
+
+    <span class="n">open_profile</span><span class="p">(</span><span class="n">signed_in</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"Alex Admin"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">avatar</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"AA"</span><span class="p">)</span>
+
+    <span class="n">name</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"Ada Lovelace"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">avatar</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"AL"</span><span class="p">)</span>  <span class="c1"># the initials follow as you type</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Save profile"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">signed_in</span><span class="o">.</span><span class="n">toast</span><span class="p">(</span><span class="s2">"Profile saved"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+
+    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menubar"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"menuitem"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Home"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"region"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Recent activity"</span><span class="p">))</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Updated account profile"</span><span class="p">)</span>
+
+    <span class="n">open_profile</span><span class="p">(</span><span class="n">signed_in</span><span class="p">)</span>  <span class="c1"># leave and come back: the change was saved, not just typed</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_value</span><span class="p">(</span><span class="s2">"Ada Lovelace"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">avatar</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"AL"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16, exercise 1: run the account test (``suite/exercises/test_account.py``).</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">runner</span><span class="w"> </span><span class="kn">import</span> <span class="n">SUITE</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">suite_args</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"capstone-ex1-"</span><span class="p">))</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">SUITE</span> <span class="o">/</span> <span class="s2">"exercises"</span> <span class="o">/</span> <span class="s2">"test_account.py"</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">browsers</span><span class="o">=</span><span class="p">[</span><span class="n">BROWSER</span><span class="p">],</span> <span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">headed</span><span class="o">=</span><span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">),</span>
+               <span class="n">snapshots</span><span class="o">=</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"snapshots"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"exit </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">; outputs in </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Checking the field again after leaving the page is what proves the change was saved, not
+just typed. The <code>signed_in</code> fixture gives each test a fresh context, so the renamed user
+never leaks into another test.</p>
+</details>
+<h3 id="exercise-2-a-request-that-fails">Exercise 2: a request that fails<a class="headerlink" href="#exercise-2-a-request-that-fails" title="Permanent link">&para;</a></h3>
+<p>Make the second lazy image (<code>lazy-2.svg</code>) fail with <code>route.abort()</code>, then check what ControlLab
+shows: the status says "Loaded 2 of 3", and the content log mentions image C but never image B.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16, exercise 2: make one request fail and check what ControlLab shows.</span>
+
+<span class="sd">ControlLab has no server API: everything it loads is a file. The lazy-loaded images are its</span>
+<span class="sd">requests that a user can see fail, and the page counts how many loaded.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages</span><span class="w"> </span><span class="kn">import</span> <span class="n">Shell</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_a_failed_image_is_not_counted</span><span class="p">(</span><span class="n">signed_in</span><span class="p">:</span> <span class="n">Shell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">signed_in</span><span class="o">.</span><span class="n">page</span>
+    <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/assets/lazy-2.svg"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>  <span class="c1"># a network error, as if offline</span>
+    <span class="n">signed_in</span><span class="o">.</span><span class="n">navigate</span><span class="p">(</span><span class="s2">"Widgets"</span><span class="p">,</span> <span class="s2">"Rich content"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"img"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^Lazy image"</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">image</span><span class="o">.</span><span class="n">scroll_into_view_if_needed</span><span class="p">()</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"lazy-status"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Loaded 2 of 3"</span><span class="p">)</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#content-log"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log</span><span class="p">)</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Lazy image loaded: Lazy image C"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_contain_text</span><span class="p">(</span><span class="s2">"Lazy image B"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16, exercise 2: run the mocked-failure test (``suite/exercises/test_mocked_failure.py``).</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">runner</span><span class="w"> </span><span class="kn">import</span> <span class="n">SUITE</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">suite_args</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"capstone-ex2-"</span><span class="p">))</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">SUITE</span> <span class="o">/</span> <span class="s2">"exercises"</span> <span class="o">/</span> <span class="s2">"test_mocked_failure.py"</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">browsers</span><span class="o">=</span><span class="p">[</span><span class="n">BROWSER</span><span class="p">],</span> <span class="n">base_url</span><span class="o">=</span><span class="n">BASE_URL</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">headed</span><span class="o">=</span><span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">),</span>
+               <span class="n">snapshots</span><span class="o">=</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"snapshots"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"exit </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">; outputs in </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Waiting for image C's log line before checking image B is absent matters: a negative check
+on its own passes at once, even if the page has not finished loading.</p>
+</details>
+<h3 id="exercise-3-controllab-v2-healed">Exercise 3: ControlLab v2, healed<a class="headerlink" href="#exercise-3-controllab-v2-healed" title="Permanent link">&para;</a></h3>
+<p>Run the suite against v1 to record fingerprints, then against v2 with the same
+<code>--kaprevo-baselines</code>, and read <code>heal-report.json</code>. Which locator healed, what did kaprevo suggest
+instead, and how sure was it?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16, exercise 3: run the suite against ControlLab v2 with healing, and read the heal report.</span>
+
+<span class="sd">ControlLab v2 renames the Login button to "Sign in" and changes its id. Run 1 (v1) records</span>
+<span class="sd">the button's fingerprint under the key ``login.submit``; run 2 (v2) uses the same baselines,</span>
+<span class="sd">so the healer finds the renamed button and reports what it did. The visual test is left out:</span>
+<span class="sd">on v2 the card really does look different, and a visual check should say so.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: timeout=300</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">runner</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">suite_args</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"capstone-heal-"</span><span class="p">))</span>
+    <span class="n">common</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"browsers"</span><span class="p">:</span> <span class="p">[</span><span class="n">BROWSER</span><span class="p">],</span> <span class="s2">"base_url"</span><span class="p">:</span> <span class="n">BASE_URL</span><span class="p">,</span> <span class="s2">"headed"</span><span class="p">:</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">,</span> <span class="s2">"extra"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"not visual"</span><span class="p">]}</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"1. v1: recording fingerprints"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">run</span><span class="p">(</span><span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">"v1"</span><span class="p">,</span> <span class="o">**</span><span class="n">common</span><span class="p">),</span> <span class="n">snapshots</span><span class="o">=</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"snapshots"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"2. v2: the same tests, healing where the markup changed"</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">"v2"</span><span class="p">,</span> <span class="o">**</span><span class="n">common</span><span class="p">),</span> <span class="n">snapshots</span><span class="o">=</span><span class="n">output</span> <span class="o">/</span> <span class="s2">"snapshots"</span><span class="p">)</span>
+
+    <span class="n">report</span> <span class="o">=</span> <span class="n">output</span> <span class="o">/</span> <span class="s2">"kaprevo-artifacts"</span> <span class="o">/</span> <span class="s2">"heal-report.json"</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">report</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span> <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'outcome'</span><span class="p">]</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'key'</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'locator'</span><span class="p">]</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'suggestion'</span><span class="p">]</span><span class="si">}</span><span class="s2"> "</span>
+              <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'score'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">) in </span><span class="si">{</span><span class="n">event</span><span class="p">[</span><span class="s1">'test'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"the v2 run failed (exit </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">)"</span>
+    <span class="k">assert</span> <span class="nb">any</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="s2">"key"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"login.submit"</span> <span class="ow">and</span> <span class="n">e</span><span class="p">[</span><span class="s2">"outcome"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"healed"</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">events</span><span class="p">),</span> <span class="s2">"nothing healed"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Report: </span><span class="si">{</span><span class="n">report</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>HEALED  login.submit [warn 0.75] get_by_role('button', name='Login') -&gt; page.get_by_test_id('login-submit')
+...
+healed   login.submit: get_by_role('button', name='Login') -&gt; page.get_by_test_id('login-submit') (0.75) in test_login.py::test_admin_signs_in_and_lands_on_home[chrome]
+</code></pre></div>
+<p>v2 renames the button to "Sign in", so the role-and-name locator finds nothing; the healer
+scores every candidate against the fingerprint from v1 and picks the submit button with
+0.75, in the <code>warn</code> band (lesson 12), which also raises a <code>SelfHealWarning</code>. Everything else
+passes on v2 unchanged, because the other locators already describe what the user sees
+(labels, roles, headers) rather than ids. The fix is the suggestion: update the page object,
+and the next run needs no healing. The visual test is left out with <code>-m "not visual"</code>: on v2
+the card does look different, and that check should fail.</p>
+</details>
+<h3 id="exercise-4-a-gate">Exercise 4: a gate<a class="headerlink" href="#exercise-4-a-gate" title="Permanent link">&para;</a></h3>
+<p>Write one script a developer runs before pushing: it runs the whole suite in every installed
+browser (skipping any that is missing), records the visual baselines first, uses
+<code>--kaprevo-strict-heal</code>, keeps traces on failure, exits non-zero on any failure, and prints where
+the traces are.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 16, exercise 4: a local gate that runs the whole suite in every installed browser.</span>
+
+<span class="sd">One command a developer runs before pushing. It records the visual baselines, runs every</span>
+<span class="sd">test in Chrome and Firefox (whichever are installed) with ``--kaprevo-strict-heal``, so a test</span>
+<span class="sd">that only passed thanks to healing fails the gate, and keeps a trace for every failure. It</span>
+<span class="sd">exits non-zero on any failure and prints where the traces are.</span>
+
+<span class="sd">    python examples/course/16-capstone/solution_4_gate.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="c1"># course: browsers=chrome</span>
+<span class="c1"># course: timeout=400</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">runner</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">suite_args</span><span class="p">,</span> <span class="n">traces</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.launch.discover</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_browser</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">installed</span><span class="p">(</span><span class="n">names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""The browsers from ``names`` that kaprevo can find on this machine."""</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">find_browser</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">LaunchError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gate: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is not installed, skipped"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">found</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">browsers</span> <span class="o">=</span> <span class="n">installed</span><span class="p">([</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="s2">"firefox"</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">browsers</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="s2">"gate: no browser to run in"</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"capstone-gate-"</span><span class="p">))</span>
+    <span class="n">snapshots</span> <span class="o">=</span> <span class="n">output</span> <span class="o">/</span> <span class="s2">"snapshots"</span>
+    <span class="n">common</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"browsers"</span><span class="p">:</span> <span class="n">browsers</span><span class="p">,</span> <span class="s2">"base_url"</span><span class="p">:</span> <span class="n">BASE_URL</span><span class="p">,</span> <span class="s2">"headed"</span><span class="p">:</span> <span class="ow">not</span> <span class="n">HEADLESS</span><span class="p">}</span>
+
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"visual baselines"</span><span class="p">,</span> <span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">common</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">[</span><span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"visual"</span><span class="p">]),</span> <span class="kc">True</span><span class="p">),</span>
+             <span class="p">(</span><span class="s2">"suite"</span><span class="p">,</span> <span class="n">suite_args</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="o">**</span><span class="n">common</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">[</span><span class="s2">"--kaprevo-strict-heal"</span><span class="p">]),</span> <span class="kc">False</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">title</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">update</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gate: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">browsers</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">snapshots</span><span class="o">=</span><span class="n">snapshots</span><span class="p">,</span> <span class="n">update_snapshots</span><span class="o">=</span><span class="n">update</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gate: FAILED at </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> (pytest exit </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">traces</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  trace: </span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">   open it with: kaprevo show-trace </span><span class="se">\"</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="se">\"</span><span class="s2">"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  failure artifacts: </span><span class="si">{</span><span class="n">output</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">'kaprevo-artifacts'</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gate: passed in </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">browsers</span><span class="p">)</span><span class="si">}</span><span class="s2">; outputs in </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>gate: visual baselines in chrome, firefox
+2 passed, 20 deselected in 13.99s
+gate: suite in chrome, firefox
+22 passed in 51.75s
+gate: passed in chrome, firefox; outputs in C:\Users\you\AppData\Local\Temp\capstone-gate-fqa6g_yt
+</code></pre></div>
+<p><code>--kaprevo-strict-heal</code> turns a heal into a failure: healing keeps a suite running while you
+find out what changed, but a gate should not let a changed locator through unnoticed. kaprevo
+has no CI setup of its own; a gate script like this is what a CI job would call.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Tests that depend on each other.</strong> The second test passes only after the first signed in.
+  Each test gets its own context; build what it needs with fixtures, never with test order.</li>
+<li><strong>Expecting <code>storage_state</code> to keep a <code>sessionStorage</code> session.</strong> It saves cookies and
+  localStorage only, so the "signed-in" context lands on the sign-in page. Find where the app
+  keeps its session; seed <code>sessionStorage</code> with <code>add_init_script</code>, as <code>conftest.py</code> does.</li>
+<li><strong>An <code>async def</code> route handler in this sync suite.</strong> It is given the async <code>Route</code> and must
+  <code>await route.fulfill(...)</code>; a forgotten <code>await</code> leaves the request to the real server
+  (<code>RuntimeWarning: coroutine 'Route.fulfill' was never awaited</code>). In sync code write the
+  handler as a <code>lambda</code> or an ordinary <code>def</code>: it gets a sync <code>Route</code> and runs on a worker
+  thread, so it can make as many calls as it needs.</li>
+<li><strong>Reading grid cells by a fixed column number.</strong> It breaks the day a column moves. Find the
+  column from its header, as <code>test_grid.py</code> does.</li>
+<li><strong>A visual check of a page with the time on it.</strong> It never matches. Check a stable element,
+  or <code>mask=</code> the moving parts.</li>
+<li><strong><code>no baseline existed; wrote ...</code> on the first run.</strong> That is deliberate: a missing baseline
+  never passes silently. Look at the file, then run again (or record with
+  <code>KAPREVO_UPDATE_SNAPSHOTS=1</code>).</li>
+<li><strong>Leaving outputs in the repository.</strong> Point <code>--kaprevo-output</code>, <code>--kaprevo-artifacts</code>,
+  <code>--kaprevo-baselines</code> and <code>KAPREVO_SNAPSHOT_DIR</code> at a folder you mean (the scripts use a
+  temporary one), and keep <code>-p no:cacheprovider</code> or ignore <code>.pytest_cache</code>.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Plan by journeys; one behaviour per test, named as a sentence, asserting what the user sees.</li>
+<li>Keep page objects light: locators and actions, assertions in the tests.</li>
+<li>Session-scoped fixtures do expensive setup once; each test still gets a fresh context.</li>
+<li><code>--kaprevo-browser</code> twice, <code>--kaprevo-tracing retain-on-failure</code> and <code>--kaprevo-strict-heal</code> make
+  a suite that runs everywhere, explains its failures and does not hide changes.</li>
+<li>A small gate script that exits non-zero is the whole release check.</li>
+</ul>
+<h2 id="where-to-go-next">Where to go next<a class="headerlink" href="#where-to-go-next" title="Permanent link">&para;</a></h2>
+<p>You have finished the course. From here:</p>
+<ul>
+<li><strong>The guides</strong> are the reference for everything the lessons touched,
+  with every option listed: locators, auto-waiting, network, emulation, tracing, self-healing,
+  the pytest plugin, MCP.</li>
+<li><strong>The API reference</strong> lists every class and method.</li>
+<li><strong>ControlLab's own suite</strong>, <code>tests/integration/controllab/</code> in the repository, is the full
+  version of this capstone: about 280 tests over 13 journeys, with a locator registry, brittle
+  and resilient styles, and measurements of healing on v2 and v3. Read a journey or two to see
+  the same ideas at scale.</li>
+<li><strong>Contribute.</strong> When you find a browser behaving differently from the WebDriver BiDi
+  specification, kaprevo records it in Upstream findings, with the
+  command and the browser version; a clear finding helps the browser teams fix it. Bug reports
+  and small fixes to kaprevo are welcome too, as are corrections to this course.</li>
+</ul>
+<p>Back to the <a href="../">course home</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

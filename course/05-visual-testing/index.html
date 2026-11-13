@@ -1,0 +1,1612 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/05-visual-testing/">
+      
+      
+        <link rel="prev" href="../04-assertions/">
+      
+      
+        <link rel="next" href="../06-contexts-and-emulation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>05. Visual testing - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#05-visual-testing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              05. Visual testing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots-as-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screenshots as assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#baselines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Baselines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-screenshots-stable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making screenshots stable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tolerance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tolerance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-visual-test-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When a visual test fails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-baseline-of-the-form-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a baseline of the form only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-allow-a-one-pixel-border-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: allow a one-pixel border change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-one-baseline-per-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: one baseline per browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots-as-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screenshots as assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#baselines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Baselines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-screenshots-stable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making screenshots stable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tolerance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tolerance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-visual-test-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When a visual test fails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-a-baseline-of-the-form-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 1: a baseline of the form only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-allow-a-one-pixel-border-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 2: allow a one-pixel border change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-one-baseline-per-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 3: one baseline per browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recap
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- STATUS: written, owner: writer A -->
+<h1 id="05-visual-testing">05. Visual testing<a class="headerlink" href="#05-visual-testing" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 -->
+
+<div class="admonition abstract">
+<p class="admonition-title">In this lesson</p>
+<p><strong>You will learn to:</strong></p>
+<ul>
+<li>compare a page or an element against a baseline with <code>to_have_screenshot</code></li>
+<li>know where baselines live, why the first run fails, and how to update them with <code>KAPREVO_UPDATE_SNAPSHOTS=1</code></li>
+<li>hide changing content with <code>mask</code> and allow small differences with <code>threshold</code>, <code>max_diff_pixels</code> and <code>max_diff_pixel_ratio</code></li>
+<li>read the <code>-actual.png</code> and <code>-diff.png</code> files a failure leaves</li>
+</ul>
+<p><strong>Time:</strong> about 30 minutes. <strong>Before this:</strong> <a href="../04-assertions/">04. Assertions</a>.
+<strong>Code:</strong> <code>examples/course/05-visual-testing/</code></p>
+</div>
+<p>The assertions in lesson 04 check what you thought to check. A broken stylesheet, a button that
+turned white on white, or a card that slid under another passes all of them. A <strong>visual test</strong>
+compares a screenshot with a saved picture of how the page should look, and catches the changes
+you did not think of.</p>
+<p>This lesson uses a new practice page, <code>/dashboard.html</code>: four fixed-size cards, one with a clock
+that ticks every second and one with a spinning progress indicator. Open it in your browser
+before you start.</p>
+<h2 id="screenshots-as-assertions">Screenshots as assertions<a class="headerlink" href="#screenshots-as-assertions" title="Permanent link">&para;</a></h2>
+<p><code>to_have_screenshot</code> is an assertion like the ones in lesson 04, about a page or a locator:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"dashboard.png"</span><span class="p">)</span>                      <span class="c1"># the viewport</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"dashboard-full.png"</span><span class="p">,</span> <span class="n">full_page</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># the whole page</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"orders-card"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"orders-card.png"</span><span class="p">)</span>  <span class="c1"># one element</span>
+</code></pre></div>
+<p>It takes a screenshot and compares it, pixel by pixel, with a <strong>baseline</strong>: a PNG saved earlier
+under the name you gave. When they match, it passes. When they do not, it takes another
+screenshot and compares again, until one matches or the timeout passes (5 seconds, like every
+assertion), so a page that is still settling does not fail the test.</p>
+<p>An element screenshot is usually the better choice. It ignores the rest of the page, so a change
+in the header does not fail the test for a card, and it keeps the baseline small.</p>
+<h2 id="baselines">Baselines<a class="headerlink" href="#baselines" title="Permanent link">&para;</a></h2>
+<p><strong>Where they live.</strong> Baselines are files, named after the name you gave plus the browser and the
+operating system:</p>
+<div class="highlight"><pre><span></span><code>dashboard-chrome-win32.png
+dashboard-firefox-win32.png
+dashboard-chrome-linux.png
+</code></pre></div>
+<p>The folder is chosen in this order:</p>
+<ol>
+<li><code>expect.set_options(snapshot_dir=...)</code>, if your code set one;</li>
+<li>the <code>KAPREVO_SNAPSHOT_DIR</code> environment variable;</li>
+<li>in a pytest test, <code>__snapshots__/&lt;test file name&gt;/</code> next to the test file;</li>
+<li>otherwise <code>__snapshots__/</code> in the current directory.</li>
+</ol>
+<p>In a real project you commit the baselines next to the tests, so everyone compares against the
+same pictures. The examples in this lesson put theirs in a new temporary folder on every run
+(each prints where), so they always start from scratch and never write into your checkout.</p>
+<p><strong>The first run fails.</strong> When there is no baseline, kaprevo takes a screenshot, saves it as the
+baseline, and then <strong>fails</strong> the assertion:</p>
+<div class="highlight"><pre><span></span><code>AssertionError: expect(page).to_have_screenshot: no baseline existed; wrote ...\dashboard-chrome-win32.png. Check it and run again (or set KAPREVO_UPDATE_SNAPSHOTS=1 to write baselines).
+</code></pre></div>
+<p>That is deliberate. If a missing baseline passed, a test with a typo in the name, or a folder
+that was never committed, would pass forever without comparing anything. So: run once, open the
+new PNG and check it shows what the page should look like, then run again.</p>
+<p><strong>Updating.</strong> When the page changes on purpose (a new design, a new card), the baselines must
+change too. Run the tests with <code>KAPREVO_UPDATE_SNAPSHOTS=1</code>, and every <code>to_have_screenshot</code> it
+reaches rewrites its baseline and passes:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:KAPREVO_UPDATE_SNAPSHOTS</span> <span class="p">=</span> <span class="s2">"1"</span>
+<span class="n">pytest</span> <span class="n">tests</span><span class="p">/</span><span class="n">visual</span>
+<span class="nb">Remove-Item</span> <span class="n">Env</span><span class="p">:</span><span class="n">KAPREVO_UPDATE_SNAPSHOTS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">KAPREVO_UPDATE_SNAPSHOTS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>pytest<span class="w"> </span>tests/visual
+</code></pre></div>
+<p>Then look at the changed PNGs (your version control shows which ones) before you commit them. An
+update run accepts whatever the page shows, bugs included.</p>
+<h2 id="making-screenshots-stable">Making screenshots stable<a class="headerlink" href="#making-screenshots-stable" title="Permanent link">&para;</a></h2>
+<p>A visual test is only useful if the same page gives the same picture on every run. Three things
+get in the way, and kaprevo handles two of them for you:</p>
+<ul>
+<li><strong>Animations.</strong> By default <code>to_have_screenshot</code> stops CSS animations and transitions for the
+  capture (<code>animations="disabled"</code>): finite ones jump to their end, infinite ones are cancelled.
+  The dashboard's spinner needs nothing from you.</li>
+<li><strong>The text caret.</strong> A blinking cursor in a focused input is hidden (<code>caret="hide"</code>).</li>
+<li><strong>Content that changes on every run</strong>: clocks, dates, random ids, ads, avatars. kaprevo cannot
+  know which parts those are, so you tell it with <code>mask</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">clock</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#clock"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"dashboard.png"</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="n">clock</span><span class="p">])</span>
+</code></pre></div>
+<p>Each element the mask locators match is painted over with a solid box (magenta, or
+<code>mask_color="#000"</code>) before the screenshot is taken, in the baseline and in every comparison, so
+the box is equal even when the clock under it is not.</p>
+<p>Also fix the <strong>size</strong>. A screenshot of the viewport depends on the window size, and an element
+can change size with it. Set it explicitly before visual checks:</p>
+<div class="highlight"><pre><span></span><code><span class="n">page</span><span class="o">.</span><span class="n">set_viewport_size</span><span class="p">({</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">400</span><span class="p">})</span>
+</code></pre></div>
+<h2 id="tolerance">Tolerance<a class="headerlink" href="#tolerance" title="Permanent link">&para;</a></h2>
+<p>By default every pixel must match, within a small colour tolerance. Three options loosen that:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>threshold</code></td>
+<td><code>0.2</code></td>
+<td>how different one pixel's colour may be and still count as equal, 0 (exact) to 1 (anything)</td>
+</tr>
+<tr>
+<td><code>max_diff_pixels</code></td>
+<td><code>0</code></td>
+<td>how many pixels may differ</td>
+</tr>
+<tr>
+<td><code>max_diff_pixel_ratio</code></td>
+<td>none</td>
+<td>which share of the pixels may differ, 0 to 1</td>
+</tr>
+</tbody>
+</table>
+<p><code>threshold</code> is about <strong>how much</strong> each pixel changed: 0.2 lets through the faint colour shifts of
+image scaling but not a real colour change. The other two are about <strong>how many</strong> pixels changed.
+With both <code>max_diff_pixels</code> and <code>max_diff_pixel_ratio</code>, the smaller limit wins.</p>
+<p>Why allow anything at all? The same page can be drawn very slightly differently from one run to
+the next: font smoothing at the edges of letters, a GPU rounding a gradient. kaprevo does not try
+to detect anti-aliasing, so a few dozen pixels of slack (<code>max_diff_pixels=50</code>) on a text-heavy
+element is normal. Keep the slack as small as works: a big tolerance hides real regressions.</p>
+<h2 id="when-a-visual-test-fails">When a visual test fails<a class="headerlink" href="#when-a-visual-test-fails" title="Permanent link">&para;</a></h2>
+<p>On a failure kaprevo writes two files next to the baseline:</p>
+<ul>
+<li><strong><code>&lt;name&gt;-actual.png</code></strong>, the screenshot it took last;</li>
+<li><strong><code>&lt;name&gt;-diff.png</code></strong>, the baseline faded out, with every differing pixel in red.</li>
+</ul>
+<p>and the error says how many pixels differed and where the files are:</p>
+<div class="highlight"><pre><span></span><code>AssertionError: expect(locator('#login')).to_have_screenshot('login-form.png'): 734 pixels (1.39%) differ; diff written to ...\login-form-chrome-win32-diff.png; baseline ...\login-form-chrome-win32.png, actual ...\login-form-chrome-win32-actual.png after 1 s
+</code></pre></div>
+<p>Open the diff first: the red shows where to look. Then decide which of two things happened:</p>
+<ul>
+<li><strong>A regression</strong>: the page changed and should not have. Fix the page; the test passes again
+  against the old baseline.</li>
+<li><strong>An intended change</strong>: the new look is right. Check the <code>-actual.png</code>, then rewrite the
+  baseline with <code>KAPREVO_UPDATE_SNAPSHOTS=1</code>.</li>
+</ul>
+<p>A size difference (the element grew by a pixel) is reported as <code>size differs: expected 200x110,
+got 200x111</code> with no diff image, since the two cannot be laid over each other. The <code>-actual.png</code>
+and <code>-diff.png</code> files are removed again by the next passing run.</p>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Playwright</p>
+<p><code>to_have_screenshot</code> follows Playwright: the same options (<code>mask</code>, <code>mask_color</code>, <code>threshold</code>,
+<code>max_diff_pixels</code>, <code>max_diff_pixel_ratio</code>, <code>animations</code>, <code>caret</code>, <code>full_page</code>), the same
+failing first run, and per-browser, per-platform baseline names. The differences: update with
+the <code>KAPREVO_UPDATE_SNAPSHOTS=1</code> environment variable rather than <code>--update-snapshots</code>, the
+timeout is in seconds, and the comparison is pure Python with no anti-aliasing detection, so
+allow a little <code>max_diff_pixels</code> where text edges vary.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Coming from Selenium</p>
+<p>Selenium has screenshots but no comparison: projects add a library (and a baseline folder
+convention, and a diff tool) on top. Here it is one assertion, with no extra dependency.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Browser support</p>
+<p>Chrome and Firefox draw text and form controls differently, so a baseline from one never
+matches the other. That is why the browser is part of the file name: each browser keeps its
+own baselines, and a suite run in both browsers keeps two sets. The operating system is in the
+name for the same reason (fonts differ between Windows, macOS and Linux), so record baselines
+on the platform your tests run on, such as the build machine. Exercise 3 shows the two names.</p>
+</div>
+<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<p>The script opens the dashboard and does the same comparison twice: once with the clock masked,
+once without. Each baseline is recorded first (the expected first-run failure is caught by a small
+helper), then the script waits for the clock to tick and compares again.</p>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 05: compare a page with a live clock against a baseline, with and without a mask.</span>
+
+<span class="sd">Baselines go to a new temporary folder on every run (printed at the start), so each run starts</span>
+<span class="sd">with none and nothing is written into the repository.</span>
+
+<span class="sd">    python examples/course/05-visual-testing/example_mask_the_clock.py</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">record_baseline</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""With no baseline, kaprevo writes one and fails the assertion; here that failure is expected."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"no baseline existed"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+            <span class="k">raise</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">snapshots</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"kaprevo-lesson05-"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">snapshot_dir</span><span class="o">=</span><span class="n">snapshots</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Baselines in"</span><span class="p">,</span> <span class="n">snapshots</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_viewport_size</span><span class="p">({</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">400</span><span class="p">})</span>     <span class="c1"># same size on every run</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"dashboard.html"</span><span class="p">)</span>
+        <span class="n">clock</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#clock"</span><span class="p">)</span>
+
+        <span class="c1"># Masked: the clock is painted over, so the page looks the same every second.</span>
+        <span class="n">record_baseline</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">"dashboard-masked.png"</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="n">clock</span><span class="p">])</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">clock</span><span class="p">)</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="n">clock</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>    <span class="c1"># wait for the next tick</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"dashboard-masked.png"</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="n">clock</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Masked:   matches its baseline after the clock moved on"</span><span class="p">)</span>
+
+        <span class="c1"># Unmasked: the baseline holds one second, and the next screenshot shows another.</span>
+        <span class="n">record_baseline</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">"dashboard-unmasked.png"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">clock</span><span class="p">)</span><span class="o">.</span><span class="n">not_</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="n">clock</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"dashboard-unmasked.png"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Unmasked: fails, as it must:</span><span class="se">\n</span><span class="s2"> "</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"the unmasked screenshot should not have matched"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>examples/course/05-visual-testing/example_mask_the_clock.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Baselines in C:\Users\you\AppData\Local\Temp\kaprevo-lesson05-qgasuj8_
+Masked:   matches its baseline after the clock moved on
+Unmasked: fails, as it must:
+  expect(page).to_have_screenshot('dashboard-unmasked.png'): 82 pixels (0.03%) differ
+</code></pre></div>
+<p>The masked comparison passes although a second has gone by: the clock is under the box. The
+unmasked one fails because one second is all it takes. Open the folder the script printed and
+look at <code>dashboard-unmasked-...-diff.png</code>: only the clock's digits are red. The spinner was
+animating the whole time and caused no difference, because animations are stopped for the
+capture.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-a-baseline-of-the-form-only">Exercise 1: a baseline of the form only<a class="headerlink" href="#exercise-1-a-baseline-of-the-form-only" title="Permanent link">&para;</a></h3>
+<p>On <code>login.html</code>, record a baseline of the sign-in form (<code>#login</code>) alone, and check that a second
+comparison passes. Then change the "User name" label to "Username" with <code>page.evaluate</code> and
+compare again. Print the error and list the files in the snapshot folder. Open the diff.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 05, exercise 1: a baseline of the sign-in form only, then a changed label and its diff.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">snapshots</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"kaprevo-lesson05-"</span><span class="p">))</span>
+    <span class="n">expect</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">snapshot_dir</span><span class="o">=</span><span class="n">snapshots</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"login.html"</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#login"</span><span class="p">)</span>
+
+        <span class="c1"># First run: kaprevo writes the baseline, then fails so a missing file never passes.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">form</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"login-form.png"</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"First run:"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">form</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"login-form.png"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Second run: matches"</span><span class="p">)</span>
+
+        <span class="c1"># Change the label text, as a careless edit to the page might.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"() =&gt; { document.querySelector('label').firstChild.textContent = 'Username '; }"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">form</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"login-form.png"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"After the change:"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">snapshots</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"  "</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">any</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"-diff.png"</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">snapshots</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>First run: expect(locator('#login')).to_have_screenshot: no baseline existed
+Second run: matches
+After the change: expect(locator('#login')).to_have_screenshot('login-form.png'): 227 pixels (0.26%) differ
+   login-form-chrome-win32-actual.png
+   login-form-chrome-win32-diff.png
+   login-form-chrome-win32.png
+</code></pre></div>
+<p>The <code>-actual.png</code> shows the new label and the <code>-diff.png</code> marks only the changed letters in
+red: the rest of the form did not move. An element screenshot keeps the diff this focused.</p>
+</details>
+<h3 id="exercise-2-allow-a-one-pixel-border-change">Exercise 2: allow a one-pixel border change<a class="headerlink" href="#exercise-2-allow-a-one-pixel-border-change" title="Permanent link">&para;</a></h3>
+<p>On the dashboard, record a baseline of the Orders card (<code>get_by_test_id("orders-card")</code>). Change
+the colour of its top border with <code>evaluate</code>, see the comparison fail, then make it pass with
+<code>max_diff_pixels</code>, allowing no more pixels than the border has.</p>
+<p>Hint: the top border is one pixel tall and as wide as the card; <code>bounding_box()</code> gives the width.</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 05, exercise 2: tolerate a one-pixel border change with max_diff_pixels.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">expect</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">snapshot_dir</span><span class="o">=</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"kaprevo-lesson05-"</span><span class="p">))</span>
+
+    <span class="k">with</span> <span class="n">launch</span><span class="p">(</span><span class="n">BROWSER</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span> <span class="k">as</span> <span class="n">browser</span><span class="p">:</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"dashboard.html"</span><span class="p">)</span>
+        <span class="n">card</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"orders-card"</span><span class="p">)</span>
+
+        <span class="c1"># Record the baseline (this first assertion fails by design: there was none).</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">card</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"orders-card.png"</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Baseline recorded"</span><span class="p">)</span>
+
+        <span class="c1"># Recolour the card's top border: one row of pixels, as wide as the card.</span>
+        <span class="n">card</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"(el) =&gt; { el.style.borderTopColor = 'rgb(220, 0, 0)'; }"</span><span class="p">)</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">box</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">border_pixels</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="s2">"width"</span><span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expect</span><span class="p">(</span><span class="n">card</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"orders-card.png"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"No tolerance:"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">": "</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Allow exactly that many pixels to differ, and the comparison passes.</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">card</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"orders-card.png"</span><span class="p">,</span> <span class="n">max_diff_pixels</span><span class="o">=</span><span class="n">border_pixels</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"With max_diff_pixels=</span><span class="si">{</span><span class="n">border_pixels</span><span class="si">}</span><span class="s2">: passes"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Baseline recorded
+No tolerance: 200 pixels (0.91%) differ
+With max_diff_pixels=200: passes
+</code></pre></div>
+<p>Allowing exactly the border's pixels documents what the test tolerates. A larger number
+"just to be safe" would also let through a change to the card's text.</p>
+</details>
+<h3 id="exercise-3-one-baseline-per-browser">Exercise 3: one baseline per browser<a class="headerlink" href="#exercise-3-one-baseline-per-browser" title="Permanent link">&para;</a></h3>
+<p>Record a masked baseline of the dashboard named <code>dashboard.png</code> in Chrome and in Firefox (launch
+each in turn in the same script), then list the files in the snapshot folder. Why are there two,
+and why do their sizes differ?</p>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><span class="sd">"""Lesson 05, exercise 3: record the same baseline in Chrome and in Firefox, and compare the names.</span>
+
+<span class="sd">Author: Pandiyaraj Karuppasamy</span>
+<span class="sd">Date: Nov-07-2026</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kaprevo.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">launch</span>
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">snapshots</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"kaprevo-lesson05-"</span><span class="p">))</span>
+    <span class="n">expect</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">snapshot_dir</span><span class="o">=</span><span class="n">snapshots</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"chrome"</span><span class="p">,</span> <span class="s2">"firefox"</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">browser</span> <span class="o">=</span> <span class="n">launch</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">headless</span><span class="o">=</span><span class="n">HEADLESS</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">LaunchError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>  <span class="c1"># only one browser installed: say so and carry on</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: not available (</span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">with</span> <span class="n">browser</span><span class="p">:</span>
+            <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">set_viewport_size</span><span class="p">({</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">400</span><span class="p">})</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">"dashboard.html"</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_screenshot</span><span class="p">(</span><span class="s2">"dashboard.png"</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#clock"</span><span class="p">)])</span>
+            <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: baseline recorded"</span><span class="p">)</span>
+
+    <span class="c1"># One name in the test, one file per browser (and per operating system) on disk.</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">snapshots</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"  "</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">file</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>chrome: baseline recorded
+firefox: baseline recorded
+   dashboard-chrome-win32.png 12,417 bytes
+   dashboard-firefox-win32.png 12,450 bytes
+</code></pre></div>
+<p>One name in the code gives one file per browser, because the two browsers render the same
+page differently (fonts, anti-aliasing, form controls), and comparing a Firefox screenshot with
+a Chrome baseline would always fail. The platform part of the name keeps Windows and Linux
+baselines apart for the same reason. If you have only one browser, the script says so and
+records one file.</p>
+</details>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Common mistakes</p>
+<ul>
+<li><strong>Thinking the first failure is a bug.</strong> "No baseline existed" means kaprevo just wrote one.
+  Check the PNG, then run again.</li>
+<li><strong>Updating baselines without looking at them.</strong> <code>KAPREVO_UPDATE_SNAPSHOTS=1</code> accepts whatever
+  the page shows, bugs included. Look at every changed PNG before committing it.</li>
+<li><strong>Leaving <code>KAPREVO_UPDATE_SNAPSHOTS=1</code> set.</strong> Every visual test then passes, because each one
+  rewrites its baseline. Unset it after the update run.</li>
+<li><strong>A clock, a date or an avatar in the screenshot.</strong> The test fails on every run. Mask it, or
+  screenshot a smaller element that does not include it.</li>
+<li><strong>Not fixing the viewport size.</strong> Baselines from a 1280 pixel window fail in a 1024 pixel one
+  with "size differs". Call <code>set_viewport_size</code> before visual checks.</li>
+<li><strong>Raising the tolerance until the test passes.</strong> A big <code>max_diff_pixel_ratio</code> hides real
+  regressions. Find what changes (open the diff) and mask it instead.</li>
+<li><strong>Recording baselines on your laptop and running on Linux.</strong> The platform is in the file
+  name, so the build machine finds no baseline. Record them where the tests run.</li>
+</ul>
+</div>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>expect(page_or_locator).to_have_screenshot("name.png")</code> compares against a baseline and
+  retries until it matches or the timeout passes.</li>
+<li>Baselines are named <code>&lt;name&gt;-&lt;browser&gt;-&lt;platform&gt;.png</code>; set the folder with
+  <code>expect.set_options(snapshot_dir=...)</code> or <code>KAPREVO_SNAPSHOT_DIR</code>.</li>
+<li>A missing baseline is written and the assertion fails; <code>KAPREVO_UPDATE_SNAPSHOTS=1</code> rewrites
+  baselines on purpose.</li>
+<li>Animations and the caret are frozen for you; mask what changes, fix the viewport size, and keep
+  <code>threshold</code>, <code>max_diff_pixels</code> and <code>max_diff_pixel_ratio</code> as small as works.</li>
+<li>A failure leaves <code>-actual.png</code> and <code>-diff.png</code> next to the baseline: open the diff, then fix the
+  page or update the baseline.</li>
+</ul>
+<p><strong>Next:</strong> <a href="../06-contexts-and-emulation/">06. Contexts and emulation</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

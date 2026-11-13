@@ -1,0 +1,1229 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Typed, async-first Python driver for stock Chrome and Firefox over WebDriver BiDi">
+      
+      
+      
+        <link rel="canonical" href="https://kaprevo.github.io/kaprevo-course/course/conventions/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../01-getting-started/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Course conventions - kaprevo course</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#course-conventions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kaprevo course" class="md-header__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kaprevo course
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Course conventions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kaprevo course" class="md-nav__button md-logo" aria-label="kaprevo course" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kaprevo course
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The boxes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lesson-page-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lesson page template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-in-lessons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code in lessons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-practice-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The practice site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prose
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-actions-and-auto-waiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Actions and auto-waiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Assertions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-visual-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Visual testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-contexts-and-emulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. Contexts and emulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-events-dialogs-downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Events, dialogs, downloads and popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-pytest-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. The pytest plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Recording with codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-self-healing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Self-healing locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-browsers-and-backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Browsers and backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-mcp-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI agents with MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-migrating-from-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Migrating from Playwright
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Capstone: a ControlLab suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The boxes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lesson-page-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lesson page template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-in-lessons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code in lessons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-practice-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The practice site
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prose
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="course-conventions">Course conventions<a class="headerlink" href="#course-conventions" title="Permanent link">&para;</a></h1>
+<!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 -->
+
+<p>How the lessons are written and how their code is laid out. Learners can skim this page to
+know what the boxes mean; lesson writers should follow it closely, so that sixteen lessons
+read like one course. <a href="../01-getting-started/">Lesson 01</a> is the reference: when in doubt, copy
+what it does.</p>
+<h2 id="the-boxes">The boxes<a class="headerlink" href="#the-boxes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Box</th>
+<th>Markdown</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In this lesson</td>
+<td><code>!!! abstract "In this lesson"</code></td>
+<td>The opening box: objectives, time, prerequisites, example folder. Once per lesson, first.</td>
+</tr>
+<tr>
+<td>Coming from Playwright</td>
+<td><code>!!! tip "Coming from Playwright"</code></td>
+<td>What a Playwright user would do differently or expect wrongly. Put it next to the concept it is about, not in a pile at the end.</td>
+</tr>
+<tr>
+<td>Coming from Selenium</td>
+<td><code>!!! tip "Coming from Selenium"</code></td>
+<td>The same for Selenium habits (explicit waits, <code>find_element</code>, driver binaries).</td>
+</tr>
+<tr>
+<td>Browser support</td>
+<td><code>!!! note "Browser support"</code></td>
+<td>Any difference between Chrome and Firefox (or Edge): an option that is Chrome only, a different mechanism, a known gap.</td>
+</tr>
+<tr>
+<td>Common mistakes</td>
+<td><code>!!! warning "Common mistakes"</code></td>
+<td>Once per lesson, after the exercises: the errors learners actually hit, each with its symptom and fix.</td>
+</tr>
+<tr>
+<td>Solution</td>
+<td><code>??? success "Solution"</code></td>
+<td>Collapsed solution under every exercise. The <code>???</code> makes it start closed.</td>
+</tr>
+<tr>
+<td>Async version</td>
+<td><code>??? example "Async version"</code></td>
+<td>The async form of a sync snippet, where the difference matters.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lesson-page-template">Lesson page template<a class="headerlink" href="#lesson-page-template" title="Permanent link">&para;</a></h2>
+<p>Each lesson is <code>docs/course/NN-slug.md</code>. Keep this order:</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># NN. Title</span>
+
+&lt;!-- Author: Pandiyaraj Karuppasamy | Date: Nov-07-2026 --&gt;
+
+!!! abstract "In this lesson"
+    <span class="gs">**You will learn to:**</span> three to six objectives, each a verb you can check.
+
+    <span class="gs">**Time:**</span> about N minutes. <span class="gs">**Before this:**</span> [<span class="nt">lesson NN-1</span>](<span class="na">...</span>). <span class="gs">**Code:**</span> <span class="sb">`examples/course/NN-slug/`</span>
+
+One or two sentences on why this matters, in the learner's terms.
+
+<span class="gu">## A concept section per idea</span>
+Short prose, then a small snippet. Link the guide for the full reference.
+
+<span class="gu">## Worked example</span>
+What the script does, then the script itself, included from the examples folder:
+
+<span class="sb">```python</span>
+<span class="o">--</span><span class="mi">8</span><span class="o">&lt;--</span> <span class="s2">"examples/course/NN-slug/example_topic.py"</span>
+<span class="sb">```</span>
+
+How to run it, and what it prints.
+
+<span class="gu">## Exercises</span>
+<span class="gu">### Exercise 1: short title</span>
+The task, a hint if it helps, and how the learner knows they got it right.
+
+??? success "Solution"
+<span class="sb">    ```python</span>
+    <span class="o">--</span><span class="mi">8</span><span class="o">&lt;--</span> <span class="s2">"examples/course/NN-slug/solution_1_topic.py"</span>
+<span class="sb">    ```</span>
+
+    A line on why the solution works, or the trap it avoids.
+
+<span class="gu">## Common mistakes</span>
+!!! warning "Common mistakes"
+<span class="w">    </span><span class="k">-</span><span class="w"> </span><span class="gs">**Symptom.**</span> Cause and fix.
+
+<span class="gu">## Recap</span>
+Three to five bullets.
+
+<span class="gs">**Next:**</span> [<span class="nt">NN+1. Title</span>](<span class="na">NN+1-slug.md</span>)
+</code></pre></div>
+<p>Writers: replace the <code>&lt;!-- STATUS: stub ... --&gt;</code> line with <code>&lt;!-- STATUS: written, owner: &lt;name&gt; --&gt;</code>
+when the lesson is done, and keep the stub's section plan unless the code shows a better one.</p>
+<h2 id="code-in-lessons">Code in lessons<a class="headerlink" href="#code-in-lessons" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Sync API first.</strong> Learners start with <code>from kaprevo.sync_api import expect, launch</code>. Show
+  async where it changes something: event handlers, running things concurrently, or the first
+  time a lesson's API appears (in an <code>??? example "Async version"</code> box). The pytest lessons are
+  sync throughout.</li>
+<li><strong>Seconds for every timeout.</strong> <code>click(timeout=2)</code> is two seconds. Say "seconds" in the prose
+  the first time a lesson sets one. Milliseconds appear only in lesson 15, for the Playwright
+  compatibility layer, and are labelled there.</li>
+<li><strong>Runnable code is included, never pasted.</strong> A worked example or solution in a lesson comes
+  from its file with a snippet line (<code>--8&lt;-- "examples/course/..."</code>), so the page shows exactly
+  what the course test runs. Short illustrative fragments (three to ten lines) may be inline.</li>
+<li><strong>Only real APIs.</strong> Every name used must exist in <code>kaprevo</code> today. Check the code or the
+  API reference; do not write what Playwright would accept.</li>
+<li><strong>Prefer user-facing locators</strong> (<code>get_by_role</code>, <code>get_by_label</code>, <code>get_by_text</code>) and web-first
+  assertions (<code>expect(...)</code>). No <code>time.sleep()</code> or <code>wait_for_timeout()</code> in examples, except in
+  lesson 03 to show why not.</li>
+</ul>
+<h2 id="example-files">Example files<a class="headerlink" href="#example-files" title="Permanent link">&para;</a></h2>
+<p>Each lesson has a folder <code>examples/course/NN-slug/</code> with a <code>README.md</code> (what each file shows
+and how to run it) and its scripts:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Run by the course test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>example_&lt;topic&gt;.py</code></td>
+<td>A worked example from the lesson</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>solution_&lt;N&gt;_&lt;topic&gt;.py</code></td>
+<td>The solution to exercise N</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>anything else (<code>test_*.py</code>, <code>conftest.py</code>, data files)</td>
+<td>Material an example uses, such as a small test suite that <code>example_run_tests.py</code> runs with pytest</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>Every runnable script:</p>
+<ol>
+<li>starts with a module docstring: the lesson, what it shows, how to run it, then
+   <code>Author: Pandiyaraj Karuppasamy</code> and <code>Date: &lt;Mon-DD-YYYY&gt;</code>;</li>
+<li>
+<p>reads its settings from the environment with these three lines, unchanged:</p>
+<div class="highlight"><pre><span></span><code><span class="n">BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_URL"</span><span class="p">,</span> <span class="s2">"http://127.0.0.1:8765/"</span><span class="p">)</span>
+<span class="n">BROWSER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_BROWSER"</span><span class="p">,</span> <span class="s2">"chrome"</span><span class="p">)</span>
+<span class="n">HEADLESS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"KAPREVO_COURSE_HEADED"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span>
+</code></pre></div>
+</li>
+<li>
+<p>builds page URLs as <code>BASE_URL + "login.html"</code> and launches with
+   <code>launch(BROWSER, headless=HEADLESS)</code>;</p>
+</li>
+<li>has a typed <code>main() -&gt; None</code> (or <code>async def main() -&gt; None</code>) and an
+   <code>if __name__ == "__main__":</code> guard;</li>
+<li>prints a line or two saying what happened, and lets a failure raise, so the exit code is
+   non-zero. Do not catch an error just to print it, unless showing the error is the lesson;</li>
+<li>writes any files (screenshots, traces, downloads) to relative paths: the course test runs
+   each script in a fresh temporary folder;</li>
+<li>stays short: one idea per example, about 60 lines at most.</li>
+</ol>
+<p>Two optional directive comments, each on a line of its own, tune the course test:</p>
+<ul>
+<li><code># course: browsers=chrome</code> runs the script only on the listed browsers (comma separated),
+  for Chrome-only features. Say so in a <code>Browser support</code> box in the lesson too.</li>
+<li><code># course: timeout=180</code> raises the per-script limit from 90 seconds.</li>
+</ul>
+<p>Examples must pass <code>ruff check</code>. They are not type-checked by mypy (the folders are not Python
+packages and file names repeat between lessons, which mypy cannot handle), but write them with
+type hints anyway: the course test runs every one of them, which checks more than mypy would.</p>
+<h2 id="the-practice-site">The practice site<a class="headerlink" href="#the-practice-site" title="Permanent link">&para;</a></h2>
+<p><code>examples/course/serve.py</code> serves the practice site on <code>http://127.0.0.1:8765/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Course pages, <code>examples/course/site/</code></td>
+</tr>
+<tr>
+<td><code>/testsite/</code></td>
+<td>kaprevo's integration-test pages, <code>tests/site/</code> (forms, frames, shadow DOM, drag and drop): reuse them, never edit them for the course</td>
+</tr>
+<tr>
+<td><code>/controllab/v1/</code> (and <code>v2/</code>, <code>v3/</code>)</td>
+<td>The ControlLab app</td>
+</tr>
+<tr>
+<td><code>/api/...</code></td>
+<td>Dynamic endpoints: products JSON, echo, slow responses, status codes, a CSV download, basic auth. The full list is on the site's home page and in <code>ENDPOINTS</code> in <code>serve.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>A lesson that needs its own page adds <code>examples/course/site/&lt;topic&gt;.html</code> (named after the
+topic, not the lesson number), using <code>course.css</code> and the same header, and adds one line to
+the "Course pages" list in <code>site/index.html</code>. A lesson that needs a new endpoint adds it to
+<code>serve.py</code> and to both endpoint lists. Keep pages small and deterministic: no randomness, no
+external requests, delays of a second or less.</p>
+<h2 id="prose">Prose<a class="headerlink" href="#prose" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Plain, precise and encouraging. Second person ("you"), present tense, short sentences.
+  No marketing words.</li>
+<li><strong>No em dashes or en dashes</strong>, anywhere: use a comma, a colon, parentheses or two sentences.</li>
+<li>Introduce a term once, in bold, then use it the same way every time.</li>
+<li>
+<p>Show commands for both shells where they differ (setting an environment variable):</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$env:KAPREVO_COURSE_BROWSER</span> <span class="p">=</span> <span class="s2">"firefox"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KAPREVO_COURSE_BROWSER</span><span class="o">=</span>firefox
+</code></pre></div>
+</li>
+<li>
+<p>Link to the guides for the full reference instead of repeating them: the course teaches, the
+  guides list.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
